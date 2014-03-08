@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
 import pprint
-
+import sys
 
 def retrieveRecipe(url):
 	recipePage = urlopen(url)
@@ -33,8 +33,8 @@ def retrieveRecipe(url):
 	return recipeInfo
 
 
-def main():
-	recipeURL = 'http://allrecipes.com/Recipe/Basil-Chicken-over-Angel-Hair/Detail.aspx?soid=carousel_0_rotd&prop24=rotd'
+'''def main(recipeURL):
+	#recipeURL = 'http://allrecipes.com/Recipe/Basil-Chicken-over-Angel-Hair/Detail.aspx?soid=carousel_0_rotd&prop24=rotd'
 	recipeInfo = retrieveRecipe(recipeURL)
 
 	# Pretty print recipe info
@@ -42,7 +42,7 @@ def main():
 	pp.pprint(recipeInfo)
 
 
-main()
+main(sys.argv[1])'''
 
 #  EXAMPLE OUTPUT
 # retrieveRecipe('http://allrecipes.com/Recipe/Basil-Chicken-over-Angel-Hair/Detail.aspx?soid=carousel_0_rotd&prop24=rotd')
