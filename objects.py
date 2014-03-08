@@ -95,11 +95,6 @@ class recipe:
 
         self.unicode = self.string
 
-    
-
-
-
-
 
 class ingredient:
     def __init__(self,
