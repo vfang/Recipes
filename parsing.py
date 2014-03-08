@@ -5,11 +5,31 @@ import sys
 import re
 
 #list of predefined things
-tools =['pan','']
-ingredient_category = []
 methods =[]
 cuisines =[]
-ingredients_descriptor = []
+tools =["Apple corer", "Basting", 
+"Biscuit cutter", "Biscuit press", "Blow torch", 
+"Boil over preventer", "Bottle opener", "Bowl", 
+"Bread knife", "Browning tray", "Butter curler", 
+"Cake and pie server", "Cheese knife", "Cheesecloth", 
+"Chef's knife", "Cherry pitter", "Chinoise", "Colander", 
+"Corkscrew", "Crab cracker", "Cutting board", "Dough scraper", 
+"Egg piercer", "Egg poacher", "Separating eggs", "Egg slicer", 
+"Egg timer", "Fillet knife", "Urokotori", "Fish slice", 
+"Flour sifter", "Food mill", "Funnel", "Garlic press", "Grapefruit knife", 
+"Grater", "Gravy strainer", "Herb chopper", 
+"Ladle", "Lame", "Lemon reamer", "Lemon squeezer", 
+"Lobster pick", "Mandoline", "Mated colander pot", "Measuring jug", 
+"Measuring spoon", "Meat grinder", "Meat tenderiser", "Meat thermometer", 
+"Melon baller", "Mezzaluna", "Mortar and pestle", "Nutcracker", "Nutmeg grater", 
+"Oven glove", "Pastry bag", "Pastry blender", "Pastry brush", "Pastry wheel", "Peel", 
+"Peeler", "Pepper mill", "Pie bird", "Pizza cutter", "Potato masher", "Potato ricer",
+"Pot-holder", "Poultry shears", "Potato ricer", "Roller docker", "Rolling pin",
+"Salt shaker", "Weighing scale", "Scissors", "Scoop",
+"Shellfish scraper", "Sieve", "Slotted spoon", "Spatula", "Spider",
+"Sugar thermometer", "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
+"Whisk", "Wooden spoon", "Zester","pan","pot","knife","oven","microwave",
+"wok","strainer","skillet","spoon","fork"]
 
 #define ingredient categories
 #~0100~^~Dairy and Egg Products~
@@ -42,7 +62,7 @@ def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
 	recipe = Recipe(name=recipeInfo['title'],author= recipeInfo['author'], cooktime=recipeInfo['time'], servings=recipeInfo['servings'], rating=recipeInfo['rating'])
 	directions = parseDirections(recipeInfo['directions'])
 	ingredients = parseIngredients(recipeInfo['ingredients'])
-	recipe.directions = directions.directions
+	recipe.directions = recipeInfo['directions']
 	recipe.tools= directions.tools
 	recipe.methods = directions.methods
 	recipe.ingredients= ingredients
@@ -54,6 +74,9 @@ def parseDirections(directions):#return a dictionary with directions, tools, and
 	pass
 def main(recipeURL):
 	recipeInfo = retrieveRecipe(recipeURL)
+	pp = pprint.PrettyPrinter(indent=4)
+	pp.pprint(recipeInfo)
+	return
 	recipe = buildRecipeObject(recipeInfo)
 	print recipe.unicode
 
