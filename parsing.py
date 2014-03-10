@@ -1,5 +1,6 @@
 from scraper import retrieveRecipe
 from objects import *
+from lists import *
 import pprint
 import sys
 import re
@@ -30,6 +31,7 @@ tools =["Apple corer", "Basting",
 "Sugar thermometer", "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
 "Whisk", "Wooden spoon", "Zester","pan","pot","knife","oven","microwave",
 "wok","strainer","skillet","spoon","fork"]
+
 
 #define ingredient categories
 #~0100~^~Dairy and Egg Products~
@@ -69,9 +71,22 @@ def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
 	return recipe
 
 def parseIngredients(ingredients):#return ingredient object for each ingredient and find a descriptor and preparation
-	pass
+	for ing in ingredients:
+		search = {}
+		items = ing.split()
+
+		for DBing in lists.ingredientDB:
+			match = True
+
+			for word in items:
+				if word not in DBing.descriptor:
+					match = False
+		if match:
+			search[ing] = lists.ingNameDB[ing]
+
 def parseDirections(directions):#return a dictionary with directions, tools, and methods
 	pass
+
 def main(recipeURL):
 	recipeInfo = retrieveRecipe(recipeURL)
 	pp = pprint.PrettyPrinter(indent=4)
@@ -153,8 +168,8 @@ def readIngredientFromLine(line):
 	#	output.id = tokens[0]
 	output.category = tokens[1]
 	output.descriptor = tokens[2]
-	#	output.shortDesc = tokens[3]
-	output.name = tokens[4]
+	output.name = tokens[3]
+	#output.ComName = tokens[4]
 	#	output.manufacName = tokens[5]
 	#	output.survey = tokens[6]
 	#	output.refDesc = tokens[7]
