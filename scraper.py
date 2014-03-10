@@ -18,8 +18,12 @@ def retrieveRecipe(url):
 	ingredientsListing = soup.findAll(itemprop="ingredients")
 	ingredients = []
 	for ingredient in ingredientsListing:
-		amount = ingredient.find_next(id="lblIngAmount").string
-		name = ingredient.find_next(id="lblIngName").string
+		amount = ""
+		name = ""
+		if ingredient.find_next(id="lblIngAmount"):
+			amount = ingredient.find_next(id="lblIngAmount").string
+		if ingredient.find_next(id="lblIngName"):
+			name = ingredient.find_next(id="lblIngName").string
 		ingredients.append({"name": name, "amount": amount})
 	recipeInfo["ingredients"] = ingredients
 
