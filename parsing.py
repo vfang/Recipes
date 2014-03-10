@@ -1,36 +1,11 @@
-from scraper import retrieveRecipe
-from objects import *
-from lists import *
+import scraper
+import objects
+import lists
 import pprint
 import sys
 import re
 
 #list of predefined things
-methods =[]
-cuisines =[]
-tools =["Apple corer", "Basting", 
-"Biscuit cutter", "Biscuit press", "Blow torch", 
-"Boil over preventer", "Bottle opener", "Bowl", 
-"Bread knife", "Browning tray", "Butter curler", 
-"Cake and pie server", "Cheese knife", "Cheesecloth", 
-"Chef's knife", "Cherry pitter", "Chinoise", "Colander", 
-"Corkscrew", "Crab cracker", "Cutting board", "Dough scraper", 
-"Egg piercer", "Egg poacher", "Separating eggs", "Egg slicer", 
-"Egg timer", "Fillet knife", "Urokotori", "Fish slice", 
-"Flour sifter", "Food mill", "Funnel", "Garlic press", "Grapefruit knife", 
-"Grater", "Gravy strainer", "Herb chopper", 
-"Ladle", "Lame", "Lemon reamer", "Lemon squeezer", 
-"Lobster pick", "Mandoline", "Mated colander pot", "Measuring jug", 
-"Measuring spoon", "Meat grinder", "Meat tenderiser", "Meat thermometer", 
-"Melon baller", "Mezzaluna", "Mortar and pestle", "Nutcracker", "Nutmeg grater", 
-"Oven glove", "Pastry bag", "Pastry blender", "Pastry brush", "Pastry wheel", "Peel", 
-"Peeler", "Pepper mill", "Pie bird", "Pizza cutter", "Potato masher", "Potato ricer",
-"Pot-holder", "Poultry shears", "Potato ricer", "Roller docker", "Rolling pin",
-"Salt shaker", "Weighing scale", "Scissors", "Scoop",
-"Shellfish scraper", "Sieve", "Slotted spoon", "Spatula", "Spider",
-"Sugar thermometer", "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
-"Whisk", "Wooden spoon", "Zester","pan","pot","knife","oven","microwave",
-"wok","strainer","skillet","spoon","fork"]
 
 
 #define ingredient categories
@@ -61,31 +36,59 @@ tools =["Apple corer", "Basting",
 #~3600~^~Restaurant Foods~
 
 def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
-	recipe = Recipe(name=recipeInfo['title'],author= recipeInfo['author'], cooktime=recipeInfo['time'], servings=recipeInfo['servings'], rating=recipeInfo['rating'])
+	recipe = objects.Recipe(name=recipeInfo['title'],
+		author= recipeInfo['author'], 
+		cooktime=recipeInfo['time'], 
+		servings=recipeInfo['servings'], 
+		rating=recipeInfo['rating'])
+
 	directions = parseDirections(recipeInfo['directions'])
-	ingredients = parseIngredients(recipeInfo['ingredients'])
+	recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
 	recipe.directions = recipeInfo['directions']
-	recipe.tools= directions.tools
-	recipe.methods = directions.methods
+	recipe.tools= directions['tools']
+	recipe.methods = directions['methods']
 	recipe.ingredients= ingredients
 	return recipe
 
-def parseIngredients(ingredients):#return ingredient object for each ingredient and find a descriptor and preparation
-	for ing in ingredients:
-		search = {}
-		items = ing.split()
+def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
+	ing = objects.ingredient()
+	items = ingr.split()
+	matches = []
+	matchScore = 0.0
 
-		for DBing in lists.ingredientDB:
-			match = True
+	for DBing in lists.ingredientDB:
+		match = True
 
-			for word in items:
-				if word not in DBing.descriptor:
-					match = False
+		for word in items:
+			if word not in DBing.descriptor:
+				match = False
+				break
+			else:
+				des = DBing.descriptor.split(',')
+				for d in des:
+					if word in d:
+						matchScore += 1.0 / (des.index(d) + .001)
+
 		if match:
-			search[ing] = lists.ingNameDB[ing]
+			ing.name = DBing.name
+			ing.descriptor = DBing.descriptor
+			break
+
+	return ing
+
+def parseIngredients(ingredients):
+	ings = []
+	for ing in ingredients:
+		ing.append(parseIngredient(ing))
+
+	return ings
+
 
 def parseDirections(directions):#return a dictionary with directions, tools, and methods
-	pass
+	words = []
+	for sentence in directions:
+		words +=sentence.split()
+	print words
 
 def main(recipeURL):
 	recipeInfo = retrieveRecipe(recipeURL)
@@ -163,7 +166,7 @@ def readIngredientFromLine(line):
 
 	
 
-	output = ingredient()
+	output = objects.ingredient()
 
 	#	output.id = tokens[0]
 	output.category = tokens[1]
@@ -186,7 +189,7 @@ def readIngredientsFromFile(fileName):
 
 	ingredientList = []
 
-	with open(fileName, 'r', encoding="utf8") as f:
+	with open(fileName, 'r') as f:
 
 		while(True):
 
@@ -200,4 +203,4 @@ def readIngredientsFromFile(fileName):
 
 	return ingredientList
 
-main(sys.argv[1])
+#main(sys.argv[1])

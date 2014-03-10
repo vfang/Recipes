@@ -1,10 +1,30 @@
 #list of predefined things
-methods =[]
-cuisines =[]
-tools =["Apple corer", "Basting", 
+methods =["Bake", "Barbecue", "Baste", 
+"Biomass briquettes", "Blacken", "Blanch", "Boil-up",
+"Boil", "Braise", "Bread crumbs", "Brine", "Broast", "Brochette", 
+"Brown", "caramelize", "Carry over cooking", "Casserole", "Charbroiler", 
+"Chaunk", "Clay pot cooking", "Coddle", "Concasse", "Conche", "Confit",
+"Cooking with alcohol", "Cream", "Culinary triangle", "Curdle", "Cure", 
+"Deep fry", "Deglaze ", "Degrease", "Dredge ", "Dry roast", "Dry", 
+"En papillote", "En vessie", "Engastration", "Engine Cooking",
+"Flambé", "Foam ", "Fondue", "Fry", "Gentle fry", "Glaze", 
+"Grill", "Infusion", "Juice","Maceration", "Marinate", "Pan fry",
+"Par-cook", "Parboil", "Paste", "Pellicle ", "Pickle", 
+"Poach", "Pre-ferment", "Pressure cooking", "Pressure fry", "Proof", 
+"Purée", "Red cooking", "Reduction ", "Render", "Ricing ", "Roast",
+"Robatayaki", "Rotisserie", "Saute", "Seare", "Season", "Shallow fry",
+"Shrivelling", "Simmer", "Slow cook", "Smoke ", "Smother", "Souring", 
+"Sous-vide", "Spatchcock", "Spherification", "Steam", "Steep", "Stew", 
+"Stir fry","Sugar pan", "Sweat ", "Tataki", "Tenderize","Thicken","mix"]
+
+cuisines =['chinese','italian','indian','american','british','mexican','spanish',
+'japanese','korean','thai','filipino','german','french','middle eastern','mediterranian',
+'ethiopian']
+
+tools =["Apple corer", 
 "Biscuit cutter", "Biscuit press", "Blow torch", 
 "Boil over preventer", "Bottle opener", "Bowl", 
-"Bread knife", "Browning tray", "Butter curler", 
+"Bread knife", "Browning tray", "Butter curler","baking pan", 
 "Cake and pie server", "Cheese knife", "Cheesecloth", 
 "Chef's knife", "Cherry pitter", "Chinoise", "Colander", 
 "Corkscrew", "Crab cracker", "Cutting board", "Dough scraper", 
@@ -21,9 +41,10 @@ tools =["Apple corer", "Basting",
 "Pot-holder", "Poultry shears", "Potato ricer", "Roller docker", "Rolling pin",
 "Salt shaker", "Weighing scale", "Scissors", "Scoop",
 "Shellfish scraper", "Sieve", "Slotted spoon", "Spatula", "Spider",
-"Sugar thermometer", "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
+"Sugar thermometer","slow cooker" "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
 "Whisk", "Wooden spoon", "Zester","pan","pot","knife","oven","microwave",
 "wok","strainer","skillet","spoon","fork"]
+
 ingredientDB = []
 ingNameDB = {}
 
