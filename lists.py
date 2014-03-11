@@ -1,49 +1,48 @@
 #list of predefined things
-methods =["Bake", "Barbecue", "Baste", 
-"Biomass briquettes", "Blacken", "Blanch", "Boil-up",
-"Boil", "Braise", "Bread crumbs", "Brine", "Broast", "Brochette", 
-"Brown", "caramelize", "Carry over cooking", "Casserole", "Charbroiler", 
-"Chaunk", "Clay pot cooking", "Coddle", "Concasse", "Conche", "Confit",
-"Cooking with alcohol", "Cream", "Culinary triangle", "Curdle", "Cure", 
-"Deep fry", "Deglaze ", "Degrease", "Dredge ", "Dry roast", "Dry", 
-"En papillote", "En vessie", "Engastration", "Engine Cooking",
-"Flambé", "Foam ", "Fondue", "Fry", "Gentle fry", "Glaze", 
-"Grill", "Infusion", "Juice","Maceration", "Marinate", "Pan fry",
-"Par-cook", "Parboil", "Paste", "Pellicle ", "Pickle", 
-"Poach", "Pre-ferment", "Pressure cooking", "Pressure fry", "Proof", 
-"Purée", "Red cooking", "Reduction ", "Render", "Ricing ", "Roast",
-"Robatayaki", "Rotisserie", "Saute", "Seare", "Season", "Shallow fry",
-"Shrivelling", "Simmer", "Slow cook", "Smoke ", "Smother", "Souring", 
-"Sous-vide", "Spatchcock", "Spherification", "Steam", "Steep", "Stew", 
-"Stir fry","Sugar pan", "Sweat ", "Tataki", "Tenderize","Thicken","mix"]
+methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
+'blacken', 'blanch', 'boil-up', 'boil', 'braise', 'bread crumbs',
+'brine', 'broast', 'brochette', 'brown', 'caramelize', 'carry over cooking',
+'casserole', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
+'concasse', 'conche', 'confit', 'cooking with alcohol', 'cream',
+'culinary triangle', 'curdle', 'cure', 'deep fry', 'deglaze ',
+'degrease', 'dredge ', 'dry roast', 'dry', 'en papillote', 'en vessie',
+'engastration', 'engine cooking', 'flambe', 'foam ', 'fondue', 'fry',
+'gentle fry', 'glaze', 'grill','grease', 
+'infusion', 'juice', 'maceration', 'marinate', 'pan fry', 
+'par-cook', 'parboil', 'paste', 'pellicle ', 'pickle', 'poach', 
+'pre-ferment', 'pressure cooking', 'pressure fry', 'proof', 'puree', 
+'red cooking', 'reduction ', 'render', 'ricing ', 'roast', 'robatayaki', 
+'rotisserie', 'saute', 'seare', 'season', 'shallow fry', 'shrivelling', 
+'simmer', 'slow cook', 'smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
+'spherification', 'steam', 'steep', 'stew', 'stir fry', 'sugar pan', 'sweat ', 
+'tataki', 'tenderize', 'thicken', 'mix']
 
-cuisines =['chinese','italian','indian','american','british','mexican','spanish',
-'japanese','korean','thai','filipino','german','french','middle eastern','mediterranian',
-'ethiopian']
+cuisines=['chinese', 'italian', 'indian', 'american',
+'british', 'mexican', 'spanish', 'japanese', 'korean',
+'thai', 'filipino', 'german', 'french', 'middle eastern',
+'mediterranian', 'ethiopian']
 
-tools =["Apple corer", 
-"Biscuit cutter", "Biscuit press", "Blow torch", 
-"Boil over preventer", "Bottle opener", "Bowl", 
-"Bread knife", "Browning tray", "Butter curler","baking pan", 
-"Cake and pie server", "Cheese knife", "Cheesecloth", 
-"Chef's knife", "Cherry pitter", "Chinoise", "Colander", 
-"Corkscrew", "Crab cracker", "Cutting board", "Dough scraper", 
-"Egg piercer", "Egg poacher", "Separating eggs", "Egg slicer", 
-"Egg timer", "Fillet knife", "Urokotori", "Fish slice", 
-"Flour sifter", "Food mill", "Funnel", "Garlic press", "Grapefruit knife", 
-"Grater", "Gravy strainer", "Herb chopper", 
-"Ladle", "Lame", "Lemon reamer", "Lemon squeezer", 
-"Lobster pick", "Mandoline", "Mated colander pot", "Measuring jug", 
-"Measuring spoon", "Meat grinder", "Meat tenderiser", "Meat thermometer", 
-"Melon baller", "Mezzaluna", "Mortar and pestle", "Nutcracker", "Nutmeg grater", 
-"Oven glove", "Pastry bag", "Pastry blender", "Pastry brush", "Pastry wheel", "Peel", 
-"Peeler", "Pepper mill", "Pie bird", "Pizza cutter", "Potato masher", "Potato ricer",
-"Pot-holder", "Poultry shears", "Potato ricer", "Roller docker", "Rolling pin",
-"Salt shaker", "Weighing scale", "Scissors", "Scoop",
-"Shellfish scraper", "Sieve", "Slotted spoon", "Spatula", "Spider",
-"Sugar thermometer","slow cooker" "Tamis", "Tin opener", "Tomato knife", "Tongs", "Trussing needle",
-"Whisk", "Wooden spoon", "Zester","pan","pot","knife","oven","microwave",
-"wok","strainer","skillet","spoon","fork"]
+tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch', 
+'boil over preventer', 'bottle opener', 'bowl', 'bread knife', 'browning tray', 
+'butter curler', 'baking pan', 'cake and pie server', 'cheese knife', 
+'cheesecloth', "chef's knife", 'cherry pitter', 'chinoise', 'colander', 
+'corkscrew', 'crab cracker', 'cutting board', 'dough scraper', 'egg piercer', 
+'egg poacher', 'separating eggs', 'egg slicer', 'egg timer', 'fillet knife', 
+'urokotori', 'fish slice', 'flour sifter', 'food mill', 'funnel', 'garlic press', 
+'grapefruit knife', 'grater', 'gravy strainer', 'herb chopper', 'ladle',
+'lame', 'lemon reamer', 'lemon squeezer', 'lobster pick', 'mandoline', 
+'mated colander pot', 'measuring jug', 'measuring spoon', 'meat grinder', 
+'meat tenderiser', 'meat thermometer', 'melon baller', 'mezzaluna', 
+'mortar and pestle', 'nutcracker', 'nutmeg grater', 'oven glove', 'pastry bag', 
+'pastry blender', 'pastry brush', 'pastry wheel', 'peel', 'peeler', 
+'pepper mill', 'pie bird', 'pizza cutter', 'potato masher', 'potato ricer', 
+'pot-holder', 'poultry shears', 'potato ricer', 'roller docker', 
+'rolling pin', 'salt shaker', 'weighing scale', 'scissors', 'scoop', 
+'shellfish scraper', 'sieve', 'slotted spoon', 'spatula', 'spider', 
+'sugar thermometer', 'slow cookertamis', 'tin opener', 'tomato knife', 
+'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 
+'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker']
+
 
 ingredientDB = []
 ingNameDB = {}
@@ -51,3 +50,4 @@ ingNameDB = {}
 def updateNameDB():
 	for ing in ingredientDB:
 		ingNameDB[ing.name] = ing
+
