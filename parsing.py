@@ -45,7 +45,32 @@ def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
 	#recipe.ingredients= ingredients
 	return recipe
 
-def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
+def parseIngredient(dict):
+	amount = dict['amount']
+	name = dict['name']
+
+	amount = amount.split()
+
+	if len(amount) > 2:
+		a = ''
+		for x in range(1, len(amount)):
+			a += ' ' + amount[x]
+		unit = a
+	else:
+		try:
+			unit = amount[1]
+		except:
+			unit = 'not specified'
+	amount = amount[0]
+
+	ing = findIngredient(name)
+	ing.amount = amount
+	ing.unit = unit
+	ing.updateString()
+
+	return ing
+
+def findIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
 	ingr = ingr.lower()
 	items = ingr.split()
 	matches = []
@@ -70,6 +95,7 @@ def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the 
 			ing = objects.ingredient()
 			ing.name = DBing.name
 			ing.descriptor = DBing.descriptor
+			ing.category = DBing.category
 			tup = (ing, matchScore)
 			matches.append(tup)
 
@@ -87,7 +113,7 @@ def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the 
 def parseIngredients(ingredients):
 	ings = []
 	for ing in ingredients:
-		ing.append(parseIngredient(ing))
+		ings.append(parseIngredient(ing))
 
 	return ings
 
