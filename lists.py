@@ -1,6 +1,6 @@
 #list of predefined things
 methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
-'blacken', 'blanch', 'boil-up', 'boil', 'braise', 'bread crumbs',
+'blacken', 'blanch', 'boil-up', 'boil', 'broil','braise', 'bread crumbs',
 'brine', 'broast', 'brochette', 'brown', 'caramelize', 'carry over cooking',
 'casserole', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
 'concasse', 'conche', 'confit', 'cooking with alcohol', 'cream',
@@ -15,7 +15,7 @@ methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
 'rotisserie', 'saute', 'seare', 'season', 'shallow fry', 'shrivelling', 
 'simmer', 'slow cook', 'smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
 'spherification', 'steam', 'steep', 'stew', 'stir fry', 'sugar pan', 'sweat ', 
-'tataki', 'tenderize', 'thicken', 'mix']
+'tataki', 'tenderize', 'thicken', 'mix','preheat']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
@@ -29,7 +29,7 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 'corkscrew', 'crab cracker', 'cutting board', 'dough scraper', 'egg piercer', 
 'egg poacher', 'separating eggs', 'egg slicer', 'egg timer', 'fillet knife', 
 'urokotori', 'fish slice', 'flour sifter', 'food mill', 'funnel', 'garlic press', 
-'grapefruit knife', 'grater', 'gravy strainer', 'herb chopper', 'ladle',
+'grapefruit knife', 'grater', 'gravy strainer','grill' 'herb chopper', 'ladle',
 'lame', 'lemon reamer', 'lemon squeezer', 'lobster pick', 'mandoline', 
 'mated colander pot', 'measuring jug', 'measuring spoon', 'meat grinder', 
 'meat tenderiser', 'meat thermometer', 'melon baller', 'mezzaluna', 
@@ -40,7 +40,7 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 'rolling pin', 'salt shaker', 'weighing scale', 'scissors', 'scoop', 
 'shellfish scraper', 'sieve', 'slotted spoon', 'spatula', 'spider', 
 'sugar thermometer', 'slow cookertamis', 'tin opener', 'tomato knife', 
-'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 
+'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 'oven broiler',
 'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker']
 
 
