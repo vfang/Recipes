@@ -73,6 +73,16 @@ def parseIngredient(dict):
 def findIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
 	ingr = ingr.lower()
 	items = ingr.split()
+	sItems = []
+	for item in items:
+		if item.endswith(','):
+			item = item[:-1]
+			sItems.append(item)
+			print item
+		else:
+			sItems.append(item)
+
+	print sItems
 	matches = []
 	
 
@@ -80,7 +90,7 @@ def findIngredient(ingr):#Maps a string to the corresponding ingredient in the i
 		matchScore = 0.0
 		match = True
 
-		for word in items:
+		for word in sItems:
 
 			if word not in DBing.descriptor.lower():
 				pass
