@@ -103,6 +103,7 @@ class ingredient:
         self.string += 'Amount: ' + self.amount + '\n'
         self.string += 'Units: ' + self.unit + '\n'
         self.string += 'Descriptor: ' + self.descriptor + '\n'
+        self.string += 'Preparation: ' + self.preparation + '\n'
         self.string += 'Category: ' + self.category + '\n'
         self.unicode = self.string
 

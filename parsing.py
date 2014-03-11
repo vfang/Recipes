@@ -66,6 +66,24 @@ def parseIngredient(dict):
 	ing = findIngredient(name)
 	ing.amount = amount
 	ing.unit = unit
+
+	name = name.split()
+	sName = []
+
+	for word in name:
+		if word.endswith(','):
+			word = word[:-1].lower()
+			sName.append(word)
+		else:
+			sName.append(word)
+
+	for word in sName:
+		if word.lower() not in ing.descriptor:
+			ing.preparation += word + ' and '
+
+	if ing.preparation.endswith(' and '):
+		ing.preparation = ing.preparation[:-5]
+
 	ing.updateString()
 
 	return ing
