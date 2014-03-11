@@ -1,9 +1,7 @@
 import scraper
 import objects
 import lists
-import pprint
-import sys
-import re
+import string
 
 #list of predefined things
 
@@ -83,12 +81,35 @@ def parseIngredients(ingredients):
 
 	return ings
 
-
 def parseDirections(directions):#return a dictionary with directions, tools, and methods
+	ingredientsList = ['brown sugar','barbecue sauce']
+	exclude = set(string.punctuation)
 	words = []
+	parsed = {"tools":[],"methods":[]}
+	ignoreWords = ['a','the','in','at','and','or','on','to']
 	for sentence in directions:
-		words +=sentence.split()
+		sentence = ''.join(ch for ch in sentence if ch not in exclude)
+		w = sentence.split()
+		for word in w:
+			word = word.lower()
+			if word not in words and word not in ignoreWords:
+				words.append(word)
+	for word in words:
+		nextWordIndex = words.index(word)+1
+		try:
+			potentialIng = word+' '+words[nextWordIndex]
+		except:
+			potentialIng = word
+		if word in lists.tools:
+			if potentialIng not in ingredientsList:
+				parsed['tools'].append(word)
+			
+		if word in lists.methods:
+			if potentialIng not in ingredientsList:
+				parsed['methods'].append(word)
 	print words
+	print parsed['tools']
+	print parsed['methods']
 
 def main(recipeURL):
 	recipeInfo = retrieveRecipe(recipeURL)
