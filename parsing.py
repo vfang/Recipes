@@ -78,11 +78,9 @@ def findIngredient(ingr):#Maps a string to the corresponding ingredient in the i
 		if item.endswith(','):
 			item = item[:-1]
 			sItems.append(item)
-			print item
 		else:
 			sItems.append(item)
 
-	print sItems
 	matches = []
 	
 
