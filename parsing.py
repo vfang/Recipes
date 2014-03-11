@@ -45,9 +45,62 @@ def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
 	#recipe.ingredients= ingredients
 	return recipe
 
-def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
+def parseIngredient(dict):
+	amount = dict['amount']
+	name = dict['name']
+
+	amount = amount.split()
+
+	if len(amount) > 2:
+		a = ''
+		for x in range(1, len(amount)):
+			a += ' ' + amount[x]
+		unit = a
+	else:
+		try:
+			unit = amount[1]
+		except:
+			unit = 'not specified'
+	amount = amount[0]
+
+	ing = findIngredient(name)
+	ing.amount = amount
+	ing.unit = unit
+
+	name = name.split()
+	sName = []
+
+	for word in name:
+		if word.endswith(','):
+			word = word[:-1].lower()
+			sName.append(word)
+		else:
+			sName.append(word)
+
+	for word in sName:
+		if word.lower() not in ing.descriptor and not word.endswith('ly'):
+			ing.preparation += word + ' and '
+		elif word.lower() not in ing.descriptor:
+			ing.preparation += word + ' '
+
+	if ing.preparation.endswith(' and '):
+		ing.preparation = ing.preparation[:-5]
+
+	ing.updateString()
+
+	return ing
+
+def findIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
 	ingr = ingr.lower()
 	items = ingr.split()
+	sItems = []
+	for item in items:
+		if item.endswith(','):
+			item = item[:-1]
+			sItems.append(item)
+		else:
+			sItems.append(item)
+
 	matches = []
 	
 
@@ -55,7 +108,7 @@ def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the 
 		matchScore = 0.0
 		match = True
 
-		for word in items:
+		for word in sItems:
 
 			if word not in DBing.descriptor.lower():
 				pass
@@ -70,6 +123,7 @@ def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the 
 			ing = objects.ingredient()
 			ing.name = DBing.name
 			ing.descriptor = DBing.descriptor
+			ing.category = DBing.category
 			tup = (ing, matchScore)
 			matches.append(tup)
 
@@ -87,7 +141,7 @@ def parseIngredient(ingr):#Maps a string to the corresponding ingredient in the 
 def parseIngredients(ingredients):
 	ings = []
 	for ing in ingredients:
-		ing.append(parseIngredient(ing))
+		ings.append(parseIngredient(ing))
 
 	return ings
 

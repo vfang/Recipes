@@ -7,7 +7,7 @@ class recipe:
         self.string += 'Ingredients: \n'
 
         for ing in self.ingredients:
-            self.string += ing.name + '\n'
+            self.string += ing.unicode + '\n'
 
         self.string += 'Directions: \n'
         self.string += self.directions + '\n'
@@ -97,6 +97,17 @@ class recipe:
 
 
 class ingredient:
+    def updateString(self):
+        self.string = ''
+        self.string += 'Name: ' + self.name + '\n'
+        self.string += 'Amount: ' + self.amount + '\n'
+        self.string += 'Units: ' + self.unit + '\n'
+        self.string += 'Descriptor: ' + self.descriptor + '\n'
+        self.string += 'Preparation: ' + self.preparation + '\n'
+        self.string += 'Category: ' + self.category + '\n'
+        self.unicode = self.string
+
+
     def __init__(self,
         name = None,
         amount = None,
@@ -111,7 +122,7 @@ class ingredient:
             self.name = name
 
         if amount == None:
-            self.amount = 0.0
+            self.amount = ''
         else:
             self.amount = amount
 
@@ -134,6 +145,10 @@ class ingredient:
             self.category = ''
         else:
             self.category = category
+
+        self.updateString()
+
+        self.unicode = self.string
 
 
 
