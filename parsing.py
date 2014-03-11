@@ -78,8 +78,10 @@ def parseIngredient(dict):
 			sName.append(word)
 
 	for word in sName:
-		if word.lower() not in ing.descriptor:
+		if word.lower() not in ing.descriptor and not word.endswith('ly'):
 			ing.preparation += word + ' and '
+		elif word.lower() not in ing.descriptor:
+			ing.preparation += word + ' '
 
 	if ing.preparation.endswith(' and '):
 		ing.preparation = ing.preparation[:-5]
