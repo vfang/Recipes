@@ -2,6 +2,8 @@ import scraper
 import objects
 import lists
 import string
+import pprint
+import sys
 
 #define ingredient categories
 #~0100~^~Dairy and Egg Products~
@@ -30,18 +32,18 @@ import string
 #~3500~^~American Indian/Alaska Native Foods~
 #~3600~^~Restaurant Foods~
 
-def buildRecipeObject(recipeInfo):#recipeInfo is a dictionary
+def buildRecipeObject(recipeInfo):	#recipeInfo is a dictionary
 	recipe = objects.Recipe(name=recipeInfo['title'],
 		author= recipeInfo['author'], 
-		cooktime=recipeInfo['time'], 
+		cookTime=recipeInfo['time'], 
 		servings=recipeInfo['servings'], 
 		rating=recipeInfo['rating'])
 	recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
-	directions = parseDirections(recipeInfo['directions'])	
 	recipe.directions = recipeInfo['directions']
-	recipe.tools= directions['tools']
-	recipe.methods = directions['methods']
-	#recipe.ingredients= ingredients
+	toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)	
+	recipe.tools= toolsAndMethods['tools']
+	recipe.methods = toolsAndMethods['methods']
+	#print recipe.tools, recipe.methods,recipe.directions,recipe.ingredients
 	return recipe
 
 def parseIngredient(dict):
@@ -85,11 +87,11 @@ def parseIngredient(dict):
 	if ing.preparation.endswith(' and '):
 		ing.preparation = ing.preparation[:-5]
 
-	ing.updateString()
+	cing.updateString()
 
 	return ing
 
-def findIngredient(ingr):#Maps a string to the corresponding ingredient in the ingredient database
+def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the ingredient database
 	ingr = ingr.lower()
 	items = ingr.split()
 	sItems = []
@@ -102,7 +104,6 @@ def findIngredient(ingr):#Maps a string to the corresponding ingredient in the i
 
 	matches = []
 	
-
 	for DBing in lists.ingredientDB:
 		matchScore = 0.0
 		match = True
@@ -122,14 +123,14 @@ def findIngredient(ingr):#Maps a string to the corresponding ingredient in the i
 						break
 
 		if match:
-			ing = objects.ingredient()
+			ing = objects.Ingredient()
 			ing.name = DBing.name
 			ing.descriptor = DBing.descriptor
 			ing.category = DBing.category
 			tup = (ing, matchScore)
 			matches.append(tup)
 
-	result = objects.ingredient()
+	result = objects.Ingredient()
 	topIndex = 0
 	topScore = 0
 	for find in matches:
@@ -144,13 +145,16 @@ def parseIngredients(ingredients):
 	ings = []
 	for ing in ingredients:
 		ings.append(parseIngredient(ing))
-
 	return ings
 
-def parseDirections(directions):#return a dictionary with directions, tools, and methods
+def parseDirections(directions,ingredients):#return a dictionary with directions, tools, and methods
 	exclude = set(string.punctuation)
-	ingredientsList =['barbecue sauce']
-	skip = False
+	ingredientsList = []
+	for ing in ingredients:
+		ingredientsList.append(ing.name)
+	#ingredientsList =['barbecue sauce']
+	#print ingredientsList
+	#cprint directions
 	words = []
 	parsed = {"tools":[],"methods":[]}
 	#ignoreWords = ['a','the','in','at','and','or','on','to']
@@ -189,17 +193,7 @@ def parseDirections(directions):#return a dictionary with directions, tools, and
 			if double_word not in ingredientsList:
 				parsed['methods'].append(word)
 
-	print words
-	print parsed['tools']
-	print parsed['methods']
-
-def main(recipeURL):
-	recipeInfo = retrieveRecipe(recipeURL)
-	pp = pprint.PrettyPrinter(indent=4)
-	pp.pprint(recipeInfo)
-	return
-	recipe = buildRecipeObject(recipeInfo)
-	print recipe.unicode
+	return parsed
 
 def tokenizeLine(string):
 	line = string.split('^')
@@ -240,7 +234,7 @@ def readIngredientFromLine(line):
 	#	print('objectType not recognized.')
 	#	return None
 	tokens = tokenizeLine(line)
-	output = objects.ingredient()
+	output = objects.Ingredient()
 	#	output.id = tokens[0]
 	output.category = tokens[1]
 	output.descriptor = tokens[2].lower()
@@ -267,4 +261,15 @@ def readIngredientsFromFile(fileName):
 			ingredientList.append(readIngredientFromLine(line))
 	return ingredientList
 
-#main(sys.argv[1])
+def main(recipeURL):
+	#temporary
+	lists.ingredientDB = readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
+	lists.updateNameDB()
+	###
+	recipeInfo = scraper.retrieveRecipe(recipeURL)
+	pp = pprint.PrettyPrinter(indent=4)
+	pp.pprint(recipeInfo)
+	recipe = buildRecipeObject(recipeInfo)
+	print recipe.unicode()
+
+main(sys.argv[1])
