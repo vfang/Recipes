@@ -115,7 +115,10 @@ def findIngredient(ingr):#Maps a string to the corresponding ingredient in the i
 				des = DBing.descriptor.split()
 				for d in des:
 					if word in d.lower():
-						matchScore += 1.0 / (des.index(d) + 1.0)
+						if word == d.lower():
+							matchScore += 2.0 / (des.index(d) + 1.0)
+						else:
+							matchScore += 1.0 / (des.index(d) + 1.0)
 						break
 
 		if match:
