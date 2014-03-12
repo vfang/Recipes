@@ -1,31 +1,32 @@
-class recipe:
+class Recipe:
 
     def updateString(self):
 
         self.string = ''
         self.string += 'Name: ' + self.name + '\n'
-        self.string += 'Ingredients: \n'
-
+        self.string += 'Ingredients: \n'c
         for ing in self.ingredients:
-            self.string += ing.unicode + '\n'
+            self.string += ing.unicode() + '\n'
 
         self.string += 'Directions: \n'
-        self.string += self.directions + '\n'
-        self.string += 'Author: ' + self.author + '\n'
+        for direction in self.directions:
+            self.string += direction +','
+        #self.string += self.directions + '\n'
+        self.string += '\nAuthor: ' + self.author + '\n'
         self.string += 'Cook Time: ' + self.cookTime + '\n'
         self.string += 'Servings: ' + str(self.servings) + '\n'
         self.string += 'Rating: ' + str(self.rating) + '\n'
         self.string += 'Tools: \n'
 
         for tool in self.tools:
-            self.string += tool + '\n'
+            self.string += tool + ','
 
-        self.string += 'Methods: \n'
+        self.string += '\nMethods: \n'
 
         for method in self.methods:
-            self.string += method + '\n'
+            self.string += method + ','
 
-        self.string += 'Cuisine: ' + self.cuisine + '\n'
+        self.string += '\nCuisine: ' + self.cuisine + '\n'
 
     def __init__(self, 
         name = None,
@@ -52,7 +53,7 @@ class recipe:
             self.ingredients = ingredients
 
         if directions == None:
-            self.directions = ''
+            self.directions = []
         else:
             self.directions = directions
 
@@ -91,12 +92,11 @@ class recipe:
         else:
             self.cuisine = cuisine
 
+    def unicode(self):
         self.updateString()
+        return self.string
 
-        self.unicode = self.string
-
-
-class ingredient:
+class Ingredient:
     def updateString(self):
         self.string = ''
         self.string += 'Name: ' + self.name + '\n'
@@ -105,8 +105,6 @@ class ingredient:
         self.string += 'Descriptor: ' + self.descriptor + '\n'
         self.string += 'Preparation: ' + self.preparation + '\n'
         self.string += 'Category: ' + self.category + '\n'
-        self.unicode = self.string
-
 
     def __init__(self,
         name = None,
@@ -146,9 +144,10 @@ class ingredient:
         else:
             self.category = category
 
+    def unicode(self):
         self.updateString()
+        return self.string
 
-        self.unicode = self.string
 
 
 
