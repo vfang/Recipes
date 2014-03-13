@@ -422,10 +422,10 @@
 ~03193~^~0300~^~Babyfood, cereal, oatmeal, with honey, dry~^~BABYFOOD,CRL,OATMEAL,W/HONEY,DRY~^~~^~~^~~^~~^0^~~^5.83^3.50^8.40^4.10
 ~03194~^~0300~^~Babyfood, cereal, rice, dry~^~BABYFOOD,CEREAL,RICE,DRY~^~~^~~^~Y~^~~^0^~~^5.95^3.82^8.37^4.16
 ~03195~^~0300~^~Babyfood, cereal, rice, with applesauce and bananas, strained~^~BABYFOOD,CRL,RICE,W/APPLSAUC&BANANAS,STR~^~~^~~^~Y~^~~^0^~~^6.00^3.80^8.40^4.20
-~03197~^~0300~^~Babyfood, cereal, with egg yolks, strained~^~BABYFOOD,CRL,W/EGG YOLKS,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
-~03198~^~0300~^~Babyfood, cereal, with egg yolks, junior~^~BABYFOOD,CRL,W/EGG YOLKS,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03197~^~0300~^~Babyfood, cereal, with egg yolk, strained~^~BABYFOOD,CRL,W/EGG YOLK,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03198~^~0300~^~Babyfood, cereal, with egg yolk, junior~^~BABYFOOD,CRL,W/EGG YOLK,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
 ~03199~^~0300~^~Babyfood, cereal, with eggs, strained~^~BABYFOOD,CRL,W/EGGS,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
-~03201~^~0300~^~Babyfood, cereal, egg yolks and bacon, junior~^~BABYFOOD,CRL,EGG YOLKS&BACON,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03201~^~0300~^~Babyfood, cereal, egg yolk and bacon, junior~^~BABYFOOD,CRL,EGG YOLK&BACON,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
 ~03205~^~0300~^~Babyfood, oatmeal cereal with fruit, dry, instant, toddler~^~BABYFOOD,OATMEAL CRL W/FRUIT,DRY,INST,TODD~^~~^~~^~Y~^~~^0^~~^^^^
 ~03206~^~0300~^~Babyfood, cookie, baby, fruit~^~BABYFOOD,COOKIE,BABY,FRUIT~^~~^~~^~Y~^~~^0^~~^^^^
 ~03209~^~0300~^~Babyfood, crackers, vegetable~^~BABYFOOD,CRACKERS,VEG~^~~^~~^~Y~^~~^0^~~^^^^
@@ -852,7 +852,7 @@
 ~05059~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, fried, flour~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,FRIED,FLR~^~~^~~^~~^~Bone~^17^~~^6.25^4.27^9.02^3.87
 ~05060~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, roasted~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,RSTD~^~~^~~^~Y~^~Bone~^19^~~^6.25^4.27^9.02^3.87
 ~05061~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, stewed~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,STWD~^~~^~~^~Y~^~Bone~^18^~~^6.25^4.27^9.02^3.87
-~05062~^~0500~^~Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw~^~CHIKEN,BROILER OR FRYERS,BRST,SKINLESS,BNLESS,MEAT ONLY,RAW~^~~^~~^~Y~^~~^0^~~^6.25^4.27^9.02^3.87
+~05062~^~0500~^~Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw~^~CHICKEN,BROILER OR FRYERS,BRST,SKINLESS,BNLESS,MEAT ONLY,RAW~^~~^~~^~Y~^~~^0^~~^6.25^4.27^9.02^3.87
 ~05063~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, fried~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,FRIED~^~~^~~^~Y~^~17% bone, 10% skin~^27^~~^6.25^4.27^9.02^3.87
 ~05064~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, roasted~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,RSTD~^~~^~~^~Y~^~19% bone, 9% skin~^28^~~^6.25^4.27^9.02^3.87
 ~05065~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, stewed~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,STWD~^~~^~~^~Y~^~18% bone, 12% skin~^30^~~^6.25^4.27^9.02^3.87
