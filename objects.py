@@ -105,6 +105,9 @@ class Ingredient:
         self.string += 'Descriptor: ' + self.descriptor + '\n'
         self.string += 'Preparation: ' + self.preparation + '\n'
         self.string += 'Category: ' + self.category + '\n'
+        self.string += 'Protein: ' + self.protein + '\n'
+        self.string += 'Fat: ' + self.fat + '\n'
+        self.string += 'Carbs: ' + self.carbs + '\n'
 
     def __init__(self,
         name = None,
@@ -112,7 +115,10 @@ class Ingredient:
         unit = None,
         descriptor = None,
         preparation = None,
-        category = None):
+        category = None,
+        protein = None,
+        fat = None,
+        carbs = None):
 
         if name == None:
             self.name = ''
@@ -143,6 +149,21 @@ class Ingredient:
             self.category = ''
         else:
             self.category = category
+
+        if protein == None:
+            self.protein = ''
+        else:
+            self.protein = protein
+
+        if fat == None:
+            self.fat = ''
+        else:
+            self.fat = fat
+
+        if carbs == None:
+            self.carbs = ''
+        else:
+            self.carbs = carbs
 
     def unicode(self):
         self.updateString()

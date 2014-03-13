@@ -47,106 +47,160 @@ def buildRecipeObject(recipeInfo):	#recipeInfo is a dictionary
 	return recipe
 
 def parseIngredient(dict):
-	amount = dict['amount']
-	name = dict['name']
+    amount = dict['amount']
+    name = dict['name']
 
-	amount = amount.split()
+    amount = amount.split()
 
-	if len(amount) > 2:
-		a = ''
-		for x in range(1, len(amount)):
-			a += ' ' + amount[x]
-		unit = a
-	else:
-		try:
-			unit = amount[1]
-		except:
-			unit = 'not specified'
-	amount = amount[0]
+    if len(amount) > 2:
+        a = ''
+        for x in range(1, len(amount)):
+            a += ' ' + amount[x]
+        unit = a
+    else:
+        try:
+            unit = amount[1]
+        except:
+            unit = 'not specified'
+    amount = amount[0]
 
-	ing = findIngredient(name)
-	ing.amount = amount
-	ing.unit = unit
+    if amount > 1:
+        if name.endswith('s'):
+            name = name[:-1]
 
-	name = name.split()
-	sName = []
+    ing = findIngredient(name)
+    ing.amount = amount
+    ing.unit = unit
 
-	for word in name:
-		if word.endswith(','):
-			word = word[:-1].lower()
-			sName.append(word)
-		else:
-			sName.append(word)
+    #name = name.split()
+    #sName = []
 
-	for word in sName:
-		if word.lower() not in ing.descriptor and not word.endswith('ly'):
-			ing.preparation += word + ' and '
-		elif word.lower() not in ing.descriptor:
-			ing.preparation += word + ' '
+    #for word in name:
+    #    if word.endswith(','):
+    #        word = word[:-1].lower()
+     #       sName.append(word)
+    #    else:
+    #        sName.append(word)
 
-	if ing.preparation.endswith(' and '):
-		ing.preparation = ing.preparation[:-5]
+    #for word in sName:
+    #    if word == 'and':
+    #        pass
+    #    elif word.lower() not in ing.descriptor and word.endswith('ed'):
+    #        ing.preparation += word + ' and '
+    #    elif word.lower() not in ing.descriptor:
+    #        ing.preparation += word + ' '
 
-	ing.updateString()
+    #if ing.preparation.endswith(' and '):
+    #   ing.preparation = ing.preparation[:-5]
 
-	return ing
+    ing.updateString()
+
+    return ing
 
 def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the ingredient database
-	ingr = ingr.lower()
-	items = ingr.split()
-	sItems = []
-	for item in items:
-		if item.endswith(','):
-			item = item[:-1]
-			sItems.append(item)
-		else:
-			sItems.append(item)
+    ingr = ingr.lower()
+    items = ingr.split()
+    descriptors = []
+    preparations = []
 
-	matches = []
-	
-	for DBing in lists.ingredientDB:
-		matchScore = 0.0
-		match = True
+    primeIng = ''
 
-		for word in sItems:
+    for item in items:
+        if item.endswith(','):
+            primeIng = item
+            break
 
-			if word not in DBing.descriptor.lower():
-				pass
-			else:
-				des = DBing.descriptor.split()
-				for d in des:
-					if word in d.lower():
-						if word == d.lower():
-							matchScore += 2.0 / (des.index(d) + 1.0)
-						else:
-							matchScore += 1.0 / (des.index(d) + 1.0)
-						break
+    if primeIng == '':
+        primeIng = items[len(items) - 1]
 
-		if match:
-			ing = objects.Ingredient()
-			ing.name = DBing.name
-			ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
-			ing.descriptor = DBing.descriptor
-			ing.category = DBing.category
-			tup = (ing, matchScore)
-			matches.append(tup)
+    primeIndex = items.index(primeIng)
 
-	result = objects.Ingredient()
-	topIndex = 0
-	topScore = 0
-	for find in matches:
-		if find[1] > topScore:
-			result = find[0]
-			topIndex = matches.index(find)
-			topScore = find[1]
+    for x in range(0, primeIndex):
+        descriptors.append(items[x])
 
-	return result
+    p = items[(primeIndex + 1):]
+    for item in p:
+        preparations.append(item)
+
+    if primeIng.endswith(','):
+        primeIng = primeIng[:-1]
+
+    #if primeIng.endswith('s'):
+    #    primeIng = primeIng[:-1]
+
+    primeIng = primeIng.lower()
+    matches = []
+
+    for DBing in lists.ingredientDB:
+        matchScore = 0.0
+        match = False
+        des = DBing.descriptor.split()
+        nam = DBing.name.split(',')
+
+        for word in nam:
+            if primeIng not in word.lower():
+                pass
+            else:
+                match = True
+                if primeIng == word.lower():
+                    matchScore += 100
+                else:
+                    matchScore += 50
+                break
+
+        for word in descriptors:
+
+            if word == 'and':
+                pass
+            else:
+                if word not in DBing.descriptor.lower():
+                    pass
+                else:
+
+                    match = True
+                    r = 1 #float(len(des)) / float(len(sItems))
+
+                    for d in des:
+                        if word in d.lower():
+                            c = ''
+                            if d.endswith(','):
+                                c = d[:-1]
+                            if word == c or word == d.lower():
+                                matchScore += 2.0 / ((des.index(d) + 1.0) * r)
+                            else:
+                                matchScore += 1.0 / ((des.index(d) + 1.0) * r)
+                            break
+
+        if match:
+            ing = objects.Ingredient()
+            ing.name = DBing.name
+            ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
+            ing.descriptor = DBing.descriptor
+            if preparations != []:
+                pass
+            for word in preparations:
+                ing.preparation += word + ' '
+            ing.category = DBing.category
+            ing.protein = DBing.protein
+            tup = (ing, matchScore)
+            matches.append(tup)
+
+    result = objects.Ingredient()
+    topIndex = 0
+    topScore = 0
+    for find in matches:
+        if find[1] > topScore:
+            result = find[0]
+            topIndex = matches.index(find)
+            topScore = find[1]
+
+    return result
 
 def parseIngredients(ingredients):
-	ings = []
-	for ing in ingredients:
-		ings.append(parseIngredient(ing))
-	return ings
+    ings = []
+    for ing in ingredients:
+        ings.append(parseIngredient(ing))
+    return ings
 
 def parseDirections(directions,ingredients):#return a dictionary with directions, tools, and methods
 	exclude = set(string.punctuation)
@@ -247,9 +301,9 @@ def readIngredientFromLine(line):
 	#	output.refuse = tokens[8]
 	#	output.sciName = tokens[9]
 	#	output.nFactor = tokens[10]
-	#	output.proFactor = tokens[11]
-	#	output.fatFactor = tokens[12]
-	#	output.carbFactor = tokens[13]
+	output.protein = tokens[11]
+	output.fat = tokens[12]
+	output.carbs = tokens[13]
 	return output
 
 def readIngredientsFromFile(fileName):
