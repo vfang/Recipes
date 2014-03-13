@@ -15,7 +15,7 @@ methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
 'rotisserie', 'saute', 'seare', 'season', 'shallow fry', 'shrivelling', 
 'simmer', 'slow cook', 'smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
 'spherification', 'steam', 'steep', 'stew', 'stir','stir fry', 'sugar pan', 'sweat ', 
-'tataki', 'tenderize', 'thicken', 'mix','preheat']
+'tataki', 'tenderize', 'thicken', 'mix','preheat', 'scald', 'drain', 'mash', 'pour', 'spread', 'combine']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
