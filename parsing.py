@@ -197,7 +197,16 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         or 'molasses' in items
         or 'jelly' in items
         or 'jam' in items
-        or 'fruit butter' in items):
+        or 'fruit butter' in items
+        or 'dessert' in items
+        or 'flan' in items
+        or 'rennin' in items
+        or 'custard' in items
+        or 'cocoa' in items
+        or 'gum' in items
+        or 'gelatin' in items
+        or 'chocolate' in items
+        or 'sherbet' in items):
         sweetProduct = True
 
     matches = []
