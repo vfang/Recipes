@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
-import pprint
-import sys
 
 def retrieveRecipe(url):
 	recipePage = urlopen(url)
