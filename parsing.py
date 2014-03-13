@@ -43,7 +43,6 @@ def buildRecipeObject(recipeInfo):	#recipeInfo is a dictionary
 	toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)	
 	recipe.tools= toolsAndMethods['tools']
 	recipe.methods = toolsAndMethods['methods']
-	#print recipe.tools, recipe.methods,recipe.directions,recipe.ingredients
 	return recipe
 
 def parseIngredient(dict):
@@ -361,17 +360,13 @@ def parseIngredients(ingredients):
         ings.append(parseIngredient(ing))
     return ings
 
-def parseDirections(directions,ingredients):#return a dictionary with directions, tools, and methods
+def parseDirections(directions,ingredients):
 	exclude = set(string.punctuation)
 	ingredientsList = []
 	for ing in ingredients:
-		ingredientsList.append(ing.name)
-	#ingredientsList =['barbecue sauce']
-	#print ingredientsList
-	#cprint directions
+		ingredientsList.append(ing.origName)
 	words = []
 	parsed = {"tools":[],"methods":[]}
-	#ignoreWords = ['a','the','in','at','and','or','on','to']
 	for sentence in directions:
 		sentence = ''.join(ch for ch in sentence if ch not in exclude)
 		w = sentence.split()
