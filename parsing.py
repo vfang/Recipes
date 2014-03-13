@@ -87,7 +87,7 @@ def parseIngredient(dict):
 	if ing.preparation.endswith(' and '):
 		ing.preparation = ing.preparation[:-5]
 
-	cing.updateString()
+	ing.updateString()
 
 	return ing
 
@@ -272,4 +272,4 @@ def main(recipeURL):
 	recipe = buildRecipeObject(recipeInfo)
 	print recipe.unicode()
 
-main(sys.argv[1])
+# main(sys.argv[1])

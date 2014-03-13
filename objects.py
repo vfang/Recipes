@@ -4,7 +4,7 @@ class Recipe:
 
         self.string = ''
         self.string += 'Name: ' + self.name + '\n'
-        self.string += 'Ingredients: \n'c
+        self.string += 'Ingredients: \n'
         for ing in self.ingredients:
             self.string += ing.unicode() + '\n'
 
