@@ -127,8 +127,8 @@ class Ingredient:
             self.name = name
 
         if origName == None:
-            self.origName ''
-        else
+            self.origName = ''
+        else:
             self.origName = origName
             
         if amount == None:
