@@ -107,6 +107,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     soupOrSauce = False
     spiceOrPowder = False
     babyFood = False
+    dairyProduct = False
 
     primeIng = ''
 
@@ -116,7 +117,19 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             break
 
     if primeIng == '':
-        primeIng = items[len(items) - 1]
+        filter = []
+        if 'for' in items:
+            ind = items.index('for')
+            for j in range(0, ind):
+                filter.append(items[j])
+        elif 'with' in items:
+            ind = items.index('with')
+            for j in range(0, ind):
+                filter.append(items[j])
+        else:
+            filter = items
+
+        primeIng = filter[len(filter) - 1]
 
     primeIndex = items.index(primeIng)
 
@@ -141,11 +154,14 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if primeIng == 'soup' or primeIng == 'sauce' or primeIng == 'paste':
         soupOrSauce = True
 
-    if primeIng == 'spice' or primeIng == 'powder':
+    if primeIng == 'spice' or primeIng == 'powder' or primeIng == 'salt':
         spiceOrPowder = True
 
     if 'baby' in items:
         babyFood = True
+
+    if 'cheese' in primeIng or 'milk' in primeIng or 'cream' in primeIng or 'yogurt' in primeIng or 'whey' in primeIng or 'egg' in primeIng or 'butter' in primeIng:
+        dairyProduct = True
 
     matches = []
 
@@ -157,6 +173,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         soup = False
         spice = False
         baby = False
+        dairy = False
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -169,6 +186,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if DBing.category == '0300':
             baby = True
+
+        if DBing.category == '0100':
+            dairy = True
 
         for word in nam:
             if primeIng not in word.lower():
@@ -224,6 +244,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if spice and not spiceOrPowder:
                 matchScore = matchScore / 2.0
             if baby and not babyFood:
+                matchScore = matchScore / 2.0
+            if dairy and not dairyProduct:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)
