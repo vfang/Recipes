@@ -125,6 +125,12 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if primeIng.endswith(','):
         primeIng = primeIng[:-1]
 
+    if primeIng == 'ketchup':
+        primeIng = 'catsup'
+
+    if primeIng == 'zucchinis':
+        primeIng = 'zucchini'
+
     #if primeIng.endswith('s'):
     #    primeIng = primeIng[:-1]
 
