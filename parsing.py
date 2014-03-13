@@ -64,9 +64,9 @@ def parseIngredient(dict):
             unit = 'not specified'
     amount = amount[0]
 
-    if amount > 1:
-        if name.endswith('s'):
-            name = name[:-1]
+#    if float(eval(amount)) > 1:
+#        if name.endswith('s'):
+#            name = name[:-1]
 
     ing = findIngredient(name)
     ing.amount = amount
@@ -111,6 +111,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     rawFood = False
     meatProduct = False
     sweetProduct = False
+    snackProduct = False
 
     primeIng = ''
 
@@ -209,6 +210,10 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         or 'sherbet' in items):
         sweetProduct = True
 
+    if ('cracker' in primeIng
+        or 'crumbs' in primeIng):
+        snackProduct = True
+
     matches = []
 
     for DBing in lists.ingredientDB:
@@ -223,6 +228,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         raw = False
         meat = False
         sweet = False
+        snack = False
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -249,6 +255,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if DBing.category == '1900':
             sweet = True
+
+        if DBing.category == '1800':
+            snack = True
 
         if 'RAW' in DBing.name:
             raw = True
@@ -288,7 +297,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                     for d in des:
                         if word in d.lower():
 
-                            if word == 'jalapeno':
+                            if word == 'crumbs':
                                 pass
 
                             c = ''
@@ -303,7 +312,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         if match:
             ing = objects.Ingredient()
             ing.name = DBing.name
-            ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
+            ing.origName = primeIng # VF: I need this for transformer, remove after search is fixed
             ing.descriptor = DBing.descriptor
             
             if preparations != []:
@@ -328,6 +337,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if meat and not meatProduct:
                 matchScore = matchScore / 2.0
             if sweetProduct and not sweet:
+                matchScore = matchScore / 2.0
+            if snackProduct and not snack:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)
