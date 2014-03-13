@@ -110,6 +110,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     dairyProduct = False
     rawFood = False
     meatProduct = False
+    sweetProduct = False
 
     primeIng = ''
 
@@ -162,14 +163,42 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if 'baby' in items:
         babyFood = True
 
-    if 'cheese' in primeIng or 'milk' in primeIng or 'cream' in primeIng or 'yogurt' in primeIng or 'whey' in primeIng or 'egg' in primeIng or 'butter' in primeIng:
+    if ('cheese' in primeIng 
+        or 'milk' in primeIng 
+        or 'cream' in primeIng 
+        or 'yogurt' in primeIng 
+        or 'whey' in primeIng 
+        or 'egg' in primeIng 
+        or 'butter' in primeIng):
         dairyProduct = True
 
     if 'fresh' in items or 'raw' in items:
         rawFood = True
 
-    if 'meat' in items or 'beef' in items or 'pork' in items or 'chicken' in items or 'fish' in items:
+    if ('meat' in items 
+        or 'beef' in items 
+        or 'pork' in items 
+        or 'chicken' in items 
+        or 'fish' in items):
         meatProduct = True
+
+    if ('sugar' in items 
+        or 'syrup' in items 
+        or 'sweetener' in items 
+        or 'pudding' in items 
+        or 'candies' in items 
+        or 'candy' in items 
+        or 'honey' in items 
+        or 'frosting' in items
+        or 'topping' in items
+        or 'pie filling' in items
+        or 'pectin' in items
+        or 'marmalade' in items
+        or 'molasses' in items
+        or 'jelly' in items
+        or 'jam' in items
+        or 'fruit butter' in items):
+        sweetProduct = True
 
     matches = []
 
@@ -184,6 +213,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         dairy = False
         raw = False
         meat = False
+        sweet = False
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -200,8 +230,16 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         if DBing.category == '0100':
             dairy = True
 
-        if DBing.category == '0500' or DBing.category == '0700' or DBing.category == '1000' or DBing.category == '1300' or DBing.category == '1500' or DBing.category == '1700':
+        if (DBing.category == '0500' 
+            or DBing.category == '0700' 
+            or DBing.category == '1000' 
+            or DBing.category == '1300' 
+            or DBing.category == '1500' 
+            or DBing.category == '1700'):
             meat = True
+
+        if DBing.category == '1900':
+            sweet = True
 
         if 'RAW' in DBing.name:
             raw = True
@@ -279,6 +317,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if rawFood and not raw:
                 matchScore = matchScore / 2.0
             if meat and not meatProduct:
+                matchScore = matchScore / 2.0
+            if sweetProduct and not sweet:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)

@@ -6201,8 +6201,8 @@
 ~19331~^~1900~^~Puddings, lemon, dry mix, instant, prepared with whole milk~^~PUDDINGS,LEMON,DRY MIX,INST,PREP W/ WHL MILK~^~~^~~^~~^~~^0^~~^^^^
 ~19332~^~1900~^~Puddings, lemon, dry mix, regular~^~PUDDINGS,LEMON,DRY MIX,REG~^~~^~~^~~^~~^0^~~^6.25^3.50^8.80^3.90
 ~19333~^~1900~^~Pudding, lemon, dry mix, regular, prepared with sugar, egg yolk and water~^~PUDDING,LEMON,DRY MIX,REG,PREP W/ SUGAR,EGG YOLK & H2O~^~~^~~^~~^~~^0^~~^^^^
-~19334~^~1900~^~Sugars, brown~^~SUGARS,BROWN~^~~^~~^~Y~^~~^0^~~^6.25^4.00^0.00^3.87
-~19335~^~1900~^~Sugars, granulated~^~SUGARS,GRANULATED~^~sucrose~^~~^~Y~^~~^0^~~^6.25^^^3.87
+~19334~^~1900~^~Sugars, brown, granulated~^~SUGARS,BROWN~^~~^~~^~Y~^~~^0^~~^6.25^4.00^0.00^3.87
+~19335~^~1900~^~Sugars, white, granulated~^~SUGARS,GRANULATED~^~sucrose~^~~^~Y~^~~^0^~~^6.25^^^3.87
 ~19336~^~1900~^~Sugars, powdered~^~SUGARS,POWDERED~^~~^~~^~Y~^~~^0^~~^6.25^3.50^8.40^3.90
 ~19337~^~1900~^~Sweeteners, tabletop, aspartame, EQUAL, packets~^~SWEETENERS,TABLETOP,ASPRT,EQ,PACKETS~^~~^~Merisant Company~^~Y~^~~^0^~~^6.25^4.00^9.00^4.00
 ~19340~^~1900~^~Sugars, maple~^~SUGARS,MAPLE~^~~^~~^~Y~^~~^0^~~^6.25^3.36^8.37^3.87
@@ -6341,7 +6341,7 @@
 ~19905~^~1900~^~Candies, chocolate, dark, NFS (45-59% cacao solids 90%; 60-69% cacao solids 5%; 70-85% cacao solids 5%)~^~CANDIES,CHOC,DK,NFS (45-59% CACAO SOL 90%; 60-69% CACAO SOL~^~~^~~^~Y~^~~^0^~~^^^^
 ~19906~^~1900~^~Sweeteners, for baking, brown, contains sugar and sucralose~^~SWEETENERS,FOR BAKING,BROWN,CONTAINS SUGAR & SUCRALOSE~^~~^~~^~~^~~^0^~~^^^^
 ~19907~^~1900~^~Sweeteners, for baking, contains sugar and sucralose~^~SWEETENERS,FOR BAKING,CONTAINS SUGAR & SUCRALOSE~^~~^~~^~~^~~^0^~~^^^^
-~19908~^~1900~^~Sugar, turbinado~^~SUGAR,TURBINADO~^~~^~~^~~^~~^0^~~^^^^
+~19908~^~1900~^~Sugars, turbinado~^~SUGARS,TURBINADO~^~~^~~^~~^~~^0^~~^^^^
 ~19909~^~1900~^~Sweeteners, sugar substitute, granulated, brown~^~SWEETENERS,SUGAR SUB,GRANULATED,BROWN~^~~^~~^~~^~~^0^~~^^^^
 ~19910~^~1900~^~Candies, crispy bar with peanut butter filling~^~CANDIES,CRISPY BAR W/ PNUT BUTTER FILLING~^~~^~~^~Y~^~~^0^~~^6.25^^^
 ~19911~^~1900~^~Syrup, maple, Canadian~^~SYRUP,MAPLE,CANADIAN~^~~^~~^~~^~~^0^~~^6.25^^^
