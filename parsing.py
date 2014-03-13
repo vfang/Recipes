@@ -43,7 +43,6 @@ def buildRecipeObject(recipeInfo):	#recipeInfo is a dictionary
 	toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)	
 	recipe.tools= toolsAndMethods['tools']
 	recipe.methods = toolsAndMethods['methods']
-	#print recipe.tools, recipe.methods,recipe.directions,recipe.ingredients
 	return recipe
 
 def parseIngredient(dict):
@@ -51,20 +50,46 @@ def parseIngredient(dict):
     name = dict['name']
 
     amount = amount.split()
+    amnt = amount[0]
 
     if len(amount) > 2:
         a = ''
         for x in range(1, len(amount)):
-            a += ' ' + amount[x]
+            if '/' in amount[x]:
+                amnt += ' ' + amount[x]
+            else:
+                a += ' ' + amount[x]
         unit = a
     else:
         try:
             unit = amount[1]
         except:
             unit = 'not specified'
-    amount = amount[0]
+    amount = amnt
 
-    if float(eval(amount)) > 1:
+    amnt = amount.split()
+
+    total = 0
+
+    for numb in amnt:
+        if '/' in numb:
+
+            recon = ''
+
+            for char in numb:
+                if char != '/':
+                    recon += char + '.0'
+                else:
+                    recon += char
+
+            numb = eval(recon)
+            total += numb
+        else:
+            total += float(numb)
+    
+    amount = str(total)
+
+    if float(amount) > 1:
         if name.endswith('s'):
             name = name[:-1]
 
@@ -183,7 +208,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         or 'beef' in items 
         or 'pork' in items 
         or 'chicken' in items 
-        or 'fish' in items):
+        or 'fish' in items
+        or 'bacon' in items):
         meatProduct = True
         rawFood = True
 
@@ -398,17 +424,13 @@ def parseIngredients(ingredients):
         ings.append(parseIngredient(ing))
     return ings
 
-def parseDirections(directions,ingredients):#return a dictionary with directions, tools, and methods
+def parseDirections(directions,ingredients):
 	exclude = set(string.punctuation)
 	ingredientsList = []
 	for ing in ingredients:
-		ingredientsList.append(ing.name)
-	#ingredientsList =['barbecue sauce']
-	#print ingredientsList
-	#cprint directions
+		ingredientsList.append(ing.origName)
 	words = []
 	parsed = {"tools":[],"methods":[]}
-	#ignoreWords = ['a','the','in','at','and','or','on','to']
 	for sentence in directions:
 		sentence = ''.join(ch for ch in sentence if ch not in exclude)
 		w = sentence.split()
