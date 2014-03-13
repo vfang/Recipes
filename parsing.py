@@ -125,6 +125,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 		if match:
 			ing = objects.Ingredient()
 			ing.name = DBing.name
+			ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
 			ing.descriptor = DBing.descriptor
 			ing.category = DBing.category
 			tup = (ing, matchScore)
