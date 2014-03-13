@@ -145,6 +145,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     fishProduct = False
     gameProduct = False
 
+    groundProduct = False
+
     primeIng = ''
 
     for item in items:
@@ -187,10 +189,18 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
     primeIng = primeIng.lower()
 
-    if primeIng == 'soup' or primeIng == 'sauce' or primeIng == 'paste':
+    if (primeIng == 'soup' 
+        or primeIng == 'sauce' 
+        or primeIng == 'paste'
+        or primeIng == 'bouillon'
+        or primeIng == 'spread'):
         soupOrSauce = True
 
-    if primeIng == 'spice' or primeIng == 'powder' or primeIng == 'salt':
+    if (primeIng == 'spice' 
+        or primeIng == 'powder' 
+        or primeIng == 'salt'
+        or primeIng == 'cinnamon'
+        or primeIng == 'nutmeg'):
         spiceOrPowder = True
 
     if 'baby' in items:
@@ -221,6 +231,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         or 'mutton' in items):
         meatProduct = True
         rawFood = True
+
+    if 'ground' in items:
+        groundProduct = True
 
     if ('beef' in items
         or 'steak' in items):
@@ -320,6 +333,10 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         game = False
         fish = False
         meatMix = False
+        ground = False
+
+        if primeIng == 'flour':
+            primeIng = 'flr'
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -346,6 +363,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if 'BY-PRODUCTS' in DBing.name:
             meatMix = True
+
+        if 'ground' in DBing.descriptor:
+            gound = True
 
         if DBing.category == '0500':
             poultry = True
@@ -469,6 +489,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if grain and not grainProduct:
                 matchScore = matchScore / 2.0
             if grainProduct and not grain:
+                matchScore = matchScore / 2.0
+            if ground and not groundProduct:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)
