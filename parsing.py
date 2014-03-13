@@ -102,6 +102,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     items = ingr.split()
     descriptors = []
     preparations = []
+    soupOrSauce = False
 
     primeIng = ''
 
@@ -131,17 +132,21 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if primeIng == 'zucchinis':
         primeIng = 'zucchini'
 
-    #if primeIng.endswith('s'):
-    #    primeIng = primeIng[:-1]
-
     primeIng = primeIng.lower()
+
+    if primeIng == 'soup' or primeIng == 'sauce':
+        soupOrSauce = True
+
     matches = []
 
     for DBing in lists.ingredientDB:
         matchScore = 0.0
         match = False
+        soup = False
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
+        if DBing.category == '0600':
+            soup = True
 
         for word in nam:
             if primeIng not in word.lower():
@@ -188,6 +193,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                 ing.preparation += word + ' '
             ing.category = DBing.category
             ing.protein = DBing.protein
+            if soup and not soupOrSauce:
+                matchScore = matchScore / 2.0
             tup = (ing, matchScore)
             matches.append(tup)
 
