@@ -100,9 +100,13 @@ def parseIngredient(dict):
 def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the ingredient database
     ingr = ingr.lower()
     items = ingr.split()
+
     descriptors = []
     preparations = []
+
     soupOrSauce = False
+    spiceOrPowder = False
+    babyFood = False
 
     primeIng = ''
 
@@ -134,19 +138,37 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
     primeIng = primeIng.lower()
 
-    if primeIng == 'soup' or primeIng == 'sauce':
+    if primeIng == 'soup' or primeIng == 'sauce' or primeIng == 'paste':
         soupOrSauce = True
+
+    if primeIng == 'spice' or primeIng == 'powder':
+        spiceOrPowder = True
+
+    if 'baby' in items:
+        babyFood = True
 
     matches = []
 
     for DBing in lists.ingredientDB:
+
         matchScore = 0.0
+
         match = False
         soup = False
+        spice = False
+        baby = False
+
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
+
         if DBing.category == '0600':
             soup = True
+
+        if DBing.category == '0200':
+            spice = True
+
+        if DBing.category == '0300':
+            baby = True
 
         for word in nam:
             if primeIng not in word.lower():
@@ -187,14 +209,23 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             ing.name = DBing.name
             ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
             ing.descriptor = DBing.descriptor
+            
             if preparations != []:
                 pass
+
             for word in preparations:
                 ing.preparation += word + ' '
+            
             ing.category = DBing.category
             ing.protein = DBing.protein
+
             if soup and not soupOrSauce:
+                matchScore = matchScore / 3.0
+            if spice and not spiceOrPowder:
                 matchScore = matchScore / 2.0
+            if baby and not babyFood:
+                matchScore = matchScore / 2.0
+
             tup = (ing, matchScore)
             matches.append(tup)
 
