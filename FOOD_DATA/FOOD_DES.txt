@@ -852,7 +852,7 @@
 ~05059~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, fried, flour~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,FRIED,FLR~^~~^~~^~~^~Bone~^17^~~^6.25^4.27^9.02^3.87
 ~05060~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, roasted~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,RSTD~^~~^~~^~Y~^~Bone~^19^~~^6.25^4.27^9.02^3.87
 ~05061~^~0500~^~Chicken, broilers or fryers, breast, meat and skin, cooked, stewed~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT&SKN,CKD,STWD~^~~^~~^~Y~^~Bone~^18^~~^6.25^4.27^9.02^3.87
-~05062~^~0500~^~Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw~^~CHIKEN,BROILER OR FRYERS,BRST,SKINLESS,BNLESS,MEAT ONLY,RAW~^~~^~~^~Y~^~~^0^~~^6.25^4.27^9.02^3.87
+~05062~^~0500~^~Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw~^~CHICKEN,BROILER OR FRYERS,BRST,SKINLESS,BNLESS,MEAT ONLY,RAW~^~~^~~^~Y~^~~^0^~~^6.25^4.27^9.02^3.87
 ~05063~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, fried~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,FRIED~^~~^~~^~Y~^~17% bone, 10% skin~^27^~~^6.25^4.27^9.02^3.87
 ~05064~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, roasted~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,RSTD~^~~^~~^~Y~^~19% bone, 9% skin~^28^~~^6.25^4.27^9.02^3.87
 ~05065~^~0500~^~Chicken, broilers or fryers, breast, meat only, cooked, stewed~^~CHICKEN,BROILERS OR FRYERS,BREAST,MEAT ONLY,CKD,STWD~^~~^~~^~Y~^~18% bone, 12% skin~^30^~~^6.25^4.27^9.02^3.87
