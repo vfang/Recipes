@@ -2,13 +2,14 @@ import parsing
 import scraper
 import lists
 import re
+import pprint
 
 meatTypes = {"chicken": '0500', "beef": "1300", "pork": "1000"}
 substitutions = {
-				"ground poultry": "canned, drained cannellini beans",
-				"ground beef": "canned, drained red kidney beans",
-				"ground pork": "canned, drained red kidney beans",
-				"ground other": "canned, drained black beans",
+				"ground poultry": "cannellini beans",
+				"ground beef": "red kidney beans",
+				"ground pork": "red kidney beans",
+				"ground other": "black beans",
 				"poultry": "firm tofu",
 				"beef": "portobello mushrooms"
 				}
@@ -30,20 +31,28 @@ def getMeats(ingredients):
 	meats = []
 	groundMeats = []
 	categories = []
+	meatlessIngredients = []
 	for ingredient in ingredients:
 		if ingredient.category.strip() in meatCategories:
 			if re.search("(?i).*ground.*", ingredient.name):
 				groundMeats.append(ingredient)
 			meats.append(ingredient)
 			categories.append(ingredient.category.strip())
+		else:
+			meatlessIngredients.append(ingredient)
 
 	return {
 			"meats": meats,
 			"groundMeats": groundMeats,
-			"categories": categories
+			"categories": categories,
+			"ingredients": meatlessIngredients
 			}
 
+def performVegSub(meat, substitution, ingredients, steps):
+	newSteps = subDirections(meat, substitution, steps)
+	newIngredients = subIngredients(ingredients, substitution)
 
+	return {"steps": newSteps, "ingredients": newIngredients}
 
 def vegTransformer(recipe): #TODO: include seafood and liquids (sauces, broths)
 	ingredients = recipe.ingredients
@@ -52,43 +61,47 @@ def vegTransformer(recipe): #TODO: include seafood and liquids (sauces, broths)
 	meats = meatInfo["meats"]
 	categories = meatInfo["categories"]
 	groundMeats = meatInfo["groundMeats"]
-
+	ingredients = meatInfo["ingredients"]
 	newSteps = recipe.directions
 
-	# Transform ingredient list
-	# TODO: veal? fish? Sausage?
 	if len(meats):
-		print 'NAME: ', recipe.name
+		substitution = ""
+		meat = meats[0].name.split(',')[0].lower()
 		if len(groundMeats):
 			# Replace ground meats with beans
 			meatType = groundMeats[0].category.strip()
-			groundMeat = re.search("(?i)ground .*", groundMeats[0].origName).group()
+			meat = re.search("(?i)ground .*", groundMeats[0].origName).group()
+			
 			if meatType == meatTypes["chicken"]:
-				newSteps = subsituteMeat(groundMeat, substitutions["ground poultry"], newSteps)
+				substitution = substitutions["ground poultry"]
 			elif meatType == meatTypes["beef"] or meatType == meatTypes["pork"]:
-				newSteps = subsituteMeat(groundMeat, substitutions["ground beef"], newSteps)
+				substitution = substitutions["ground beef"]
 			else:
-				newSteps = subsituteMeat(groundMeat, substitutions["ground other"], newSteps)
-		
-		elif meatTypes["chicken"] in categories or \
-			isStirFry(recipe) or isDeepFried(recipe):
-			meat = meats[0].name.split(',')[0].lower()
-			newSteps = subsituteMeat(meat, substitutions["poultry"], newSteps)
-			# TODO: Add extra prep steps for tofu (drain, dry, cut into cubes,  pan-fry first?)
-		
+				substitution = substitutions["ground other"]
+
+		elif meatTypes["chicken"] in categories or isStirFry(recipe) or isDeepFried(recipe):
+			substitution = substitutions["poultry"]		
 		elif meatTypes["beef"] or meatTypes["pork"]:
-			meat = meats[0].name.split(',')[0].lower()
-			newSteps = subsituteMeat(meat, substitutions["beef"], newSteps)
+			substitution =  substitutions["beef"]
 		else:
 			print 'Remove all meats'
-			meat = meats[0].name.split(',')[0].lower()
-			newSteps = subsituteMeat(meat, "", newSteps)
-			
+			substitution = ""
+
+		performVegSub(meat, substitution, ingredients, newSteps)
+		
 	else:
-		# There are no meats in this recipe => already vegetarian
 		print "No transformation performed, recipe contains no meat"
 
-	print "New Directions\n====================\n", newSteps
+	print "RECIPE: Vegetarian ", recipe.name, "\n"
+	print "Ingredients\n====================\n", printIngredients(ingredients)
+	print "Directions\n====================\n"
+	pp = pprint.PrettyPrinter(indent=4)
+	pp.pprint(newSteps)
+	
+
+def printIngredients(ingredients):
+	for i in ingredients:
+		print i.name, " - ", i.category
 
 
 def isStirFry(recipe):
@@ -108,7 +121,7 @@ def isDeepFried(recipe):
 	return isFried
 
 
-def subsituteMeat(ingredient, substitution, directions):
+def subDirections(ingredient, substitution, directions):
 	newSteps = directions
 	print "!! Substituting ", ingredient, " with ", substitution
 	# Substitute meats for substitute ingredient
@@ -122,15 +135,23 @@ def subsituteMeat(ingredient, substitution, directions):
 
 	return newSteps
 
+def subIngredients(ingredients, substitution):
+	newIngredient = parsing.findIngredient(substitution)
+	newIngredient.amount = ""
+	newIngredient.unit = ""
+	newIngredient.updateString()
+	newIngredients =  ingredients.append(newIngredient)
+
+	return ingredients
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
-	print recipe.unicode()
+	# print recipe.unicode()
 	vegTransformer(recipe)
 
 
