@@ -111,6 +111,7 @@ class Ingredient:
 
     def __init__(self,
         name = None,
+        origName = None,
         amount = None,
         unit = None,
         descriptor = None,
@@ -125,6 +126,11 @@ class Ingredient:
         else:
             self.name = name
 
+        if origName == None:
+            self.origName ''
+        else
+            self.origName = origName
+            
         if amount == None:
             self.amount = ''
         else:
