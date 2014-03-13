@@ -168,7 +168,3 @@ class Ingredient:
     def unicode(self):
         self.updateString()
         return self.string
-
-
-
-

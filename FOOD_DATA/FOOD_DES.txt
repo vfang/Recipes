@@ -422,10 +422,10 @@
 ~03193~^~0300~^~Babyfood, cereal, oatmeal, with honey, dry~^~BABYFOOD,CRL,OATMEAL,W/HONEY,DRY~^~~^~~^~~^~~^0^~~^5.83^3.50^8.40^4.10
 ~03194~^~0300~^~Babyfood, cereal, rice, dry~^~BABYFOOD,CEREAL,RICE,DRY~^~~^~~^~Y~^~~^0^~~^5.95^3.82^8.37^4.16
 ~03195~^~0300~^~Babyfood, cereal, rice, with applesauce and bananas, strained~^~BABYFOOD,CRL,RICE,W/APPLSAUC&BANANAS,STR~^~~^~~^~Y~^~~^0^~~^6.00^3.80^8.40^4.20
-~03197~^~0300~^~Babyfood, cereal, with egg yolks, strained~^~BABYFOOD,CRL,W/EGG YOLKS,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
-~03198~^~0300~^~Babyfood, cereal, with egg yolks, junior~^~BABYFOOD,CRL,W/EGG YOLKS,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03197~^~0300~^~Babyfood, cereal, with egg yolk, strained~^~BABYFOOD,CRL,W/EGG YOLK,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03198~^~0300~^~Babyfood, cereal, with egg yolk, junior~^~BABYFOOD,CRL,W/EGG YOLK,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
 ~03199~^~0300~^~Babyfood, cereal, with eggs, strained~^~BABYFOOD,CRL,W/EGGS,STR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
-~03201~^~0300~^~Babyfood, cereal, egg yolks and bacon, junior~^~BABYFOOD,CRL,EGG YOLKS&BACON,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
+~03201~^~0300~^~Babyfood, cereal, egg yolk and bacon, junior~^~BABYFOOD,CRL,EGG YOLK&BACON,JR~^~~^~~^~~^~~^0^~~^6.03^4.20^8.80^3.90
 ~03205~^~0300~^~Babyfood, oatmeal cereal with fruit, dry, instant, toddler~^~BABYFOOD,OATMEAL CRL W/FRUIT,DRY,INST,TODD~^~~^~~^~Y~^~~^0^~~^^^^
 ~03206~^~0300~^~Babyfood, cookie, baby, fruit~^~BABYFOOD,COOKIE,BABY,FRUIT~^~~^~~^~Y~^~~^0^~~^^^^
 ~03209~^~0300~^~Babyfood, crackers, vegetable~^~BABYFOOD,CRACKERS,VEG~^~~^~~^~Y~^~~^0^~~^^^^
@@ -6201,8 +6201,8 @@
 ~19331~^~1900~^~Puddings, lemon, dry mix, instant, prepared with whole milk~^~PUDDINGS,LEMON,DRY MIX,INST,PREP W/ WHL MILK~^~~^~~^~~^~~^0^~~^^^^
 ~19332~^~1900~^~Puddings, lemon, dry mix, regular~^~PUDDINGS,LEMON,DRY MIX,REG~^~~^~~^~~^~~^0^~~^6.25^3.50^8.80^3.90
 ~19333~^~1900~^~Pudding, lemon, dry mix, regular, prepared with sugar, egg yolk and water~^~PUDDING,LEMON,DRY MIX,REG,PREP W/ SUGAR,EGG YOLK & H2O~^~~^~~^~~^~~^0^~~^^^^
-~19334~^~1900~^~Sugars, brown~^~SUGARS,BROWN~^~~^~~^~Y~^~~^0^~~^6.25^4.00^0.00^3.87
-~19335~^~1900~^~Sugars, granulated~^~SUGARS,GRANULATED~^~sucrose~^~~^~Y~^~~^0^~~^6.25^^^3.87
+~19334~^~1900~^~Sugars, brown, granulated~^~SUGARS,BROWN~^~~^~~^~Y~^~~^0^~~^6.25^4.00^0.00^3.87
+~19335~^~1900~^~Sugars, white, granulated~^~SUGARS,GRANULATED~^~sucrose~^~~^~Y~^~~^0^~~^6.25^^^3.87
 ~19336~^~1900~^~Sugars, powdered~^~SUGARS,POWDERED~^~~^~~^~Y~^~~^0^~~^6.25^3.50^8.40^3.90
 ~19337~^~1900~^~Sweeteners, tabletop, aspartame, EQUAL, packets~^~SWEETENERS,TABLETOP,ASPRT,EQ,PACKETS~^~~^~Merisant Company~^~Y~^~~^0^~~^6.25^4.00^9.00^4.00
 ~19340~^~1900~^~Sugars, maple~^~SUGARS,MAPLE~^~~^~~^~Y~^~~^0^~~^6.25^3.36^8.37^3.87
@@ -6341,7 +6341,7 @@
 ~19905~^~1900~^~Candies, chocolate, dark, NFS (45-59% cacao solids 90%; 60-69% cacao solids 5%; 70-85% cacao solids 5%)~^~CANDIES,CHOC,DK,NFS (45-59% CACAO SOL 90%; 60-69% CACAO SOL~^~~^~~^~Y~^~~^0^~~^^^^
 ~19906~^~1900~^~Sweeteners, for baking, brown, contains sugar and sucralose~^~SWEETENERS,FOR BAKING,BROWN,CONTAINS SUGAR & SUCRALOSE~^~~^~~^~~^~~^0^~~^^^^
 ~19907~^~1900~^~Sweeteners, for baking, contains sugar and sucralose~^~SWEETENERS,FOR BAKING,CONTAINS SUGAR & SUCRALOSE~^~~^~~^~~^~~^0^~~^^^^
-~19908~^~1900~^~Sugar, turbinado~^~SUGAR,TURBINADO~^~~^~~^~~^~~^0^~~^^^^
+~19908~^~1900~^~Sugars, turbinado~^~SUGARS,TURBINADO~^~~^~~^~~^~~^0^~~^^^^
 ~19909~^~1900~^~Sweeteners, sugar substitute, granulated, brown~^~SWEETENERS,SUGAR SUB,GRANULATED,BROWN~^~~^~~^~~^~~^0^~~^^^^
 ~19910~^~1900~^~Candies, crispy bar with peanut butter filling~^~CANDIES,CRISPY BAR W/ PNUT BUTTER FILLING~^~~^~~^~Y~^~~^0^~~^6.25^^^
 ~19911~^~1900~^~Syrup, maple, Canadian~^~SYRUP,MAPLE,CANADIAN~^~~^~~^~~^~~^0^~~^6.25^^^

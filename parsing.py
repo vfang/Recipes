@@ -64,7 +64,7 @@ def parseIngredient(dict):
             unit = 'not specified'
     amount = amount[0]
 
-    if amount > 1:
+    if float(eval(amount)) > 1:
         if name.endswith('s'):
             name = name[:-1]
 
@@ -110,6 +110,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     dairyProduct = False
     rawFood = False
     meatProduct = False
+    sweetProduct = False
+    snackProduct = False
+    grainProduct = False
 
     primeIng = ''
 
@@ -162,14 +165,81 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if 'baby' in items:
         babyFood = True
 
-    if 'cheese' in primeIng or 'milk' in primeIng or 'cream' in primeIng or 'yogurt' in primeIng or 'whey' in primeIng or 'egg' in primeIng or 'butter' in primeIng:
+    if ('cheese' in primeIng 
+        or 'milk' in primeIng 
+        or 'cream' in primeIng 
+        or 'yogurt' in primeIng 
+        or 'whey' in primeIng 
+        or 'egg' in primeIng 
+        or 'butter' in primeIng
+        or 'yolk' in primeIng):
         dairyProduct = True
+        rawFood = True
 
     if 'fresh' in items or 'raw' in items:
         rawFood = True
 
-    if 'meat' in items or 'beef' in items or 'pork' in items or 'chicken' in items or 'fish' in items:
+    if ('meat' in items 
+        or 'beef' in items 
+        or 'pork' in items 
+        or 'chicken' in items 
+        or 'fish' in items):
         meatProduct = True
+        rawFood = True
+
+    if ('sugar' in items 
+        or 'syrup' in items 
+        or 'sweetener' in items 
+        or 'pudding' in items 
+        or 'candies' in items 
+        or 'candy' in items 
+        or 'honey' in items 
+        or 'frosting' in items
+        or 'topping' in items
+        or 'pie filling' in items
+        or 'pectin' in items
+        or 'marmalade' in items
+        or 'molasses' in items
+        or 'jelly' in items
+        or 'jam' in items
+        or 'fruit butter' in items
+        or 'dessert' in items
+        or 'flan' in items
+        or 'rennin' in items
+        or 'custard' in items
+        or 'cocoa' in items
+        or 'gum' in items
+        or 'gelatin' in items
+        or 'chocolate' in items
+        or 'sherbet' in items):
+        sweetProduct = True
+
+    if ('cracker' in primeIng
+        or 'crumbs' in primeIng):
+        snackProduct = True
+
+    if ('flour' in primeIng
+        or 'grain' in primeIng
+        or 'barley' in primeIng
+        or 'cornmeal' in primeIng
+        or 'millet' in primeIng
+        or 'rice' in primeIng
+        or 'pasta' in primeIng
+        or 'noodle' in primeIng
+        or 'oat' in primeIng
+        or 'wheat' in primeIng
+        or 'macaroni' in primeIng
+        or 'spaghetti' in primeIng
+        or 'hominy' in primeIng
+        or 'sorghum' in primeIng
+        or 'teff' in primeIng
+        or 'quinoa' in primeIng
+        or 'triticale' in primeIng
+        or 'rye' in primeIng
+        or 'couscous' in primeIng
+        or 'bulgur' in primeIng
+        or 'amaranth' in primeIng):
+        grainProduct = True
 
     matches = []
 
@@ -184,6 +254,9 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         dairy = False
         raw = False
         meat = False
+        sweet = False
+        snack = False
+        grain = False
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -200,8 +273,22 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         if DBing.category == '0100':
             dairy = True
 
-        if DBing.category == '0500' or DBing.category == '0700' or DBing.category == '1000' or DBing.category == '1300' or DBing.category == '1500' or DBing.category == '1700':
+        if (DBing.category == '0500' 
+            or DBing.category == '0700' 
+            or DBing.category == '1000' 
+            or DBing.category == '1300' 
+            or DBing.category == '1500' 
+            or DBing.category == '1700'):
             meat = True
+
+        if DBing.category == '1900':
+            sweet = True
+
+        if DBing.category == '1800':
+            snack = True
+
+        if DBing.category == '2000':
+            grain = True
 
         if 'RAW' in DBing.name:
             raw = True
@@ -241,7 +328,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                     for d in des:
                         if word in d.lower():
 
-                            if word == 'jalapeno':
+                            if word == 'crumbs':
                                 pass
 
                             c = ''
@@ -256,7 +343,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         if match:
             ing = objects.Ingredient()
             ing.name = DBing.name
-            ing.origName = ingr # VF: I need this for transformer, remove after search is fixed
+            ing.origName = primeIng # VF: I need this for transformer, remove after search is fixed
             ing.descriptor = DBing.descriptor
             
             if preparations != []:
@@ -276,9 +363,19 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                 matchScore = matchScore / 2.0
             if dairy and not dairyProduct:
                 matchScore = matchScore / 2.0
-            if rawFood and not raw:
+            if raw and not rawFood:
                 matchScore = matchScore / 2.0
             if meat and not meatProduct:
+                matchScore = matchScore / 2.0
+            if sweet and not sweetProduct:
+                matchScore = matchScore / 2.0
+            if sweetProduct and not sweet:
+                matchScore = matchScore / 2.0
+            if snack and not snackProduct:
+                matchScore = matchScore / 2.0
+            if grain and not grainProduct:
+                matchScore = matchScore / 2.0
+            if grainProduct and not grain:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)
