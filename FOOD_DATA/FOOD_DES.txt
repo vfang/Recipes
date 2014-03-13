@@ -3627,7 +3627,10 @@
 ~11973~^~1100~^~Beans, fava, in pod, raw~^~BEANS,FAVA,IN POD,RAW~^~~^~~^~~^~Ends~^3^~Vicia faba~^6.25^2.44^8.37^3.57
 ~11974~^~1100~^~Grape leaves, raw~^~GRAPE LEAVES,RAW~^~~^~~^~Y~^~Tough stems~^5^~Vitis vinifera~^6.25^2.44^8.37^3.57
 ~11975~^~1100~^~Grape leaves, canned~^~GRAPE LEAVES,CND~^~~^~~^~~^~~^0^~~^6.25^2.44^8.37^3.57
-~11976~^~1100~^~Pepper, banana, raw~^~PEPPER,BANANA,RAW~^~~^~~^~Y~^~Stem ends, seeds and core~^18^~Capsicum anuum~^6.25^2.44^8.37^3.57
+~11976~^~1100~^~Peppers, banana, raw~^~PEPPERS,BANANA,RAW~^~~^~~^~Y~^~Stem ends, seeds and core~^18^~Capsicum anuum~^6.25^2.44^8.37^3.57
+~11976~^~1100~^~Peppers, bell, green, raw~^~PEPPERS,BELL,RAW~^~~^~~^~Y~^~Stem ends, seeds and core~^18^~Capsicum anuum~^6.25^2.44^8.37^3.57
+~11976~^~1100~^~Peppers, bell, yellow, raw~^~PEPPERS,BELL,RAW~^~~^~~^~Y~^~Stem ends, seeds and core~^18^~Capsicum anuum~^6.25^2.44^8.37^3.57
+~11976~^~1100~^~Peppers, bell, red, raw~^~PEPPERS,BELL,RAW~^~~^~~^~Y~^~Stem ends, seeds and core~^18^~Capsicum anuum~^6.25^2.44^8.37^3.57
 ~11977~^~1100~^~Peppers, serrano, raw~^~PEPPERS,SERRANO,RAW~^~~^~~^~Y~^~Stems~^3^~Capsicum anuum~^6.25^2.44^8.37^3.57
 ~11978~^~1100~^~Peppers, ancho, dried~^~PEPPERS,ANCHO,DRIED~^~~^~~^~~^~~^0^~~^6.25^2.44^8.37^3.57
 ~11979~^~1100~^~Peppers, jalapeno, raw~^~PEPPERS,JALAPENO,RAW~^~~^~~^~Y~^~Stems and seeds~^8^~Capsicum anuum~^6.25^2.44^8.37^3.57

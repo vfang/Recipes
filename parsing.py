@@ -10,19 +10,19 @@ import sys
 #~0200~^~Spices and Herbs~
 #~0300~^~Baby Foods~
 #~0400~^~Fats and Oils~
-#~0500~^~Poultry Products~
+#~0500~^~Poultry Products~                      Meat
 #~0600~^~Soups, Sauces, and Gravies~
-#~0700~^~Sausages and Luncheon Meats~
+#~0700~^~Sausages and Luncheon Meats~           Meat
 #~0800~^~Breakfast Cereals~
 #~0900~^~Fruits and Fruit Juices~
-#~1000~^~Pork Products~
+#~1000~^~Pork Products~                         Meat
 #~1100~^~Vegetables and Vegetable Products~
 #~1200~^~Nut and Seed Products~
-#~1300~^~Beef Products~
+#~1300~^~Beef Products~                         Meat
 #~1400~^~Beverages~
-#~1500~^~Finfish and Shellfish Products~
+#~1500~^~Finfish and Shellfish Products~        Meat
 #~1600~^~Legumes and Legume Products~
-#~1700~^~Lamb, Veal, and Game Products~
+#~1700~^~Lamb, Veal, and Game Products~         Meat
 #~1800~^~Baked Products~
 #~1900~^~Sweets~
 #~2000~^~Cereal Grains and Pasta~
@@ -108,6 +108,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     spiceOrPowder = False
     babyFood = False
     dairyProduct = False
+    rawFood = False
+    meatProduct = False
 
     primeIng = ''
 
@@ -163,6 +165,12 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if 'cheese' in primeIng or 'milk' in primeIng or 'cream' in primeIng or 'yogurt' in primeIng or 'whey' in primeIng or 'egg' in primeIng or 'butter' in primeIng:
         dairyProduct = True
 
+    if 'fresh' in items or 'raw' in items:
+        rawFood = True
+
+    if 'meat' in items or 'beef' in items or 'pork' in items or 'chicken' in items or 'fish' in items:
+        meatProduct = True
+
     matches = []
 
     for DBing in lists.ingredientDB:
@@ -174,6 +182,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         spice = False
         baby = False
         dairy = False
+        raw = False
+        meat = False
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -189,6 +199,12 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if DBing.category == '0100':
             dairy = True
+
+        if DBing.category == '0500' or DBing.category == '0700' or DBing.category == '1000' or DBing.category == '1300' or DBing.category == '1500' or DBing.category == '1700':
+            meat = True
+
+        if 'RAW' in DBing.name:
+            raw = True
 
         for word in nam:
             if primeIng not in word.lower():
@@ -211,10 +227,23 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                 else:
 
                     match = True
-                    r = 1 #float(len(des)) / float(len(sItems))
+
+
+                    if word in lists.colors:
+                        r = .1
+                    
+                    elif descriptors.index(word) == len(descriptors) - 1:
+                        r = .8
+                        
+                    else:
+                        r = 1 #float(len(des)) / float(len(sItems))
 
                     for d in des:
                         if word in d.lower():
+
+                            if word == 'jalapeno':
+                                pass
+
                             c = ''
                             if d.endswith(','):
                                 c = d[:-1]
@@ -246,6 +275,10 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if baby and not babyFood:
                 matchScore = matchScore / 2.0
             if dairy and not dairyProduct:
+                matchScore = matchScore / 2.0
+            if rawFood and not raw:
+                matchScore = matchScore / 2.0
+            if meat and not meatProduct:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)

@@ -43,6 +43,8 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 'oven broiler',
 'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker']
 
+colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black', 'brown']
+
 
 ingredientDB = []
 ingNameDB = {}
