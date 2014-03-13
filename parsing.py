@@ -138,6 +138,14 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     sweetProduct = False
     snackProduct = False
     grainProduct = False
+    
+    beefProduct = False
+    porkProduct = False
+    poultryProduct = False
+    fishProduct = False
+    gameProduct = False
+
+    groundProduct = False
 
     primeIng = ''
 
@@ -181,10 +189,18 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
     primeIng = primeIng.lower()
 
-    if primeIng == 'soup' or primeIng == 'sauce' or primeIng == 'paste':
+    if (primeIng == 'soup' 
+        or primeIng == 'sauce' 
+        or primeIng == 'paste'
+        or primeIng == 'bouillon'
+        or primeIng == 'spread'):
         soupOrSauce = True
 
-    if primeIng == 'spice' or primeIng == 'powder' or primeIng == 'salt':
+    if (primeIng == 'spice' 
+        or primeIng == 'powder' 
+        or primeIng == 'salt'
+        or primeIng == 'cinnamon'
+        or primeIng == 'nutmeg'):
         spiceOrPowder = True
 
     if 'baby' in items:
@@ -207,11 +223,39 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     if ('meat' in items 
         or 'beef' in items 
         or 'pork' in items 
-        or 'chicken' in items 
+        or 'chicken' in items
+        or 'turkey' in items
+        or 'lamb' in items 
         or 'fish' in items
-        or 'bacon' in items):
+        or 'bacon' in items
+        or 'mutton' in items):
         meatProduct = True
         rawFood = True
+
+    if 'ground' in items:
+        groundProduct = True
+
+    if ('beef' in items
+        or 'steak' in items):
+        beefProduct = True
+
+    if ('bacon' in items
+        or 'pork' in items):
+        porkProduct = True
+
+    if ('chicken' in items
+        or 'duck' in items
+        or 'poultry' in items
+        or 'turkey' in items):
+        poultryProduct = True
+
+    if ('lamb' in items
+        or 'mutton' in items
+        or 'veal' in items):
+        gameProduct = True
+
+    if ('fish' in items):
+        fishProduct = True
 
     if ('sugar' in items 
         or 'syrup' in items 
@@ -283,6 +327,16 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
         sweet = False
         snack = False
         grain = False
+        pork = False
+        beef = False
+        poultry = False
+        game = False
+        fish = False
+        meatMix = False
+        ground = False
+
+        if primeIng == 'flour':
+            primeIng = 'flr'
 
         des = DBing.descriptor.split()
         nam = DBing.name.split(',')
@@ -306,6 +360,27 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             or DBing.category == '1500' 
             or DBing.category == '1700'):
             meat = True
+
+        if 'BY-PRODUCTS' in DBing.name:
+            meatMix = True
+
+        if 'ground' in DBing.descriptor:
+            gound = True
+
+        if DBing.category == '0500':
+            poultry = True
+
+        if DBing.category == '1000':
+            pork = True
+
+        if DBing.category == '1300':
+            beef = True
+
+        if DBing.category == '1500':
+            fish = True
+
+        if DBing.category == '1700':
+            game = True
 
         if DBing.category == '1900':
             sweet = True
@@ -389,10 +464,22 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                 matchScore = matchScore / 2.0
             if dairy and not dairyProduct:
                 matchScore = matchScore / 2.0
-            if raw and not rawFood:
+            if rawFood and not raw:
                 matchScore = matchScore / 2.0
             if meat and not meatProduct:
                 matchScore = matchScore / 2.0
+            if meatProduct and meatMix:
+                matchScore = matchScore / 2.0
+            if porkProduct and not pork:
+                matchScore = matchScore / 5.0
+            if beefProduct and not beef:
+                matchScore = matchScore / 5.0
+            if poultryProduct and not poultry:
+                matchScore = matchScore / 5.0
+            if fishProduct and not fish:
+                matchScore = matchScore / 5.0
+            if gameProduct and not game:
+                matchScore = matchScore / 5.0
             if sweet and not sweetProduct:
                 matchScore = matchScore / 2.0
             if sweetProduct and not sweet:
@@ -402,6 +489,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             if grain and not grainProduct:
                 matchScore = matchScore / 2.0
             if grainProduct and not grain:
+                matchScore = matchScore / 2.0
+            if ground and not groundProduct:
                 matchScore = matchScore / 2.0
 
             tup = (ing, matchScore)
