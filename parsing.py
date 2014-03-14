@@ -50,7 +50,10 @@ def parseIngredient(dict):
     name = dict['name']
 
     amount = amount.split()
-    amnt = amount[0]
+    if amount:
+    	amnt = amount[0]
+    else:
+    	amnt = ""
 
     if len(amount) > 2:
         a = ''
