@@ -11,7 +11,10 @@ substitutions = {
 				"ground pork": "red kidney beans",
 				"ground other": "black beans",
 				"poultry": "firm tofu",
-				"beef": "portobello mushrooms"
+				"beef": "portobello mushrooms",
+				"meat stock": "vegetable stock",
+				"meat broth": "vegetable broth",
+				"meat bouillon": "vegetable bouillon"
 				}
 
 
@@ -23,11 +26,29 @@ def vegTransformer(recipe): #TODO: include seafood and liquids (sauces, broths)
 	meats = meatInfo["meats"]
 	categories = meatInfo["categories"]
 	groundMeats = meatInfo["groundMeats"]
+	liquids = meatInfo["liquids"]
 	ingredients = meatInfo["ingredients"]
 	newSteps = recipe.directions
 
 	if len(meats):
 		substitution = ""
+		# Broths/bouillons first
+		if len(liquids):
+			print 'LIQUIDS'
+			meat = liquids[0].name.split(',')[0].lower()
+			print liquids[0].name
+			if re.search("(?i).*stock.*", liquids[0].name):
+				substitution = substitutions["meat stock"]
+			if re.search("(?i).*broth.*", liquids[0].name):
+				print "BROTH"
+				substitution = substitutions["meat broth"]
+			if re.search("(?i).*bouillon.*", liquids[0].name):
+				substitution = substitutions["meat bouillon"]
+		
+		liquidLess = performVegSub(meat, substitution, ingredients, newSteps)
+		newSteps = liquidLess["steps"]
+		ingredients = liquidLess["ingredients"]
+
 		meat = meats[0].name.split(',')[0].lower()
 		if len(groundMeats):	# Replace ground meats with beans
 			meatType = groundMeats[0].category.strip()
@@ -220,9 +241,9 @@ def main():
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Absolutely-Ultimate-Potato-Soup/Detail.aspx?event8=1&prop24=SR_Thumb&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i1')
 	# print recipe.unicode()
 
-	vegTransformer(recipe)
-	# newIngredient = parsing.findIngredient("chicken broth")
-	# print newIngredient.name
+	# vegTransformer(recipe)
+	newIngredient = parsing.findIngredient("swanson veg broth")
+	print newIngredient.name
 
 
 main()
