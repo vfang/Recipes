@@ -66,20 +66,54 @@ def performVegSub(meat, substitution, ingredients, steps):
 
 
 def vegSubDirections(ingredient, substitution, directions):
+	# TODO: look/replace broths first before meats
 	newSteps = directions
 	print "!! Substituting ", ingredient, " with ", substitution
 	# Substitute meats for substitute ingredient
 	for i, step in enumerate(directions):
-		if re.search("(?i).*%s.*" % ingredient, step):
+		newStep = step
+		if re.search("(?i).*ground %s.*" % ingredient, step):
+			newStep = re.sub("(?i)ground %s" % ingredient, substitution, step)
+		elif re.search("(?i).*%s.*" % ingredient, step):
 			newStep = re.sub("(?i)%s" % ingredient, substitution, step)
-			# newStep = re.sub("(?i)meat", substitution, step)
-			newStep = re.sub("(?i)until (.*?)[.;]", "", newStep)
-			newSteps[i] = newStep
+			
+		newStep = sanitizeMeatDirections(newStep, substitution)
 
-	# TODO: Handle mentions of meat, grease, fat, beef, chicken, turkey, pork, etc. Also pink on inside, [cooking method] until ___
-		# Tofu, completely remove meat sentences? Add in new tofu cooking steps?
+		newSteps[i] = newStep
+
 
 	return newSteps
+
+
+def sanitizeMeatDirections(step, substitution):
+	# TODO: remove any mentions of meat (beef, chicken, turkey, sausage, pork, etc)
+	# Get rid of meat related directions
+	meatyWords = ["grease", "until", "fat", "meat"]
+	sentences = step.split(".")
+	meatlessStep = ""
+	for sentence in sentences:
+		for word in meatyWords:
+			if word == "until":
+				if re.search("(?i).*(%s|%s).*" % (substitution, 'meat'), sentence):
+					if re.search("(?i).*%s" % word, sentence):
+						print "REMOVING Directions: ", sentence, " - ", word
+						sentence = re.sub("(?i) until.*[;]", ";", sentence)
+						sentence = re.sub("(?i) until.*$", "", sentence)
+
+			elif word == "meat":
+				if re.search("(?i).*%s" % word, sentence):
+					print "REMOVING Directions: ", sentence, " - ", word		
+					sentence = ""
+			else:
+				if re.search("(?i).*%s" % word, sentence):
+					print "REMOVING Directions: ", sentence, " - ", word
+					sentence = re.sub("(?i).*%s" % word, "", sentence)
+					sentence = re.sub('^[,:;] ', "", sentence).capitalize()
+
+		if sentence:
+			meatlessStep += ". " + sentence
+
+	return meatlessStep
 
 
 def vegSubIngredients(ingredients, substitution):
@@ -90,6 +124,7 @@ def vegSubIngredients(ingredients, substitution):
 	newIngredients =  ingredients.append(newIngredient)
 
 	return ingredients	
+
 
 ##### INGREDIENT/METHODS INFO ######
 def getMeats(ingredients):
@@ -162,9 +197,9 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
+	recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
 	# print recipe.unicode()
