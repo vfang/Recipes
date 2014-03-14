@@ -1,4 +1,11 @@
 #list of predefined things
+units = ['cups','teaspoon','tablespoon','teaspoons','tablespoons','gallon','liter'
+'pound','pounds','gram','grams']
+
+preparations = ['chopped','minced','sliced','crushed','melted','dried','grated','pounded','ground'
+'diced','cubed','shredded']
+descriptions = ['warm','sweet','fresh']
+
 methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
 'blacken', 'blanch', 'boil-up', 'boil', 'broil','braise', 'bread crumbs',
 'brine', 'broast', 'brochette', 'brown', 'caramelize', 'carry over cooking',
@@ -13,9 +20,10 @@ methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
 'pre-ferment', 'pressure cooking', 'pressure fry', 'proof', 'puree', 
 'red cooking', 'reduction ', 'render', 'ricing ', 'roast', 'robatayaki', 
 'rotisserie', 'saute', 'seare', 'season', 'shallow fry', 'shrivelling', 
-'simmer', 'slow cook', 'smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
+'simmer', 'slow cook','shred','smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
 'spherification', 'steam', 'steep', 'stew', 'stir','stir fry', 'sugar pan', 'sweat ', 
-'tataki', 'tenderize', 'thicken', 'mix','preheat', 'scald', 'drain', 'mash', 'pour', 'spread', 'combine']
+'tataki', 'tenderize', 'thicken', 'mix','preheat', 'scald', 'drain', 'mash', 'pour', 'spread', 'combine'
+'head']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
@@ -41,7 +49,7 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 'shellfish scraper', 'sieve', 'slotted spoon', 'spatula', 'spider', 
 'sugar thermometer', 'slow cookertamis', 'tin opener', 'tomato knife', 
 'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 'oven broiler',
-'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker']
+'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker','saucepan']
 
 colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black', 'brown']
 
