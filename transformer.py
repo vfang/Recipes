@@ -29,26 +29,30 @@ def vegTransformer(recipe): #TODO: include seafood and liquids (sauces, broths)
 	liquids = meatInfo["liquids"]
 	ingredients = meatInfo["ingredients"]
 	newSteps = recipe.directions
+	substitution = ""
 
-	if len(meats):
-		substitution = ""
-		# Broths/bouillons first
-		if len(liquids):
-			print 'LIQUIDS'
-			meat = liquids[0].name.split(',')[0].lower()
-			print liquids[0].name
-			if re.search("(?i).*stock.*", liquids[0].name):
-				substitution = substitutions["meat stock"]
-			if re.search("(?i).*broth.*", liquids[0].name):
-				print "BROTH"
-				substitution = substitutions["meat broth"]
-			if re.search("(?i).*bouillon.*", liquids[0].name):
-				substitution = substitutions["meat bouillon"]
+
+	if len(liquids):
+		print 'LIQUIDS'
+		meat = liquids[0].origName
+		print liquids[0].name
+		if re.search("(?i).*bouillon.*", liquids[0].name):
+			print "bouillon"
+			substitution = substitutions["meat bouillon"]
+		elif re.search("(?i).*stock.*", liquids[0].name):
+			print "stock"
+			substitution = substitutions["meat stock"]
+		elif re.search("(?i).*broth.*", liquids[0].name):
+			print "broths"
+			substitution = substitutions["meat broth"]
 		
 		liquidLess = performVegSub(meat, substitution, ingredients, newSteps)
 		newSteps = liquidLess["steps"]
 		ingredients = liquidLess["ingredients"]
 
+	if len(meats):
+		# Broths/bouillons first
+		
 		meat = meats[0].name.split(',')[0].lower()
 		if len(groundMeats):	# Replace ground meats with beans
 			meatType = groundMeats[0].category.strip()
@@ -93,9 +97,18 @@ def vegSubDirections(ingredient, substitution, directions):
 	# Substitute meats for substitute ingredient
 	for i, step in enumerate(directions):
 		newStep = step
-		if re.search("(?i).*ground %s.*" % ingredient, step):
+		if re.search("(?i)(bouillon|stock|broth)", step):
+			# Find bouillon/stock/broth and its meat descriptors in the step
+			splitWord = re.search("(?i)(bouillon|stock|broth)", step).group()
+			descriptor = step.split(splitWord)[0].split(' ')[-2]
+			if descriptor in meatTypes:
+				newStep = re.sub("(?i)%s %s" % (descriptor, ingredient), substitution, step)
+			else:
+				newStep = re.sub("(?i)%s" % ingredient, substitution, newStep)
+
+		elif re.search("(?i).*ground %s.*" % ingredient, step):
 			newStep = re.sub("(?i)ground %s" % ingredient, substitution, step)
-		if re.search("(?i).*%s.*" % ingredient, step):
+		elif re.search("(?i).*%s.*" % ingredient, step):
 			newStep = re.sub("(?i)%s" % ingredient, substitution, newStep)
 			
 		newStep = sanitizeMeatDirections(newStep, substitution)
@@ -126,8 +139,12 @@ def sanitizeMeatDirections(step, substitution):		# Get rid of meat related direc
 			else:
 				if re.search("(?i).*%s" % word, sentence):
 					print "REMOVING Directions: ", sentence, " - ", word
-					sentence = re.sub("(?i).*%s" % word, "", sentence)
-					sentence = re.sub('^[,:;] ', "", sentence).capitalize()
+					if re.search("(?i).*%s.*[,;]" % word, sentence):
+						sentence = re.sub("(?i).*%s.*[,;]" % word, "", sentence)
+					else:
+						sentence = re.sub("(?i).*%s.*" % word, "", sentence)
+					sentence = re.sub('^[,:;] ', "", sentence)
+					sentence = re.sub("^\s+", "", sentence).capitalize()
 
 		if sentence:
 			if meatlessStep:
@@ -158,8 +175,6 @@ def getMeats(ingredients):
 	categories = []
 	meatlessIngredients = []
 	for ingredient in ingredients:
-		# TODO: check for broths & bouillon, now only check for chicken/beef 
-		# checks for chicken/beef broths/bouillons and remove from list
 		if re.search("(?i).*(broth|stock).*", ingredient.name):
 			if re.search("(?i).*(chick|bf|beef).*", ingredient.name):
 				print 'meat stock'
@@ -168,7 +183,7 @@ def getMeats(ingredients):
 			if re.search("(?i).*(chick|bf|beef).*", ingredient.name):
 				print "meat bouillon"
 				liquids.append(ingredient)
-		# 
+
 		elif ingredient.category.strip() in meatCategories:
 			if re.search("(?i).*ground.*", ingredient.name):
 				print "found ground"
@@ -231,19 +246,20 @@ def getRecipe(recipeURL):
 
 
 def main():
-	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
+	recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
-	recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
-	
+	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
+	# bouillon
+	# recipe = getRecipe('http://allrecipes.com/Recipe/Catherines-Spicy-Chicken-Soup/Detail.aspx?event8=1&prop24=SR_Thumb&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Absolutely-Ultimate-Potato-Soup/Detail.aspx?event8=1&prop24=SR_Thumb&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i1')
 	# print recipe.unicode()
 
-	# vegTransformer(recipe)
-	newIngredient = parsing.findIngredient("swanson veg broth")
-	print newIngredient.name
+	vegTransformer(recipe)
+	# newIngredient = parsing.findIngredient("fish sauce")
+	# print newIngredient.name
 
 
 main()
