@@ -11,7 +11,9 @@ def retrieveRecipe(url):
 	recipeInfo["rating"] = soup.find(itemprop="ratingValue")["content"]
 	recipeInfo["author"] = soup.find("span", {"id": "lblSubmitter"}).text
 	recipeInfo["servings"] = soup.find(id="lblYield").string
-	recipeInfo["time"] = soup.find_all("span", {"class":"time"})[0].text
+	recipeInfo["time"] = soup.find_all("span", {"class":"time"})
+	if recipeInfo["time"]:
+		recipeInfo["time"] = recipeInfo["time"][0].text
 
 	ingredientsListing = soup.findAll(itemprop="ingredients")
 	ingredients = []

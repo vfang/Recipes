@@ -68,25 +68,20 @@ vegSubstitutions = {
 				"stock": {"name": "", "descriptor": "vegetable", "preparation": ""},
 				}
 
-healthySubstitutions {
-	"milk": "skim milk",
-	"mayonnaise": "light mayonnaise",
-	"soy sauce": "low-sodium soy sauce",
-	"yogurt": "low-fat yogurt",
-	"peanut butter": "natural peanut butter",
-	"cheese": "reduced-fat cheese",
-	"white bread": "whole-grain bread",
-	"pasta": "whole-grain pasta",
-	"white rice": "brown rice",
-	"butter": "olive oil",
-	"heavy cream": "evaporated skim milk",
-	"beef": "bison",
-	"ground beef": "ground turkey",
-	"potato": "sweet potato",
-	"potatoes": "sweet potatoes",
-	"sour cream": "greek yogurt",
-	"shortening": "margarine",
-	"cream cheese": "fat-free ricotta cheese"
+healthySubstitutions = {
+	"milk": {"": "skim milk"} ,
+	"mayonnaise": {"": "light mayonnaise"},
+	"sauce": {"soy": "low-sodium soy sauce", "": ""},
+	"yogurt": {"": "low-fat yogurt"},
+	"butter": {"peanut": "almond butter", "": "olive oil"},
+	"cheese": {"cream": "fat-free ricotta cheese", "": "reduced-fat cheese"},
+	"bread": {"white": "whole-grain bread", "": ""},
+	"pasta": {"": "whole-grain pasta"},
+	"white rice": {"white": "brown rice", "": ""},
+	"cream": {"heavy": "evaporated skim milk", "sour": "greek yogurt","ice": "low-fat ice cream", "":""},
+	"potato": {"":"sweet potato"},
+	"potatoes": {"": "sweet potatoes"},
+	"shortening": {"":"margarine"},
 }
 ##############################
 
