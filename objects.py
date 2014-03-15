@@ -12,7 +12,7 @@ class Recipe:
         for direction in self.directions:
             self.string += direction +','
 
-        self.string += 'Step by Step Breakdown of Directions: \n':
+        self.string += 'Step by Step Breakdown of Directions: \n'
         for step in self.steps:
             self.string +=step.unicode()+'\n'
         self.string += 'Author: ' + self.author + '\n'
@@ -46,7 +46,7 @@ class Recipe:
         tools = None,
         primaryMethods = None,
         secondaryMethods = None,
-        cuisine = Nonec):
+        cuisine = None):
 
         self.string = ''
 
