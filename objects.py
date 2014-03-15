@@ -102,8 +102,10 @@ class Ingredient:
         self.string += 'Name: ' + self.name + '\n'
         self.string += 'Amount: ' + self.amount + '\n'
         self.string += 'Units: ' + self.unit + '\n'
-        self.string += 'Descriptor: ' + self.descriptor + '\n'
-        self.string += 'Preparation: '
+        self.string += 'Descriptor: ' 
+        for descriptor in self.descriptor:
+            self.string +=descriptor + ','
+        self.string += '\nPreparation: '
         for prep in self.preparation:
             self.string+= prep +','
         self.string += '\nCategory: ' + self.category + '\n'
@@ -113,7 +115,6 @@ class Ingredient:
 
     def __init__(self,
         name = None,
-        origName = None,
         amount = None,
         unit = None,
         descriptor = None,
@@ -133,11 +134,6 @@ class Ingredient:
             self.name = ''
         else:
             self.name = name
-
-        if origName == None:
-            self.origName = ''
-        else:
-            self.origName = origName
             
         if amount == None:
             self.amount = '0.0'
@@ -150,7 +146,7 @@ class Ingredient:
             self.unit = unit
 
         if descriptor == None:
-            self.descriptor = 'None'
+            self.descriptor = []
         else:
             self.descriptor = descriptor
 
