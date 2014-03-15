@@ -453,18 +453,16 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                 ing.name += primeIng
             ing.origName = primeIng # VF: I need this for transformer, remove after search is fixed
             if len(descriptors) != 0:
-                ing.descriptor = ''
+                ing.descriptor = []
             for i in descriptors:
-                ing.descriptor += i + ' '
+                ing.descriptor.append(i)
             ing.id = DBing.id
             
             if preparations == []:
                 pass
             else:
-                if ing.preparation == 'None':
-                    ing.preparation = ''
                 for word in preparations:
-                    ing.preparation += word + ' '
+                    ing.preparation.append(word)
             
             ing.category = DBing.category
             if DBing.protein != '' and DBing.protein != '\n':
@@ -654,4 +652,4 @@ def main(recipeURL):
 	recipe = buildRecipeObject(recipeInfo)
 	print recipe.unicode()
 
-main(sys.argv[1])
+#main(sys.argv[1])
