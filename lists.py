@@ -22,9 +22,9 @@ secondaryMethods =[ 'baste', 'biomass briquettes',
 'spherification', 'steep', 'stew', 'stir', 'sugar pan', 'sweat ', 
 'tataki', 'tenderize', 'thicken', 'mix','mince' 'scald', 'drain', 'mash', 'pour', 'spread', 'combine']
 
-primaryMethods = ['bake','barbecue','boil', 'broil','braise','flambe','broast','dry roast','stir fry'
-'saute','slow cook','shallow fry','pressure cooking', 'pressure fry','poach','pan fry','grill',
-'brochette','caramelize','blacken','seare','deep fry','parboil','roast','steam','fry',
+primaryMethods = ['bake','barbecue','boil', 'broil','braise','flambe','broast','dry roast','stir fry', 'stir-fry',
+'saute','slow cook','shallow fry','pressure cooking','pressure cook', 'pressure fry','poach','pan fry','pan-fry','grill',
+'brochette','caramelize','blacken','seare','deep fry','deep-fry', 'parboil','roast','steam','fry',
 'gentle fry','simmer','smoke','preheat']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
