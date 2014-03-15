@@ -119,7 +119,13 @@ class Ingredient:
         category = None,
         protein = None,
         fat = None,
-        carbs = None):
+        carbs = None,
+        id = None):
+
+        if id == None:
+            self.id = '00000'
+        else:
+            self.id = id
 
         if name == None:
             self.name = ''
