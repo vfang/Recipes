@@ -41,7 +41,8 @@ def healthyTransformer(recipe):
 
 		# PERFORM SUBSTITUTION
 		if substitution:
-			ingredient = performHealthySub(ingredient, substitution)
+			newIng = performHealthySub(ingredient, substitution)
+			ingredient = newIng
 
 	return healthyRecipe
 

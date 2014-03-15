@@ -179,7 +179,7 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
     primeIndex = items.index(primeIng)
 
     for x in range(0, primeIndex):
-        if items[x].endswith('ed'):
+        if items[x].endswith('ed') and not items[x] == 'red':
             preparations.append(items[x])
         else:
             descriptors.append(items[x])
