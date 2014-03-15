@@ -58,7 +58,12 @@ colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black'
 poultryAndGame = ['chicken','duck','turkey','goose', 'quail', 'rabbit', 'venison']
 livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork']
 prepared = ['bacon', 'ham', 'meatball', 'pepperoni', 'salami', 'sausage']
-meats = poultryAndGame + livestock + prepared
+seafood = ['crab', 'crayfish', 'lobster', 'shrimp', 'prawn', 'anchovy', 'basa', 
+			'bass', 'catfish', 'carp', 'cod', 'crappie', 'eel', 'flounder', 'grouper', 'haddock',
+			'halibut', 'herring', 'kingfish', 'mackerel', 'mahi mahi', 'marlin', 'milkfish', 
+			'orange roughy', 'pacific saury', 'perch', 'pike', 'pollock', 'salmon', 
+			'sardine', 'sole', 'swordfish', 'tilapia', 'trout', 'tuna', 'walleye', 'oyster', 'oysters', 'clam', 'clams']
+meats = poultryAndGame + livestock + prepared + seafood
 stocks = ["stock", "broth", "bouillon"]
 vegSubstitutions = {
 				"ground poultry": {"name": "beans", "descriptor": "canned cannellini", "preparation": "drained"},
@@ -66,6 +71,7 @@ vegSubstitutions = {
 				"poultry": {"name": "tofu", "descriptor": "firm", "preparation": "drained"},
 				"livestock": {"name": "mushroom", "descriptor": "portobello", "preparation": ""},
 				"stock": {"name": "", "descriptor": "vegetable", "preparation": ""},
+				"seafood": {"name": "tofu", "descriptor": "firm", "preparation": "drained"},
 				}
 
 healthySubstitutions = {
@@ -83,6 +89,7 @@ healthySubstitutions = {
 	"potatoes": {"": "sweet potatoes"},
 	"shortening": {"":"margarine"},
 }
+
 ##############################
 
 ingredientDB = []

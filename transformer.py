@@ -10,30 +10,87 @@ from lists import poultryAndGame as poultryAndGame,\
 livestock as livestock, \
 stocks as stocks, \
 meats as meats, \
+seafood as seafood, \
 prepared as prepared, \
-vegSubstitutions as vegSubstitutions
+vegSubstitutions as vegSubstitutions, \
+healthySubstitutions as healthySubstitutions
 
 
 # TODO: add seafoods for veggie transformer
+# TODO: healthy transformer, qty, method, and meat substitutions
 
 ##############################
 ##### HEALTHY TRANSFORMER ####
 ##############################
 def healthyTransformer(recipe):
-	pass
-	'''
-	Substitutions not in list:
-	QTY SUBSTITUTIONS
-	Reduce sugar (75%)	
-	two egg whties - one whole egg
-	
-	METHODS
-	oven/pan-fry - deep fry (cut fat)
-	steam - boil (steaming removes fewer nutrients)
+	ingredients = recipe.ingredients
+	healthyRecipe = recipe
 
-	OTHER
-	white meat poultry - dark meat poultry 
-	'''
+	for ingredient in ingredients:
+		substitution = ""
+		if ingredient.name in healthySubstitutions:
+			baseIng = healthySubstitutions[ingredient.name]
+			if ingredient.descriptor in baseIng:
+				print baseIng[ingredient.descriptor]
+				substitution = baseIng[ingredient.descriptor]
+			else:
+				if baseIng[""]:
+					print baseIng[""]
+					substitution = baseIng[""]
+				else:
+					print "Nothing to substitute"
+
+		# PERFORM SUBSTITUTION
+		if substitution:
+			healthyRecipe = performHealthySub(ingredient, healthyRecipe, substitution)
+
+	return healthyRecipe
+
+
+'''
+Substitutions not in list:
+QTY SUBSTITUTIONS
+Reduce sugar (75%)	
+two egg whties - one whole egg
+
+METHODS
+oven/pan-fry - deep fry (cut fat)
+steam - boil (steaming removes fewer nutrients)
+
+OTHER
+white meat poultry - dark meat poultry 
+beef - bison
+ground beef - ground turkey
+'''
+
+def performHealthySub(ingredient, recipe, substitution):
+	ingredients = healthySubIngredients(ingredient, recipe.ingredients, substitution)
+	# steps = healthySubSteps(ingredient, ingredients["origIng"], recipe.directions)
+
+	recipe.ingredients = ingredients["ingredients"]
+	# recipe.directions = steps
+
+	return recipe
+
+def healthySubIngredients(ingredient, ingList, substitution):
+	newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
+	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
+	origIng = copy.deepcopy(ingredient)
+	ingIndex = ingList.index(ingredient)
+	if substitution:
+		for field in substitution:
+			if substitution[field]:
+				if field == "name":
+					ingList[ingIndex].name = substitution[field]
+					print "NAME"
+				elif field == "descriptor":
+					ingList[ingIndex].descriptor = substitution[field]
+	else:
+		# REMOVE INGREDIENT
+		ingList.pop(ingIndex)
+
+
+	return {"ingredients": ingList, "origIng": origIng}
 
 ##############################
 ##### VEGGIE TRANSFORMER #####
@@ -60,6 +117,8 @@ def veggieTransformer(recipe):
 				substitution = vegSubstitutions["poultry"]
 			elif name in livestock:
 				substitution = vegSubstitutions["livestock"]
+			elif name in seafood or ingredient.descriptor in seafood:
+				substitution = vegSubstitutions["seafood"]
 			else:
 				substitution = None
 
@@ -207,16 +266,20 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
+	recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
+	# seafood
+	recipe = getRecipe('http://allrecipes.com/recipe/seafood-gumbo/')
 	# print recipe.unicode()
 
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Fluffy-Pancakes-2/Detail.aspx?event8=1&prop24=SR_Thumb&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
-
+	# recipe = getRecipe('http://allrecipes.com/Recipe/Mayonnaise-Cookies/Detail.aspx?event8=1&prop24=SR_Thumb&e11=mayonnaise&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i6')
+	# a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
+	# print a.unicode()
 	a = veggieTransformer(recipe)
+	# a = healthyTransformer(recipe)
 	printRecipe(a.name, a.ingredients, a.directions)
 
 
