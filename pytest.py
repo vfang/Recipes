@@ -4,7 +4,7 @@ import scraper
 
 lists.ingredientDB = parsing.readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
 lists.updateNameDB()
-recipeURL = 'http://allrecipes.com/Recipe/Cheesecake-Supreme/Detail.aspx?prop24=hn_slide1_Cheesecake-Supreme&evt19=1'
+recipeURL = 'http://allrecipes.com/Recipe/Easy-Broccoli-Quiche/Detail.aspx?soid=carousel_0_rotd&prop24=rotd'
 recipeInfo = scraper.retrieveRecipe(recipeURL)
 
 i = parsing.parseIngredients(recipeInfo['ingredients'])
