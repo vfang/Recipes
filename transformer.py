@@ -122,7 +122,7 @@ def veggieTransformer(recipe):
 					substitution = vegSubstitutions["ground livestock"]
 			elif name in poultryAndGame or descriptorMeat in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
 				substitution = vegSubstitutions["poultry"]
-			elif name in livestock or descriptorMeat in livestock:
+			elif name in livestock or descriptorMeat in livestock or name in prepared:
 				substitution = vegSubstitutions["livestock"]
 			elif name in seafood or descriptorMeat in seafood:
 				substitution = vegSubstitutions["seafood"]
@@ -186,9 +186,6 @@ def vegSubSteps(newIng, origIng, steps):
 				newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
 			elif re.search("(?i).*%s.*" % origIng.name, step):
 				newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
-			else:
-				meat = findMeatDescriptor(origIng.descriptor)
-				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
 		else:
 			meat = findMeatDescriptor(origIng.descriptor)
 			if re.search("(?i).*%s.*" % meat, step):
