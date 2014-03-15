@@ -3591,7 +3591,7 @@
 ~11932~^~1100~^~Beans, snap, yellow, canned, regular pack, drained solids~^~BEANS,SNAP,YEL,CND,REG PK,DRND SOL~^~~^~~^~Y~^~~^0^~~^6.25^2.44^8.37^3.57
 ~11933~^~1100~^~Beans, snap, yellow, canned, no salt added, drained solids~^~BEANS,SNAP,YEL,CND,NO SALT,DRND SOL~^~~^~~^~~^~~^0^~~^6.25^2.44^8.37^3.57
 ~11934~^~1100~^~Potatoes, mashed, home-prepared, whole milk and butter added~^~POTATOES,MSHD,HOME-PREPARED,WHL MILK & BUTTER ADDED~^~~^~~^~~^~~^0^~~^^^^
-~11935~^~1100~^~Catsup~^~Catsup~^~Ketchup~^~~^~Y~^~~^0^~~^^^^
+~11935~^~1100~^~Ketchup~^~Ketchup~^~Ketchup~^~~^~Y~^~~^0^~~^^^^
 ~11937~^~1100~^~Pickles, cucumber, dill or kosher dill~^~PICKLES,CUCUMBER,DILL OR KOSHER DILL~^~~^~~^~Y~^~~^0^~~^6.25^2.44^8.37^3.57
 ~11939~^~1100~^~Mushrooms, portabella, exposed to ultraviolet light, grilled~^~MUSHROOMS,PORTABELLA,EXPOSED TO UV LT,GRILLED~^~portobella~^~~^~~^~~^0^~Agaricus bisporus~^6.25^2.62^8.37^3.48
 ~11940~^~1100~^~Pickles, cucumber, sweet (includes bread and butter pickles)~^~PICKLES,CUCUMBER,SWT (INCLUDES BREAD & BUTTER PICKLES)~^~~^~~^~Y~^~~^0^~~^^^^

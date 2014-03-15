@@ -175,7 +175,10 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     primeIndex = items.index(primeIng)
 
     for x in range(0, primeIndex):
-        descriptors.append(items[x])
+        if items[x].endswith('ed'):
+            preparations.append(items[x])
+        else:
+            descriptors.append(items[x])
 
     p = items[(primeIndex + 1):]
     for item in p:
@@ -183,9 +186,6 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
     if primeIng.endswith(','):
         primeIng = primeIng[:-1]
-
-    if primeIng == 'ketchup':
-        primeIng = 'catsup'
 
     if primeIng == 'zucchinis':
         primeIng = 'zucchini'
@@ -446,15 +446,20 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if match:
             ing = objects.Ingredient()
-            ing.name = DBing.name
+            for i in descriptors:
+                ing.name += i + ' '
+            if primeIng == 'flr':
+                ing.name += 'flour'
+            else:
+                ing.name += primeIng
             ing.origName = primeIng # VF: I need this for transformer, remove after search is fixed
             ing.descriptor = DBing.descriptor
             
             if preparations != []:
                 pass
-
-            for word in preparations:
-                ing.preparation += word + ' '
+            else:
+                for word in preparations:
+                    ing.preparation += word + ' '
             
             ing.category = DBing.category
             ing.protein = DBing.protein
@@ -508,6 +513,8 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
             topIndex = matches.index(find)
             topScore = find[1]
 
+    if result.name == 'flr':
+        result.name = 'flour'
     return result
 
 def parseIngredients(ingredients):
