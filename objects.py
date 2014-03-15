@@ -103,8 +103,10 @@ class Ingredient:
         self.string += 'Amount: ' + self.amount + '\n'
         self.string += 'Units: ' + self.unit + '\n'
         self.string += 'Descriptor: ' + self.descriptor + '\n'
-        self.string += 'Preparation: ' + self.preparation + '\n'
-        self.string += 'Category: ' + self.category + '\n'
+        self.string += 'Preparation: '
+        for prep in self.preparation:
+            self.string+= prep +','
+        self.string += '\nCategory: ' + self.category + '\n'
         self.string += 'Protein: ' + self.protein + '\n'
         self.string += 'Fat: ' + self.fat + '\n'
         self.string += 'Carbs: ' + self.carbs + '\n'
@@ -153,7 +155,7 @@ class Ingredient:
             self.descriptor = descriptor
 
         if preparation == None:
-            self.preparation = 'None'
+            self.preparation = []
         else:
             self.preparation = preparation
 

@@ -654,4 +654,4 @@ def main(recipeURL):
 	recipe = buildRecipeObject(recipeInfo)
 	print recipe.unicode()
 
-# main(sys.argv[1])
+main(sys.argv[1])
