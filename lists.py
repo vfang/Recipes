@@ -60,7 +60,7 @@ colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black'
 poultryAndGame = ['chicken','duck','turkey','goose', 'quail', 'rabbit', 'venison']
 livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork', 'steak', 'chuck']
 prepared = ['bacon', 'ham', 'meatball', 'pepperoni', 'salami', 'sausage']
-seafood = ['crab', 'crayfish', 'lobster', 'shrimp', 'prawn', 'anchovy', 'basa', 
+seafood = ['crab', 'crabmeat', 'crayfish', 'lobster', 'shrimp', 'prawn', 'anchovy', 'basa', 
 			'bass', 'catfish', 'carp', 'cod', 'crappie', 'eel', 'flounder', 'grouper', 'haddock',
 			'halibut', 'herring', 'kingfish', 'mackerel', 'mahi mahi', 'marlin', 'milkfish', 
 			'orange roughy', 'pacific saury', 'perch', 'pike', 'pollock', 'salmon', 

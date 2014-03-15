@@ -187,7 +187,7 @@ def vegSubSteps(newIng, origIng, steps):
 				newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
 			elif re.search("(?i).*%s.*" % origIng.name, step):
 				newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
-		else:
+		elif findMeatDescriptor(origIng.descriptor):
 			meat = findMeatDescriptor(origIng.descriptor)
 			if re.search("(?i).*%s.*" % meat, step):
 				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
@@ -222,7 +222,7 @@ def sanitizeMeatDirections(step, newIng):		# Get rid of meat related directions
 						sentence = re.sub("(?i) until.*[;]", ";", sentence)
 						sentence = re.sub("(?i) until.*$", "", sentence)
 			elif word == "meat":
-				if re.search("(?i).*%s" % word, sentence):
+				if re.search("(?i).* %s" % word, sentence):
 					print "REMOVING Directions: ", sentence, " - ", word		
 					sentence = ""
 			else:
@@ -296,7 +296,7 @@ def main():
 	# print recipe.unicode()
 
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Mayonnaise-Cookies/Detail.aspx?event8=1&prop24=SR_Thumb&e11=mayonnaise&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i6')
-	a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
+	# a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
 	# print a.unicode()
 	a = veggieTransformer(recipe)
 	# a = healthyTransformer(recipe)
