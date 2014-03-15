@@ -7,24 +7,25 @@ preparations = ['chopped','minced','sliced','crushed','melted','dried','grated',
 descriptions = ['warm','sweet','fresh','large','skinless','boneless','small','medium'
 ]'''
 
-methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
-'blacken', 'blanch', 'boil-up', 'boil', 'broil','braise', 'bread crumbs',
-'brine', 'broast', 'brochette', 'brown', 'caramelize', 'carry over cooking',
-'casserole', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
+secondaryMethods =[ 'baste', 'biomass briquettes',
+'brochette', 'carry over cooking', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
 'concasse', 'conche', 'confit', 'cooking with alcohol', 'chop','cut','cream',
-'culinary triangle', 'curdle', 'cure', 'deep fry', 'deglaze ',
-'degrease', 'dredge ', 'dry roast', 'dry', 'en papillote', 'en vessie',
-'engastration', 'engine cooking', 'flambe', 'foam ', 'fondue', 'fry',
-'gentle fry', 'glaze', 'grill','grease', 
-'infusion', 'juice', 'maceration', 'marinate', 'pan fry', 
-'par-cook', 'parboil','paste','pellicle ', 'pickle', 'poach', 
-'pre-ferment', 'pressure cooking', 'pressure fry', 'proof', 'puree', 
-'red cooking', 'reduction ', 'render', 'ricing ', 'roast', 'robatayaki', 
-'rotisserie', 'saute', 'seare', 'season', 'shallow fry', 'shrivelling', 
-'simmer', 'slow cook','shred','smoke ', 'smother', 'souring', 'sous-vide', 'spatchcock', 
-'spherification', 'steam', 'steep', 'stew', 'stir','stir fry', 'sugar pan', 'sweat ', 
-'tataki', 'tenderize', 'thicken', 'mix','preheat', 'scald', 'drain', 'mash', 'pour', 'spread', 'combine'
-'head']
+'culinary triangle', 'curdle', 'cure', 'deglaze ',
+'degrease', 'dredge ','dry', 'en papillote', 'en vessie',
+'engastration', 'engine cooking',  'foam ', 'fondue','glaze','grease', 
+'infusion', 'juice', 'maceration', 'marinate',  
+'par-cook', 'paste','pellicle ', 'pickle',  
+'pre-ferment','proof', 'puree', 
+'red cooking', 'reduction', 'render', 'ricing ', 'robatayaki', 
+'rotisserie','season', 'shrivelling', 
+'shred','smother', 'souring', 'sous-vide', 'spatchcock', 
+'spherification', 'steep', 'stew', 'stir', 'sugar pan', 'sweat ', 
+'tataki', 'tenderize', 'thicken', 'mix','mince' 'scald', 'drain', 'mash', 'pour', 'spread', 'combine']
+
+primaryMethods = ['bake','barbecue','boil', 'broil','braise','flambe','broast','dry roast','stir fry'
+'saute','slow cook','shallow fry','pressure cooking', 'pressure fry','poach','pan fry','grill',
+'brochette','caramelize','blacken','seare','deep fry','parboil','roast','steam','fry',
+'gentle fry','simmer','smoke','preheat']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
