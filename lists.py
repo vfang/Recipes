@@ -1,10 +1,11 @@
 #list of predefined things
-units = ['cups','cup','teaspoon','tablespoon','teaspoons','tablespoons','gallon','liter'
+'''units = ['cups','cup','teaspoon','tablespoon','teaspoons','tablespoons','gallon','liter'
 'pound','pounds','gram','grams']
 
 preparations = ['chopped','minced','sliced','crushed','melted','dried','grated','pounded','ground'
-'diced','cubed','shredded','peeled']
-descriptions = ['warm','sweet','fresh']
+'diced','cubed','shredded','peeled','trimmed']
+descriptions = ['warm','sweet','fresh','large','skinless','boneless','small','medium'
+]'''
 
 methods =['bake', 'barbecue', 'baste', 'biomass briquettes',
 'blacken', 'blanch', 'boil-up', 'boil', 'broil','braise', 'bread crumbs',
