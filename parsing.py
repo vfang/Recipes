@@ -32,18 +32,18 @@ import sys
 #~3500~^~American Indian/Alaska Native Foods~
 #~3600~^~Restaurant Foods~
 
-def buildRecipeObject(recipeInfo):	#recipeInfo is a dictionary
-	recipe = objects.Recipe(name=recipeInfo['title'],
-		author= recipeInfo['author'], 
-		cookTime=recipeInfo['time'], 
-		servings=recipeInfo['servings'], 
-		rating=recipeInfo['rating'])
-	recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
-	recipe.directions = recipeInfo['directions']
-	toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)	
-	recipe.tools= toolsAndMethods['tools']
-	recipe.methods = toolsAndMethods['methods']
-	return recipe
+def buildRecipeObject(recipeInfo):  #recipeInfo is a dictionary
+    recipe = objects.Recipe(name=recipeInfo['title'],
+        author= recipeInfo['author'], 
+        cookTime=recipeInfo['time'], 
+        servings=recipeInfo['servings'], 
+        rating=recipeInfo['rating'])
+    recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
+    recipe.directions = recipeInfo['directions']
+    toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)  
+    recipe.tools= toolsAndMethods['tools']
+    recipe.methods = toolsAndMethods['methods']
+    return recipe
 
 def parseIngredient(dict):
     amount = dict['amount']
@@ -51,9 +51,9 @@ def parseIngredient(dict):
 
     amount = amount.split()
     if amount:
-    	amnt = amount[0]
+        amnt = amount[0]
     else:
-    	amnt = ""
+        amnt = ""
 
     if len(amount) > 2:
         a = ''
@@ -125,7 +125,7 @@ def parseIngredient(dict):
 
     return ing
 
-def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the ingredient database
+def findIngredient(ingr):   #Maps a string to the corresponding ingredient in the ingredient database
     ingr = ingr.lower()
     items = ingr.split()
 
@@ -534,124 +534,130 @@ def parseIngredients(ingredients):
     return ings
 
 def parseDirections(directions,ingredients):
-	exclude = set(string.punctuation)
-	ingredientsList = []
-	for ing in ingredients:
-		ingredientsList.append(ing.origName)
-	words = []
-	parsed = {"tools":[],"methods":[]}
-	for sentence in directions:
-		sentence = ''.join(ch for ch in sentence if ch not in exclude)
-		w = sentence.split()
-		for word in w:
-			word = word.lower()
-			if word not in words: #and word not in ignoreWords:
-				words.append(word)
+    exclude = set(string.punctuation)
+    ingredientsList = []
+    for ing in ingredients:
+        ingredientsList.append(ing.origName)
+    words = []
+    parsed = {"tools":[],"methods":[]}
+    for sentence in directions:
+        sentence = ''.join(ch for ch in sentence if ch not in exclude)
+        w = sentence.split()
+        for word in w:
+            word = word.lower()
+            if word not in words: #and word not in ignoreWords:
+                words.append(word)
 
-	for word in words:
-		nextWordIndex = words.index(word)+1
-		double_word =''
+    for word in words:
+        nextWordIndex = words.index(word)+1
+        double_word =''
 
-		try:
-			double_word = word+' '+words[nextWordIndex]
-		except:
-			double_word = word
-		try:
-			lastTool = parsed['tools'][-1]
-		except:
-			lastTool = ''
+        try:
+            double_word = word+' '+words[nextWordIndex]
+        except:
+            double_word = word
+        try:
+            lastTool = parsed['tools'][-1]
+        except:
+            lastTool = ''
 
-		if word not in lastTool:
-			if double_word in lists.tools:
-				parsed['tools'].append(double_word)
-			elif word in lists.tools:
-				if double_word not in ingredientsList:
-					parsed['tools'].append(word)
+        if word not in lastTool:
+            if double_word in lists.tools:
+                parsed['tools'].append(double_word)
+            elif word in lists.tools:
+                if double_word not in ingredientsList:
+                    parsed['tools'].append(word)
 
-		if double_word in lists.methods:
-			parsed['methods'].append(double_word)
+        if double_word in lists.methods:
+            parsed['methods'].append(double_word)
 
-		elif word in lists.methods:
-			if double_word not in ingredientsList:
-				parsed['methods'].append(word)
+        elif word in lists.methods:
+            if double_word not in ingredientsList:
+                parsed['methods'].append(word)
 
-	return parsed
+    return parsed
 
 def tokenizeLine(string):
-	line = string.split('^')
-	numArgs = len(line)
-	out = []
-	for item in line:
-		if item == '':
-			out.append(item)
-		else:
-			if item[0] != '~':
-				out.append(item)
-			else:
-				text = item.split('~')
-				empty = False
-				appended = False
-				for word in text:
-					if len(text) == 3 and text[1] == word and word != '':
-						out.append(word)
-						appended = True
-					if empty and word == '' and not appended:
-						out.append(word)
-						empty = False
-						appended = True
-					else:
-						if word == '':
-							empty = True
-	return out
+    line = string.split('^')
+    numArgs = len(line)
+    out = []
+    for item in line:
+        if item == '':
+            out.append(item)
+        else:
+            if item[0] != '~':
+                out.append(item)
+            else:
+                text = item.split('~')
+                empty = False
+                appended = False
+                for word in text:
+                    if len(text) == 3 and text[1] == word and word != '':
+                        out.append(word)
+                        appended = True
+                    if empty and word == '' and not appended:
+                        out.append(word)
+                        empty = False
+                        appended = True
+                    else:
+                        if word == '':
+                            empty = True
+    return out
 
 def readIngredientFromLine(line):
-	#fields = 0
-	#if objectType == 'FOOD':
-	#	isFood = True
-	#	fields = 14
-	#elif objectType == 'NUTIRENT':
-	#	isNutrient = True
-	#	fields = 6
-	#else:
-	#	print('objectType not recognized.')
-	#	return None
-	tokens = tokenizeLine(line)
-	output = objects.Ingredient()
-	#	output.id = tokens[0]
-	output.category = tokens[1]
-	output.descriptor = tokens[2].lower()
-	output.name = tokens[3]
-	#output.ComName = tokens[4]
-	#	output.manufacName = tokens[5]
-	#	output.survey = tokens[6]
-	#	output.refDesc = tokens[7]
-	#	output.refuse = tokens[8]
-	#	output.sciName = tokens[9]
-	#	output.nFactor = tokens[10]
-	output.protein = tokens[11]
-	output.fat = tokens[12]
-	output.carbs = tokens[13]
-	return output
+    #fields = 0
+    #if objectType == 'FOOD':
+    #   isFood = True
+    #   fields = 14
+    #elif objectType == 'NUTIRENT':
+    #   isNutrient = True
+    #   fields = 6
+    #else:
+    #   print('objectType not recognized.')
+    #   return None
+    tokens = tokenizeLine(line)
+    output = objects.Ingredient()
+    #   output.id = tokens[0]
+    output.category = tokens[1]
+    output.descriptor = tokens[2].lower()
+    output.name = tokens[3]
+    #output.ComName = tokens[4]
+    #   output.manufacName = tokens[5]
+    #   output.survey = tokens[6]
+    #   output.refDesc = tokens[7]
+    #   output.refuse = tokens[8]
+    #   output.sciName = tokens[9]
+    #   output.nFactor = tokens[10]
+    output.protein = tokens[11]
+    output.fat = tokens[12]
+    output.carbs = tokens[13]
+    return output
 
 def readIngredientsFromFile(fileName):
-	ingredientList = []
-	with open(fileName, 'r') as f:
-		while(True):
-			line = f.readline()
-			if not line:
-				break
-			ingredientList.append(readIngredientFromLine(line))
-	return ingredientList
+    ingredientList = []
+    with open(fileName, 'r') as f:
+        while(True):
+            line = f.readline()
+            if not line:
+                break
+            ingredientList.append(readIngredientFromLine(line))
+    return ingredientList
 
-def main(recipeURL):
-	#temporary
-	lists.ingredientDB = readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
-	lists.updateNameDB()
-	###
-	recipeInfo = scraper.retrieveRecipe(recipeURL)
-	pp = pprint.PrettyPrinter(indent=4)
-	pp.pprint(recipeInfo)
-	recipe = buildRecipeObject(recipeInfo)
-	print recipe.unicode()
+def main(recipeURL = None):
+    #temporary
+    lists.ingredientDB = readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
+    lists.updateNameDB()
+    ###
+    if recipeURL == None:
+        pass
+    else:
+       recipeInfo = scraper.retrieveRecipe(recipeURL)
+       pp = pprint.PrettyPrinter(indent=4)
+       pp.pprint(recipeInfo)
+       recipe = buildRecipeObject(recipeInfo)
+       print recipe.unicode()
 
-main(sys.argv[1])
+if len(sys.argv) < 2:
+    pass
+else:
+    main(sys.argv[1])
