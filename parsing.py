@@ -153,7 +153,7 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
     primeIng = ''
 
     for item in items:
-        if item.endswith(','):
+        if item.endswith(',') and not item.endswith('less'):
             primeIng = item
             break
 
