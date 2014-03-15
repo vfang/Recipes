@@ -465,7 +465,12 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
                     ing.preparation += word + ' '
             
             ing.category = DBing.category
-            ing.protein = DBing.protein
+            if DBing.protein != '':
+                ing.protein = DBing.protein
+            if DBing.carbs != '':
+                ing.carbs = DBing.carbs
+            if DBing.fat != '':
+                ing.fat = DBing.fat
 
             if soup and not soupOrSauce:
                 matchScore = matchScore / 3.0
