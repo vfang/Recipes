@@ -154,9 +154,12 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
     primeIng = ''
 
     for item in items:
-        if item.endswith(',') and not item.endswith('less'):
-            primeIng = item
-            break
+        if item.endswith(','):
+            if item.endswith('less,'):
+                pass
+            else:
+                primeIng = item
+                break
 
     if primeIng == '':
         filter = []
@@ -538,7 +541,7 @@ def parseDirections(directions,ingredients):
     exclude = set(string.punctuation)
     ingredientsList = []
     for ing in ingredients:
-        ingredientsList.append(ing.origName)
+        ingredientsList.append(ing.name)
     words = []
     parsed = {"tools":[],"primaryMethods":[],"secondaryMethods":[]}
     for sentence in directions:

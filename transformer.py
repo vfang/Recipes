@@ -101,27 +101,28 @@ def veggieTransformer(recipe):
 	for ingredient in ingredients:
 		substitution = ""
 		name = ingredient.name
+		descriptorMeat = findMeatDescriptor(ingredient.descriptor)
+
 		# STOCKS
 		if name in stocks:
 			print 'STOCK'
 			substitution = vegSubstitutions["stock"]
 		# MEATS
-		elif name in meats:
-			# GROUND MEATS
+		elif name in meats or descriptorMeat in meats:
+			descriptorMeat = findMeatDescriptor(ingredient.descriptor)
 			if re.search("(?i)ground", ingredient.descriptor):
 				if ingredient.name in poultryAndGame:
 					substitution = vegSubstitutions["ground poultry"]
 				else:
 					substitution = vegSubstitutions["ground livestock"]
-			elif name in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
+			elif name in poultryAndGame or descriptorMeat in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
 				substitution = vegSubstitutions["poultry"]
-			elif name in livestock:
+			elif name in livestock or descriptorMeat in livestock:
 				substitution = vegSubstitutions["livestock"]
-			elif name in seafood or ingredient.descriptor in seafood:
+			elif name in seafood or descriptorMeat in seafood:
 				substitution = vegSubstitutions["seafood"]
 			else:
 				substitution = None
-
 		# PERFORM SUBSTITUTION
 		if substitution:	
 			vegRecipe = performVegSub(ingredient, vegRecipe, substitution)
@@ -183,7 +184,10 @@ def vegSubSteps(newIng, origIng, steps):
 			else:
 				meat = findMeatDescriptor(origIng.descriptor)
 				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
-
+		else:
+			meat = findMeatDescriptor(origIng.descriptor)
+			if re.search("(?i).*%s.*" % meat, step):
+				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
 
 		newStep = sanitizeMeatDirections(newStep, newIng)
 
@@ -195,7 +199,7 @@ def vegSubSteps(newIng, origIng, steps):
 def findMeatDescriptor(descriptor):
 	words = descriptor.split(' ')
 	meat = ''
-	print words
+	# print words
 	for word in words:
 		if word in meats:
 			meat = word
@@ -247,7 +251,7 @@ def isStirFry(recipe):
 
 def isDeepFried(recipe):
 	isFried = False
-	if "fry" in recipe.methods:
+	if "fry" in recipe.primaryMethods:
 		isFried = True
 
 	return isFried
@@ -279,8 +283,8 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
@@ -289,7 +293,7 @@ def main():
 	# print recipe.unicode()
 
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Mayonnaise-Cookies/Detail.aspx?event8=1&prop24=SR_Thumb&e11=mayonnaise&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i6')
-	# a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
+	a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
 	# print a.unicode()
 	a = veggieTransformer(recipe)
 	# a = healthyTransformer(recipe)
