@@ -11,8 +11,11 @@ class Recipe:
         self.string += 'Directions: \n'
         for direction in self.directions:
             self.string += direction +','
-        #self.string += self.directions + '\n'
-        self.string += '\nAuthor: ' + self.author + '\n'
+
+        self.string += 'Step by Step Breakdown of Directions: \n':
+        for step in self.steps:
+            self.string +=step.unicode()+'\n'
+        self.string += 'Author: ' + self.author + '\n'
         self.string += 'Cook Time: ' + self.cookTime + '\n'
         self.string += 'Servings: ' + str(self.servings) + '\n'
         self.string += 'Rating: ' + str(self.rating) + '\n'
@@ -21,24 +24,29 @@ class Recipe:
         for tool in self.tools:
             self.string += tool + ','
 
-        self.string += '\nMethods: \n'
+        self.string += '\nPrimary Methods: \n'
 
-        for method in self.methods:
+        for method in self.primaryMethods:
             self.string += method + ','
 
+        self.string +='\nSecondary Methods:\n'
+        for sMethod in self.secondaryMethods:
+            self.string+=sMethod + ','
         self.string += '\nCuisine: ' + self.cuisine + '\n'
 
     def __init__(self, 
         name = None,
         ingredients = None,
         directions = None,
+        steps = None,
         author = None,
         cookTime = None,
         servings = None,
         rating = None,
         tools = None,
-        methods = None,
-        cuisine = None):
+        primaryMethods = None,
+        secondaryMethods = None,
+        cuisine = Nonec):
 
         self.string = ''
 
@@ -56,6 +64,11 @@ class Recipe:
             self.directions = 'None'
         else:
             self.directions = directions
+
+        if steps == None:
+            self.steps = []
+        else:
+            self.steps = steps
 
         if author == None:
             self.author = ''
@@ -82,11 +95,16 @@ class Recipe:
         else:
             self.tools = tools
 
-        if methods == None:
-            self.methods = []
+        if primaryMethods == None:
+            self.primaryMethods = []
         else:
-            self.methods = methods
+            self.primaryMethods = primaryMethods
 
+        if secondaryMethods == None:
+            self.secondaryMethods = []
+        else:
+            self.secondaryMethods = secondaryMethods
+            
         if cuisine == None:
             self.cuisine = ''
         else:
@@ -111,7 +129,6 @@ class Ingredient:
 
     def __init__(self,
         name = None,
-        origName = None,
         amount = None,
         unit = None,
         descriptor = None,
@@ -131,11 +148,6 @@ class Ingredient:
             self.name = ''
         else:
             self.name = name
-
-        if origName == None:
-            self.origName = ''
-        else:
-            self.origName = origName
             
         if amount == None:
             self.amount = '0.0'
@@ -180,3 +192,29 @@ class Ingredient:
     def unicode(self):
         self.updateString()
         return self.string
+
+class Steps:
+    def updateString(self):
+        pass
+    def __init__(self,direction=None,tools=None,
+                primaryMethods=None,secondaryMethods = None,
+                time=None):
+        if direction == None:
+            self.direction = ''
+        else:
+            self.direction = direction
+
+        if tools == None:
+            self.tools = []
+        else:
+            self.tools = tools
+
+        if primaryMethods == None:
+            self.primaryMethods =[]
+        else:
+            self.primaryMethods = primaryMethods
+
+        if secondaryMethods == None:
+            self.secondaryMethods = []
+        else:
+            self.secondaryMethods = secondaryMethods
