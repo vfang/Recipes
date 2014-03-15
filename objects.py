@@ -138,22 +138,22 @@ class Ingredient:
             self.origName = origName
             
         if amount == None:
-            self.amount = ''
+            self.amount = '0.0'
         else:
             self.amount = amount
 
         if unit == None:
-            self.unit = ''
+            self.unit = 'Not specified'
         else:
             self.unit = unit
 
         if descriptor == None:
-            self.descriptor = ''
+            self.descriptor = 'None'
         else:
             self.descriptor = descriptor
 
         if preparation == None:
-            self.preparation = ''
+            self.preparation = 'None'
         else:
             self.preparation = preparation
 
@@ -163,17 +163,17 @@ class Ingredient:
             self.category = category
 
         if protein == None:
-            self.protein = ''
+            self.protein = '0.00'
         else:
             self.protein = protein
 
         if fat == None:
-            self.fat = ''
+            self.fat = '0.00'
         else:
             self.fat = fat
 
         if carbs == None:
-            self.carbs = ''
+            self.carbs = '0.00'
         else:
             self.carbs = carbs
 

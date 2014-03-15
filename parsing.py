@@ -446,14 +446,17 @@ def findIngredient(ingr):	#Maps a string to the corresponding ingredient in the 
 
         if match:
             ing = objects.Ingredient()
-            for i in descriptors:
-                ing.name += i + ' '
+            
             if primeIng == 'flr':
                 ing.name += 'flour'
             else:
                 ing.name += primeIng
             ing.origName = primeIng # VF: I need this for transformer, remove after search is fixed
-            ing.descriptor = DBing.descriptor
+            if len(descriptors) != 0:
+                ing.descriptor = ''
+            for i in descriptors:
+                ing.descriptor += i + ' '
+            ing.id = DBing.id
             
             if preparations != []:
                 pass
