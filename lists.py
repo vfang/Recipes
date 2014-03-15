@@ -53,6 +53,42 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 
 colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black', 'brown']
 
+##############################
+# Lists for Transformers
+poultryAndGame = ['chicken','duck','turkey','goose', 'quail', 'rabbit', 'venison']
+livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork']
+prepared = ['bacon', 'ham', 'meatball', 'pepperoni', 'salami', 'sausage']
+meats = poultryAndGame + livestock + prepared
+stocks = ["stock", "broth", "bouillon"]
+vegSubstitutions = {
+				"ground poultry": {"name": "beans", "descriptor": "canned cannellini", "preparation": "drained"},
+				"ground livestock": {"name": "beans", "descriptor": "canned red kidney", "preparation": "drained"},
+				"poultry": {"name": "tofu", "descriptor": "firm", "preparation": "drained"},
+				"livestock": {"name": "mushroom", "descriptor": "portobello", "preparation": ""},
+				"stock": {"name": "", "descriptor": "vegetable", "preparation": ""},
+				}
+
+healthySubstitutions {
+	"milk": "skim milk",
+	"mayonnaise": "light mayonnaise",
+	"soy sauce": "low-sodium soy sauce",
+	"yogurt": "low-fat yogurt",
+	"peanut butter": "natural peanut butter",
+	"cheese": "reduced-fat cheese",
+	"white bread": "whole-grain bread",
+	"pasta": "whole-grain pasta",
+	"white rice": "brown rice",
+	"butter": "olive oil",
+	"heavy cream": "evaporated skim milk",
+	"beef": "bison",
+	"ground beef": "ground turkey",
+	"potato": "sweet potato",
+	"potatoes": "sweet potatoes",
+	"sour cream": "greek yogurt",
+	"shortening": "margarine",
+	"cream cheese": "fat-free ricotta cheese"
+}
+##############################
 
 ingredientDB = []
 ingNameDB = {}

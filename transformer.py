@@ -4,22 +4,40 @@ import lists
 import re
 import pprint
 import copy
-poultryAndGame = ['chicken','duck','turkey','goose', 'quail', 'rabbit', 'venison']
-livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork']
-prepared = ['bacon', 'ham', 'meatball', 'pepperoni', 'salami', 'sausage']
-meats = poultryAndGame + livestock + prepared
-stocks = ["stock", "broth", "bouillon"]
-# TODO: add seafoods
 
-substitutions = {
-				"ground poultry": {"name": "beans", "descriptor": "canned cannellini", "preparation": "drained"},
-				"ground livestock": {"name": "beans", "descriptor": "canned red kidney", "preparation": "drained"},
-				"poultry": {"name": "tofu", "descriptor": "firm", "preparation": "drained"},
-				"livestock": {"name": "mushroom", "descriptor": "portobello", "preparation": ""},
-				"stock": {"name": "", "descriptor": "vegetable", "preparation": ""},
-				}
+# Lists
+from lists import poultryAndGame as poultryAndGame,\
+livestock as livestock, \
+stocks as stocks, \
+meats as meats, \
+prepared as prepared, \
+vegSubstitutions as vegSubstitutions
 
-##### TRANSFORMERS ######
+
+# TODO: add seafoods for veggie transformer
+
+##############################
+##### HEALTHY TRANSFORMER ####
+##############################
+def healthyTransformer(recipe):
+	pass
+	'''
+	Substitutions not in list:
+	QTY SUBSTITUTIONS
+	Reduce sugar (75%)	
+	two egg whties - one whole egg
+	
+	METHODS
+	oven/pan-fry - deep fry (cut fat)
+	steam - boil (steaming removes fewer nutrients)
+
+	OTHER
+	white meat poultry - dark meat poultry 
+	'''
+
+##############################
+##### VEGGIE TRANSFORMER #####
+##############################
 def veggieTransformer(recipe):
 	ingredients = recipe.ingredients
 	vegRecipe = recipe
@@ -29,19 +47,19 @@ def veggieTransformer(recipe):
 		# STOCKS
 		if name in stocks:
 			print 'STOCK'
-			substitution = substitutions["stock"]
+			substitution = vegSubstitutions["stock"]
 		# MEATS
 		elif name in meats:
 			# GROUND MEATS
 			if re.search("(?i)ground", ingredient.descriptor):
 				if ingredient.name in poultryAndGame:
-					substitution = substitutions["ground poultry"]
+					substitution = vegSubstitutions["ground poultry"]
 				else:
-					substitution = substitutions["ground livestock"]
+					substitution = vegSubstitutions["ground livestock"]
 			elif name in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
-				substitution = substitutions["poultry"]
+				substitution = vegSubstitutions["poultry"]
 			elif name in livestock:
-				substitution = substitutions["livestock"]
+				substitution = vegSubstitutions["livestock"]
 			else:
 				substitution = None
 
@@ -203,4 +221,3 @@ def main():
 
 
 main()
-
