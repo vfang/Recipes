@@ -39,10 +39,11 @@ def buildRecipeObject(recipeInfo):  #recipeInfo is a dictionary
         servings=recipeInfo['servings'], 
         rating=recipeInfo['rating'])
     recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
-    recipe.directions = recipeInfo['directions']
     toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)  
     recipe.tools= toolsAndMethods['tools']
-    recipe.methods = toolsAndMethods['methods']
+    recipe.primaryMethods = toolsAndMethods['primaryMethods']
+    recipe.secondaryMethods = toolsAndMethods['secondaryMethods']
+    recipe.directions = recipeInfo['directions']
     return recipe
 
 def parseIngredient(dict):
@@ -539,7 +540,7 @@ def parseDirections(directions,ingredients):
     for ing in ingredients:
         ingredientsList.append(ing.origName)
     words = []
-    parsed = {"tools":[],"methods":[]}
+    parsed = {"tools":[],"primaryMethods":[],"secondaryMethods":[]}
     for sentence in directions:
         sentence = ''.join(ch for ch in sentence if ch not in exclude)
         w = sentence.split()
@@ -568,13 +569,17 @@ def parseDirections(directions,ingredients):
                 if double_word not in ingredientsList:
                     parsed['tools'].append(word)
 
-        if double_word in lists.methods:
-            parsed['methods'].append(double_word)
-
-        elif word in lists.methods:
+        if double_word in lists.primaryMethods:
+            parsed['primaryMethods'].append(double_word)
+        elif word in lists.primaryMethods:
             if double_word not in ingredientsList:
-                parsed['methods'].append(word)
+                parsed['primaryMethods'].append(word)
 
+        if double_word in lists.secondaryMethods:
+            parsed['secondaryMethods'].append(double_word)
+        elif word in lists.secondaryMethods:
+            if double_word not in ingredientsList:
+                parsed['secondaryMethods'].append(word)
     return parsed
 
 def tokenizeLine(string):
