@@ -57,7 +57,7 @@ colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'white', 'black'
 ##############################
 # Lists for Transformers
 poultryAndGame = ['chicken','duck','turkey','goose', 'quail', 'rabbit', 'venison']
-livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork']
+livestock = ['beef','veal', 'bison', 'goat', 'lamb', 'mutton', 'pork', 'steak']
 prepared = ['bacon', 'ham', 'meatball', 'pepperoni', 'salami', 'sausage']
 seafood = ['crab', 'crayfish', 'lobster', 'shrimp', 'prawn', 'anchovy', 'basa', 
 			'bass', 'catfish', 'carp', 'cod', 'crappie', 'eel', 'flounder', 'grouper', 'haddock',

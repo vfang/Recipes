@@ -176,11 +176,14 @@ def vegSubSteps(newIng, origIng, steps):
 					newStep = re.sub("(?i)%s" % origIng.name, sub, newStep) 
 		# MEATS
 		if origIng.name in meats:
-			# GROUND MEATS
 			if re.search("(?i)ground", origIng.descriptor):
 				newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
 			elif re.search("(?i).*%s.*" % origIng.name, step):
 				newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
+			else:
+				meat = findMeatDescriptor(origIng.descriptor)
+				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
+
 
 		newStep = sanitizeMeatDirections(newStep, newIng)
 
@@ -188,6 +191,16 @@ def vegSubSteps(newIng, origIng, steps):
 		newSteps[i] = newStep
 
 	return newSteps
+
+def findMeatDescriptor(descriptor):
+	words = descriptor.split(' ')
+	meat = ''
+	print words
+	for word in words:
+		if word in meats:
+			meat = word
+			break
+	return meat
 
 def sanitizeMeatDirections(step, newIng):		# Get rid of meat related directions
 	meatyWords = ["grease", "until", "fat", "meat"]
@@ -266,13 +279,13 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
-	recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
+	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
 	# seafood
-	recipe = getRecipe('http://allrecipes.com/recipe/seafood-gumbo/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/seafood-gumbo/')
 	# print recipe.unicode()
 
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Mayonnaise-Cookies/Detail.aspx?event8=1&prop24=SR_Thumb&e11=mayonnaise&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i6')
