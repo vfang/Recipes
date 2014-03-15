@@ -23,10 +23,9 @@ healthySubstitutions as healthySubstitutions
 ##### HEALTHY TRANSFORMER ####
 ##############################
 def healthyTransformer(recipe):
-	ingredients = recipe.ingredients
 	healthyRecipe = recipe
 
-	for ingredient in ingredients:
+	for ingredient in healthyRecipe.ingredients:
 		substitution = ""
 		if ingredient.name in healthySubstitutions:
 			baseIng = healthySubstitutions[ingredient.name]
@@ -42,7 +41,7 @@ def healthyTransformer(recipe):
 
 		# PERFORM SUBSTITUTION
 		if substitution:
-			healthyRecipe = performHealthySub(ingredient, healthyRecipe, substitution)
+			ingredient = performHealthySub(ingredient, substitution)
 
 	return healthyRecipe
 
@@ -72,25 +71,31 @@ def performHealthySub(ingredient, recipe, substitution):
 
 	return recipe
 
-def healthySubIngredients(ingredient, ingList, substitution):
+def healthySubIngredients(ingredient, substitution):
 	newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
-	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
-	origIng = copy.deepcopy(ingredient)
-	ingIndex = ingList.index(ingredient)
-	if substitution:
-		for field in substitution:
-			if substitution[field]:
-				if field == "name":
-					ingList[ingIndex].name = substitution[field]
-					print "NAME"
-				elif field == "descriptor":
-					ingList[ingIndex].descriptor = substitution[field]
-	else:
-		# REMOVE INGREDIENT
-		ingList.pop(ingIndex)
+	newIng.amount = ingredient.amount
+	newIng.unit = ingredient.unit
+	return newIng
 
 
-	return {"ingredients": ingList, "origIng": origIng}
+# ## What does this do?
+# 	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
+# 	origIng = copy.deepcopy(ingredient)
+# 	ingIndex = ingList.index(ingredient)
+# 	if substitution:
+# 		for field in substitution:
+# 			if substitution[field]:
+# 				if field == "name":
+# 					ingList[ingIndex].name = substitution[field]
+# 					print "NAME"
+# 				elif field == "descriptor":
+# 					ingList[ingIndex].descriptor = substitution[field]
+# 	else:
+# 		# REMOVE INGREDIENT
+# 		ingList.pop(ingIndex)
+
+
+# 	return {"ingredients": ingList, "origIng": origIng}
 
 ##############################
 ##### VEGGIE TRANSFORMER #####
