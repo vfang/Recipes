@@ -87,6 +87,38 @@ healthySubstitutions = {
 
 ##############################
 
+###indianSubstitutions
+meats = ['chicken','mutton']
+cheese = ['cottage cheese']
+sauces = ['tomato puree','lentils(dal)']
+spices = ['turmeric','garam masala','cumin']
+oil = ['vegetable oil']
+herbsAndGarnish = ['garlic','ginger','cardamon','almonds','coriander']
+breads = ['naan']
+veggies = ['potatoes','tomatoes','onions','okra','carrots','peas','beans']
+
+####chineseSubstitutions
+meats = ['chicken','tofu','pork']
+cheese = ['remove cheese']
+oil = ['peanut oil']
+sauces = ['soy sauce','oyster sauce','teriyaki sauce','sriracha','hoisin sauce','sesame oil']
+herbsAndGarnish = ['ginger','garlic','green onion','chili peppers','basil']
+breads = ['keep same']
+veggies = ['onions','bok choy','cabbage','water chesnuts','bell peppers']
+
+######mexicanSubstitutions
+meats = ['chicken','pork']
+cheese = ['Oaxaca cheese']
+sauces = ['refried beans','chipotle','salsa','guacamole','red mole']
+herbsAndGarnish = ['cilantro','lime','garlic','chipotle']
+spice = ['cumin','chili powder','cayene']
+veggies = ['onions','corn','tomato']
+bread = ['tortilla']
+oil = ['vegetable oil']
+
+
+
+
 ingredientDB = []
 ingNameDB = {}
 
