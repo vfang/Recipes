@@ -415,32 +415,23 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
                 break
 
         for word in descriptors:
-
             if word == 'and':
                 pass
             else:
                 if word not in DBing.descriptor.lower():
                     pass
                 else:
-
                     match = True
-
-
                     if word in lists.colors:
                         r = .1
-                    
                     elif descriptors.index(word) == len(descriptors) - 1:
-                        r = .8
-                        
+                        r = .8 
                     else:
                         r = 1 #float(len(des)) / float(len(sItems))
-
                     for d in des:
                         if word in d.lower():
-
                             if word == 'crumbs':
                                 pass
-
                             c = ''
                             if d.endswith(','):
                                 c = d[:-1]
@@ -449,7 +440,6 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
                             else:
                                 matchScore += 1.0 / ((des.index(d) + 1.0) * r)
                             break
-
         if match:
             ing = objects.Ingredient()
             
@@ -608,17 +598,17 @@ def makeSteps(directions,tools,primaryMethods,secondaryMethods):
                     word = word.lower()
                     double_word = double_word.lower()
                     #check if word or double_word is a tool, primaryMethod,secondaryMethod   
-                    if double_word in tools:
+                    if double_word in tools and double_word not in stepObj.tools:
                         stepObj.tools.append(double_word)
-                    elif word in tools:
+                    elif word in tools and word not in stepObj.tools:
                         stepObj.tools.append(word)
-                    if double_word in primaryMethods:
+                    if double_word in primaryMethods and double_word not in stepObj.primaryMethods:
                         stepObj.primaryMethods.append(double_word)
-                    elif word in primaryMethods:
+                    elif word in primaryMethods and word not in stepObj.primaryMethods:
                         stepObj.primaryMethods.append(word)
-                    if double_word in secondaryMethods:
+                    if double_word in secondaryMethods and double_word not in stepObj.secondaryMethods:
                         stepObj.secondaryMethods.append(double_word)
-                    elif word in secondaryMethods:
+                    elif word in secondaryMethods and word not in stepObj.secondaryMethods:
                         stepObj.secondaryMethods.append(word)
 
                     #check if a double_word or word has a number 
@@ -704,8 +694,8 @@ def main(recipeURL = None):
         pass
     else:
        recipeInfo = scraper.retrieveRecipe(recipeURL)
-       pp = pprint.PrettyPrinter(indent=4)
-       pp.pprint(recipeInfo)
+       #pp = pprint.PrettyPrinter(indent=4)
+       #pp.pprint(recipeInfo)
        recipe = buildRecipeObject(recipeInfo)
        print recipe.unicode()
 
