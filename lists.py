@@ -1,5 +1,5 @@
 #list of predefined things
-secondaryMethods =[ 'baste', 'biomass briquettes',
+secondaryMethods =[ 'baste','beat' 'biomass briquettes',
 'brochette', 'carry over cooking', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
 'concasse', 'conche', 'confit', 'cooking with alcohol', 'chop','cut','cream',
 'culinary triangle', 'curdle', 'cure', 'deglaze ',
@@ -13,12 +13,12 @@ secondaryMethods =[ 'baste', 'biomass briquettes',
 'shred','smother', 'souring', 'sous-vide', 'spatchcock', 
 'spherification', 'steep', 'stew', 'stir', 'sugar pan', 'sweat ', 
 'tataki', 'tenderize', 'thicken', 'mix','mince' 'scald', 'drain', 'mash',
-'pour', 'spread', 'combine','coat','refrigerate','rinse','dredge']
+'pour', 'spread', 'combine','coat','refrigerate','rinse','dredge','pound']
 
 primaryMethods = ['bake','barbecue','boil', 'broil','brown','braise','flambe','broast','dry roast','stir fry', 'stir-fry',
 'saute','slow cook','shallow fry','pressure cooking','pressure cook', 'pressure fry','poach','pan fry','pan-fry','grill',
 'brochette','caramelize','blacken','seare','deep fry','deep-fry', 'parboil','roast','steam','fry',
-'gentle fry','simmer','smoke','preheat']
+'gentle fry','simmer','smoke','preheat','heat']
 
 cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
@@ -41,7 +41,7 @@ tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch',
 'pepper mill', 'pie bird', 'pizza cutter', 'potato masher', 'potato ricer', 
 'pot-holder', 'poultry shears', 'potato ricer', 'roller docker', 
 'rolling pin', 'salt shaker', 'weighing scale', 'scissors', 'scoop', 
-'shellfish scraper', 'sieve', 'slotted spoon', 'spatula', 'spider', 
+'shellfish scraper', 'sieve', 'slotted spoon', 'spatula', 'spider', 'meat mallet',
 'sugar thermometer', 'slow cookertamis', 'tin opener', 'tomato knife', 
 'tongs', 'trussing needle', 'whisk', 'wooden spoon', 'zester', 'pan', 'oven broiler',
 'pot', 'knife', 'oven', 'microwave', 'wok', 'strainer', 'skillet', 'spoon', 'fork','slow cooker','saucepan']
