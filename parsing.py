@@ -156,9 +156,12 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
     primeIng = ''
 
     for item in items:
-        if item.endswith(',') and not item.endswith('less'):
-            primeIng = item
-            break
+        if item.endswith(','):
+            if item.endswith('less,'):
+                pass
+            else:
+                primeIng = item
+                break
 
     if primeIng == '':
         filter = []
@@ -178,7 +181,7 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
     primeIndex = items.index(primeIng)
 
     for x in range(0, primeIndex):
-        if items[x].endswith('ed'):
+        if items[x].endswith('ed') and not items[x] == 'red':
             preparations.append(items[x])
         else:
             descriptors.append(items[x])

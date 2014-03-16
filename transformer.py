@@ -23,10 +23,9 @@ healthySubstitutions as healthySubstitutions
 ##### HEALTHY TRANSFORMER ####
 ##############################
 def healthyTransformer(recipe):
-	ingredients = recipe.ingredients
 	healthyRecipe = recipe
 
-	for ingredient in ingredients:
+	for ingredient in healthyRecipe.ingredients:
 		substitution = ""
 		if ingredient.name in healthySubstitutions:
 			baseIng = healthySubstitutions[ingredient.name]
@@ -42,7 +41,8 @@ def healthyTransformer(recipe):
 
 		# PERFORM SUBSTITUTION
 		if substitution:
-			healthyRecipe = performHealthySub(ingredient, healthyRecipe, substitution)
+			newIng = performHealthySub(ingredient, substitution)
+			ingredient = newIng
 
 	return healthyRecipe
 
@@ -72,25 +72,31 @@ def performHealthySub(ingredient, recipe, substitution):
 
 	return recipe
 
-def healthySubIngredients(ingredient, ingList, substitution):
+def healthySubIngredients(ingredient, substitution):
 	newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
-	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
-	origIng = copy.deepcopy(ingredient)
-	ingIndex = ingList.index(ingredient)
-	if substitution:
-		for field in substitution:
-			if substitution[field]:
-				if field == "name":
-					ingList[ingIndex].name = substitution[field]
-					print "NAME"
-				elif field == "descriptor":
-					ingList[ingIndex].descriptor = substitution[field]
-	else:
-		# REMOVE INGREDIENT
-		ingList.pop(ingIndex)
+	newIng.amount = ingredient.amount
+	newIng.unit = ingredient.unit
+	return newIng
 
 
-	return {"ingredients": ingList, "origIng": origIng}
+# ## What does this do?
+# 	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
+# 	origIng = copy.deepcopy(ingredient)
+# 	ingIndex = ingList.index(ingredient)
+# 	if substitution:
+# 		for field in substitution:
+# 			if substitution[field]:
+# 				if field == "name":
+# 					ingList[ingIndex].name = substitution[field]
+# 					print "NAME"
+# 				elif field == "descriptor":
+# 					ingList[ingIndex].descriptor = substitution[field]
+# 	else:
+# 		# REMOVE INGREDIENT
+# 		ingList.pop(ingIndex)
+
+
+# 	return {"ingredients": ingList, "origIng": origIng}
 
 ##############################
 ##### VEGGIE TRANSFORMER #####
@@ -101,27 +107,28 @@ def veggieTransformer(recipe):
 	for ingredient in ingredients:
 		substitution = ""
 		name = ingredient.name
+		descriptorMeat = findMeatDescriptor(ingredient.descriptor)
+
 		# STOCKS
 		if name in stocks:
 			print 'STOCK'
 			substitution = vegSubstitutions["stock"]
 		# MEATS
-		elif name in meats:
-			# GROUND MEATS
+		elif name in meats or descriptorMeat in meats:
+			descriptorMeat = findMeatDescriptor(ingredient.descriptor)
 			if re.search("(?i)ground", ingredient.descriptor):
 				if ingredient.name in poultryAndGame:
 					substitution = vegSubstitutions["ground poultry"]
 				else:
 					substitution = vegSubstitutions["ground livestock"]
-			elif name in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
+			elif name in poultryAndGame or descriptorMeat in poultryAndGame or isStirFry(recipe) or isDeepFried(recipe):
 				substitution = vegSubstitutions["poultry"]
-			elif name in livestock:
+			elif name in livestock or descriptorMeat in livestock or name in prepared:
 				substitution = vegSubstitutions["livestock"]
-			elif name in seafood or ingredient.descriptor in seafood:
+			elif name in seafood or descriptorMeat in seafood:
 				substitution = vegSubstitutions["seafood"]
 			else:
 				substitution = None
-
 		# PERFORM SUBSTITUTION
 		if substitution:	
 			vegRecipe = performVegSub(ingredient, vegRecipe, substitution)
@@ -180,10 +187,10 @@ def vegSubSteps(newIng, origIng, steps):
 				newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
 			elif re.search("(?i).*%s.*" % origIng.name, step):
 				newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
-			else:
-				meat = findMeatDescriptor(origIng.descriptor)
+		elif findMeatDescriptor(origIng.descriptor):
+			meat = findMeatDescriptor(origIng.descriptor)
+			if re.search("(?i).*%s.*" % meat, step):
 				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
-
 
 		newStep = sanitizeMeatDirections(newStep, newIng)
 
@@ -195,7 +202,7 @@ def vegSubSteps(newIng, origIng, steps):
 def findMeatDescriptor(descriptor):
 	words = descriptor.split(' ')
 	meat = ''
-	print words
+	# print words
 	for word in words:
 		if word in meats:
 			meat = word
@@ -215,7 +222,7 @@ def sanitizeMeatDirections(step, newIng):		# Get rid of meat related directions
 						sentence = re.sub("(?i) until.*[;]", ";", sentence)
 						sentence = re.sub("(?i) until.*$", "", sentence)
 			elif word == "meat":
-				if re.search("(?i).*%s" % word, sentence):
+				if re.search("(?i).* %s" % word, sentence):
 					print "REMOVING Directions: ", sentence, " - ", word		
 					sentence = ""
 			else:
@@ -247,7 +254,7 @@ def isStirFry(recipe):
 
 def isDeepFried(recipe):
 	isFried = False
-	if "fry" in recipe.methods:
+	if "fry" in recipe.primaryMethods:
 		isFried = True
 
 	return isFried
@@ -279,8 +286,8 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
