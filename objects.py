@@ -47,7 +47,7 @@ class Recipe:
             else:
                 self.string+=',' + sMethod
         #self.string += '\nCuisine: ' + self.cuisine + '\n'
-
+#tools to cooking tools, cooking method
     def __init__(self, 
         name = None,
         ingredients = None,
@@ -140,10 +140,10 @@ class Ingredient:
         self.string += 'Protein: ' + self.protein + '\n'
         self.string += 'Fat: ' + self.fat + '\n'
         self.string += 'Carbs: ' + self.carbs + '\n'
-
+# possibly change amount to quantity, unit to measurement
     def __init__(self,
         name = None,
-        amount = None,
+        amount = None, 
         unit = None,
         descriptor = None,
         preparation = None,
