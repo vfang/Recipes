@@ -12,7 +12,7 @@ class Recipe:
         for direction in self.directions:
             self.string += direction +','
 
-        self.string += 'Step by Step Breakdown of Directions: \n'
+        self.string += '\n\nStep by Step Breakdown of Directions: \n'
         for step in self.steps:
             self.string +=step.unicode()+'\n'
         self.string += 'Author: ' + self.author + '\n'
@@ -193,14 +193,33 @@ class Ingredient:
         self.updateString()
         return self.string
 
-class Steps:
+class Step:
     def updateString(self):
-        pass
-    def __init__(self,direction=None,tools=None,
-                primaryMethods=None,secondaryMethods = None,
-                time=None):
+        self.string = ''
+        self.string += '\nDirection: ' + self.direction + '\n'
+
+        self.string += 'Tools:\n'
+        for tool in self.tools:
+            self.string +=tool+','
+        self.string +='\nPrimary Methods:\n'
+        for pm in self.primaryMethods:
+            self.string +=pm +','
+        self.string +='\nSecondary Methods:\n'
+        for sm in self.secondaryMethods:
+            self.string +=sm +','
+        self.string +='\nTime:\n'
+        self.string+=self.time
+
+
+    def __init__(self,
+        direction=None,
+        tools=None,
+        primaryMethods=None,
+        secondaryMethods = None,
+        time=None):
+
         if direction == None:
-            self.direction = ''
+            self.direction = 'None'
         else:
             self.direction = direction
 
@@ -218,3 +237,12 @@ class Steps:
             self.secondaryMethods = []
         else:
             self.secondaryMethods = secondaryMethods
+
+        if time == None:
+            self.time = 'None'
+        else:
+            self.time = time
+    def unicode(self):
+        self.updateString()
+        return self.string
+
