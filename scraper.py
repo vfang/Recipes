@@ -18,13 +18,19 @@ def retrieveRecipe(url):
 	ingredientsListing = soup.findAll(itemprop="ingredients")
 	ingredients = []
 	for ingredient in ingredientsListing:
-		amount = ""
-		name = ""
-		if ingredient.find_next(id="lblIngAmount"):
-			amount = ingredient.find_next(id="lblIngAmount").string
 		if ingredient.find_next(id="lblIngName"):
-			name = ingredient.find_next(id="lblIngName").string
-		ingredients.append({"name": name, "amount": amount})
+			nextEl = ingredient.find_next(id="lblIngName")
+			if nextEl["class"][0] == "ingred-heading" or nextEl.string.replace(u'\xa0', u' ') == " ":
+				continue
+			else:
+				print ingredient.find_next(id="lblIngName")
+				amount = ""
+				name = ""
+				if ingredient.find_next(id="lblIngAmount"):
+					amount = ingredient.find_next(id="lblIngAmount").string
+				if ingredient.find_next(id="lblIngName"):
+					name = ingredient.find_next(id="lblIngName").string
+				ingredients.append({"name": name, "amount": amount})
 	recipeInfo["ingredients"] = ingredients
 
 	directionsListing = soup.find_all("span", {"class":"plaincharacterwrap break"})
