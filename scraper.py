@@ -23,7 +23,7 @@ def retrieveRecipe(url):
 			if nextEl["class"][0] == "ingred-heading" or nextEl.string.replace(u'\xa0', u' ') == " ":
 				continue
 			else:
-				print ingredient.find_next(id="lblIngName")
+				#print ingredient.find_next(id="lblIngName")
 				amount = ""
 				name = ""
 				if ingredient.find_next(id="lblIngAmount"):
