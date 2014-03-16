@@ -97,7 +97,7 @@ cuisines = {
 	},
 	"mexican":{
 		"meats":['chicken','pork'],
-		"cheese":['Oaxaca cheese']
+		"cheese":['Oaxaca cheese'],
 		"sauces":['refried beans','chipotle','salsa','guacamole','red mole'],
 		"spices":['cumin','chili powder','cayene'],
 		"herbsAndGarnish":['cilantro','lime','garlic','chipotle'],
@@ -106,7 +106,7 @@ cuisines = {
 	},
 	"chinese":{
 		"meats":['chicken','pork'],
-		"cheese":['remove']
+		"cheese":['remove'],
 		"sauces":['soy sauce','oyster sauce','teriyaki sauce','sriracha','hoisin sauce','sesame oil'],
 		"spices":None,
 		"herbsAndGarnish":['ginger','garlic','green onion','chili peppers','basil'],
