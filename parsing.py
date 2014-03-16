@@ -4,6 +4,7 @@ import lists
 import string
 import pprint
 import sys
+import re
 
 #define ingredient categories
 #~0100~^~Dairy and Egg Products~
@@ -39,11 +40,12 @@ def buildRecipeObject(recipeInfo):  #recipeInfo is a dictionary
         servings=recipeInfo['servings'], 
         rating=recipeInfo['rating'])
     recipe.ingredients = parseIngredients(recipeInfo['ingredients'])
-    toolsAndMethods = parseDirections(recipeInfo['directions'],recipe.ingredients)  
+    toolsAndMethods = findToolsAndMethods(recipeInfo['directions'],recipe.ingredients)  
     recipe.tools= toolsAndMethods['tools']
     recipe.primaryMethods = toolsAndMethods['primaryMethods']
     recipe.secondaryMethods = toolsAndMethods['secondaryMethods']
     recipe.directions = recipeInfo['directions']
+    recipe.steps = makeSteps(recipeInfo['directions'],recipe.tools,recipe.primaryMethods,recipe.secondaryMethods)
     return recipe
 
 def parseIngredient(dict):
@@ -534,11 +536,11 @@ def parseIngredients(ingredients):
         ings.append(parseIngredient(ing))
     return ings
 
-def parseDirections(directions,ingredients):
+def findToolsAndMethods(directions,ingredients):
     exclude = set(string.punctuation)
     ingredientsList = []
     for ing in ingredients:
-        ingredientsList.append(ing.origName)
+        ingredientsList.append(ing.name)
     words = []
     parsed = {"tools":[],"primaryMethods":[],"secondaryMethods":[]}
     for sentence in directions:
@@ -582,6 +584,48 @@ def parseDirections(directions,ingredients):
                 parsed['secondaryMethods'].append(word)
     return parsed
 
+def makeSteps(directions,tools,primaryMethods,secondaryMethods):
+    listOfSteps =[]
+    exclude = set(string.punctuation)
+    for direction in directions:
+        steps = direction.split('.')
+        for step in steps:
+            if step:
+                stepObj = objects.Step()
+                stepObj.direction = step
+                sentence = ''.join(ch for ch in step if ch not in exclude)
+                w = sentence.split()
+                for word in w:
+                    nextWordIndex = w.index(word)+1
+                    double_word = ''
+                    try:
+                        double_word = word + ' '+w[nextWordIndex]
+                    except:
+                        double_word = word
+                    word = word.lower()
+                    double_word = double_word.lower()
+                    #check if word or double_word is a tool, primaryMethod,secondaryMethod   
+                    if double_word in tools:
+                        stepObj.tools.append(double_word)
+                    elif word in tools:
+                        stepObj.tools.append(word)
+                    if double_word in primaryMethods:
+                        stepObj.primaryMethods.append(double_word)
+                    elif word in primaryMethods:
+                        stepObj.primaryMethods.append(word)
+                    if double_word in secondaryMethods:
+                        stepObj.secondaryMethods.append(double_word)
+                    elif word in secondaryMethods:
+                        stepObj.secondaryMethods.append(word)
+
+                    #check if a double_word or word has a number 
+                    #and time measurement after it
+                    pat = re.search('minute*|hour*',double_word,re.IGNORECASE)
+                    time= double_word.split()
+                    if pat and time[0].isdigit():
+                        stepObj.time = double_word
+                listOfSteps.append(stepObj)
+    return listOfSteps
 def tokenizeLine(string):
     line = string.split('^')
     numArgs = len(line)
