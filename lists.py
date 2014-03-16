@@ -1,12 +1,4 @@
 #list of predefined things
-'''units = ['cups','cup','teaspoon','tablespoon','teaspoons','tablespoons','gallon','liter'
-'pound','pounds','gram','grams']
-
-preparations = ['chopped','minced','sliced','crushed','melted','dried','grated','pounded','ground'
-'diced','cubed','shredded','peeled','trimmed']
-descriptions = ['warm','sweet','fresh','large','skinless','boneless','small','medium'
-]'''
-
 secondaryMethods =[ 'baste', 'biomass briquettes',
 'brochette', 'carry over cooking', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
 'concasse', 'conche', 'confit', 'cooking with alcohol', 'chop','cut','cream',
@@ -20,9 +12,10 @@ secondaryMethods =[ 'baste', 'biomass briquettes',
 'rotisserie','season', 'shrivelling', 
 'shred','smother', 'souring', 'sous-vide', 'spatchcock', 
 'spherification', 'steep', 'stew', 'stir', 'sugar pan', 'sweat ', 
-'tataki', 'tenderize', 'thicken', 'mix','mince' 'scald', 'drain', 'mash', 'pour', 'spread', 'combine']
+'tataki', 'tenderize', 'thicken', 'mix','mince' 'scald', 'drain', 'mash',
+'pour', 'spread', 'combine','coat','refrigerate','rinse','dredge']
 
-primaryMethods = ['bake','barbecue','boil', 'broil','braise','flambe','broast','dry roast','stir fry', 'stir-fry',
+primaryMethods = ['bake','barbecue','boil', 'broil','brown','braise','flambe','broast','dry roast','stir fry', 'stir-fry',
 'saute','slow cook','shallow fry','pressure cooking','pressure cook', 'pressure fry','poach','pan fry','pan-fry','grill',
 'brochette','caramelize','blacken','seare','deep fry','deep-fry', 'parboil','roast','steam','fry',
 'gentle fry','simmer','smoke','preheat']
