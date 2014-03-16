@@ -2,37 +2,51 @@ class Recipe:
 
     def updateString(self):
 
-        self.string = ''
-        self.string += 'Name: ' + self.name + '\n'
-        self.string += 'Ingredients: \n'
+        self.string = '\n'
+        self.string += 'Recipe Name: ' + self.name + '\n\n'
+        self.string += '***************\n**INGREDIENTS**\n***************\n'
         for ing in self.ingredients:
             self.string += ing.unicode() + '\n'
 
-        self.string += 'Directions: \n'
+        self.string += '**********************\n**Cooking Directions**\n**********************\n'
         for direction in self.directions:
-            self.string += direction +','
+            self.string += direction +'\n\n'
 
         self.string += '\n\nStep by Step Breakdown of Directions: \n'
         for step in self.steps:
+            self.string+='\n*******************\n'
             self.string +=step.unicode()+'\n'
-        self.string += 'Author: ' + self.author + '\n'
+        self.string += '\nAuthor: ' + self.author + '\n'
         self.string += 'Cook Time: ' + self.cookTime + '\n'
         self.string += 'Servings: ' + str(self.servings) + '\n'
         self.string += 'Rating: ' + str(self.rating) + '\n'
-        self.string += 'Tools: \n'
-
+        self.string += 'Tools:'
+        first = True
         for tool in self.tools:
-            self.string += tool + ','
+            if first:
+                self.string += tool
+                first = False
+            else:
+                self.string +="," + tool
 
-        self.string += '\nPrimary Methods: \n'
-
+        self.string += '\nPrimary Methods:'
+        first = True
         for method in self.primaryMethods:
-            self.string += method + ','
+            if first:
+                self.string +=method
+                first = False
+            else:
+                self.string +=","+method
 
-        self.string +='\nSecondary Methods:\n'
+        self.string +='\nSecondary Methods:'
+        first = True
         for sMethod in self.secondaryMethods:
-            self.string+=sMethod + ','
-        self.string += '\nCuisine: ' + self.cuisine + '\n'
+            if first:
+                self.string +=sMethod
+                first = False
+            else:
+                self.string+=',' + sMethod
+        #self.string += '\nCuisine: ' + self.cuisine + '\n'
 
     def __init__(self, 
         name = None,
@@ -198,18 +212,44 @@ class Step:
         self.string = ''
         self.string += '\nDirection: ' + self.direction + '\n'
 
-        self.string += 'Tools:\n'
-        for tool in self.tools:
-            self.string +=tool+','
-        self.string +='\nPrimary Methods:\n'
-        for pm in self.primaryMethods:
-            self.string +=pm +','
-        self.string +='\nSecondary Methods:\n'
-        for sm in self.secondaryMethods:
-            self.string +=sm +','
-        self.string +='\nTime:\n'
-        self.string+=self.time
+        self.string += 'Tools:'
+        first = True
+        if self.tools:
+            for tool in self.tools:
+                if first:
+                    self.string += tool
+                    first = False
+                else:
+                    self.string+= ","+tool
+        else:
+            self.string+="None"
 
+        self.string +='\nPrimary Methods:'
+        first = True
+        if self.primaryMethods:
+            for pm in self.primaryMethods:
+                if first:
+                    self.string += pm
+                    first = False
+                else:
+                    self.string +=','+pm
+        else:
+            self.string+="None"
+
+        self.string +='\nSecondary Methods:'
+        if self.secondaryMethods:
+            first = True
+            for sm in self.secondaryMethods:
+                if first:
+                    self.string +=sm
+                    first = False
+                else:
+                    self.string +=','+sm
+        else:
+            self.string +="None"
+
+        self.string +='\nTime:'
+        self.string+=self.time or "None"
 
     def __init__(self,
         direction=None,
