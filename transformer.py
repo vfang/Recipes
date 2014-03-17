@@ -174,7 +174,7 @@ def performVegSub(ingredient, recipe, substitution):
 	origIng = copy.deepcopy(ingredient)
 	# ingredients = vegSubIngredients(ingredient, recipe.ingredients, substitution)
 	vegSubIngredients(ingredient, recipe.ingredients, substitution)
-	steps = vegSubSteps(ingredient, origIng, recipe.directions)
+	steps = vegSubSteps(ingredient, origIng, recipe.steps)
 	# steps = vegSubSteps(ingredient, ingredients["origIng"], recipe.directions)
 
 	# recipe.ingredients = ingredients["ingredients"]
@@ -200,32 +200,34 @@ def vegSubSteps(newIng, origIng, steps):
 	newSteps = steps
 	print "!!! Substituting ", origIng.name," ", origIng.descriptor, " with ", newIng.name, " ", newIng.descriptor 
 	for i,step in enumerate(steps):
-		newStep = step
-		# STOCKS
-		if origIng.name in stocks:
-			if re.search("(?i)(bouillon|stock|broth)", step):
-				splitWord = re.search("(?i)(bouillon|stock|broth)", step).group()
-				descriptor = step.split(splitWord)[0].split(' ')[-2]
-				sub = " ".join([newIng.descriptor, newIng.name])
-				if descriptor in origIng.descriptor:
-					newStep = re.sub("(?i)%s%s" % (origIng.descriptor, origIng.name), sub, step)
-				else:
-					newStep = re.sub("(?i)%s" % origIng.name, sub, newStep) 
-		# MEATS
-		if origIng.name in meats:
-			if re.search("(?i)ground", origIng.descriptor):
-				newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
-			elif re.search("(?i).*%s.*" % origIng.name, step):
-				newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
-		elif findMeatDescriptor(origIng.descriptor):
-			meat = findMeatDescriptor(origIng.descriptor)
-			if re.search("(?i).*%s.*" % meat, step):
-				newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
+		if hasattr(step, "direction"):
+			step = step.direction
+			newStep = step
+			# STOCKS
+			if origIng.name in stocks:
+				if re.search("(?i)(bouillon|stock|broth)", step):
+					splitWord = re.search("(?i)(bouillon|stock|broth)", step).group()
+					descriptor = step.split(splitWord)[0].split(' ')[-2]
+					sub = " ".join([newIng.descriptor, newIng.name])
+					if descriptor in origIng.descriptor:
+						newStep = re.sub("(?i)%s%s" % (origIng.descriptor, origIng.name), sub, step)
+					else:
+						newStep = re.sub("(?i)%s" % origIng.name, sub, newStep) 
+			# MEATS
+			if origIng.name in meats:
+				if re.search("(?i)ground", origIng.descriptor):
+					newStep = re.sub("(?i)ground %s" % origIng.name, newIng.name, step)
+				elif re.search("(?i).*%s.*" % origIng.name, step):
+					newStep = re.sub("(?i)%s" % origIng.name, newIng.name, newStep)
+			elif findMeatDescriptor(origIng.descriptor):
+				meat = findMeatDescriptor(origIng.descriptor)
+				if re.search("(?i).*%s.*" % meat, step):
+					newStep = re.sub("(?i)%s" % meat, newIng.name, newStep)
 
-		newStep = sanitizeMeatDirections(newStep, newIng)
+			newStep = sanitizeMeatDirections(newStep, newIng)
 
-		# Replace udpated step
-		newSteps[i] = newStep
+			# Replace udpated step
+			newSteps[i].direction = newStep
 
 	return newSteps
 
@@ -295,7 +297,9 @@ def printRecipe(name, ingredients, steps):
 	print "Ingredients\n====================\n", printIngredients(ingredients)
 	print "Directions\n====================\n"
 	pp = pprint.PrettyPrinter(indent=4)
-	pp.pprint(steps)
+	# pp.pprint(steps)
+	for step in steps:
+		print step.direction
 
 
 
@@ -317,11 +321,11 @@ def getRecipe(recipeURL):
 
 def main():
 	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
+	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
 	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
+	recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
 	# seafood
 	# recipe = getRecipe('http://allrecipes.com/recipe/seafood-gumbo/')
 	# print recipe.unicode()
