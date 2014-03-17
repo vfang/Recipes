@@ -87,28 +87,25 @@ cuisines = {
 		"meats":['chicken','mutton','lamb'],
 		"cheese":['cottage cheese'],
 		"sauces":['tomato puree','lentils(dal)'],
-		"spices":['turmeric','garam masala','cumin'],
-		"herbsAndGarnish":['garlic','ginger','cardamon','almonds','coriander'],
+		"spicesAndHerbs":['turmeric','garam masala','cumin', 'garlic', 'cardamon'],
 		"breads":['naan'],
-		"veggies":['potatoes','tomatoes','onions','okra','carrots','peas','beans']
+		"veggiesAndGarnish":['coriander', 'ginger', 'potatoes','tomatoes','onions','okra','carrots','peas','beans']
 	},
 	"mexican":{
 		"meats":['chicken','pork'],
 		"cheese":['Oaxaca cheese'],
 		"sauces":['refried beans','chipotle','salsa','guacamole','red mole'],
-		"spices":['cumin','chili powder','cayene'],
-		"herbsAndGarnish":['cilantro','lime','garlic','chipotle'],
+		"spicesAndHerbs":['cumin','chili powder','cayenne', 'garlic', 'chipotle'],
 		"breads":['tortilla'],
-		"veggies":['onions','corn','tomato','bell peppers']
+		"veggiesAndGarnish":['cilantro', 'coriander', 'onions','corn','tomato','bell peppers']
 	},
 	"chinese":{
 		"meats":['chicken','pork'],
 		"cheese":['remove'],
 		"sauces":['soy sauce','oyster sauce','teriyaki sauce','sriracha','hoisin sauce','sesame oil'],
-		"spices":None,
-		"herbsAndGarnish":['ginger','garlic','green onion','chili peppers','basil'],
+		"spicesAndHerbs":['garlic', 'chili peppers', 'basil'],
 		"breads":None,
-		"veggies":['onions','bok choy','cabbage','water chesnuts','bell peppers']
+		"veggiesAndGarnish":['ginger', 'green onion', 'onions','bok choy','cabbage','water chesnuts','bell peppers']
 	},
 }
 
