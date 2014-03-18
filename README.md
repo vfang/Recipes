@@ -11,8 +11,10 @@ FOOD_DATA folder sourced from USDA
 run python main.py and follow prompts
 
 <b>To Autograde: </b>
-run python autograder.py
-
+```
+python autograder.py 'some url from AllRecipes'
+```
+autograder.py prints ingredients, cooking methods, and cooking tools in format listed on the assignment sheet. Please see <b>objects.py</b> for complete ingredient, recipe, step models
 
 Structure should be: 
 ```
@@ -27,7 +29,7 @@ Recipes\
 		veggieTransformer.py
 		cuisineTransformer.py
 		healthyTransformer.py
-		cuisines.py
+		autograder.py
 		objects.py
 		FOOD_DATA\
 ```
