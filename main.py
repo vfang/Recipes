@@ -12,15 +12,12 @@ def main():
 	#Welcome message
 	print "Welcome to SVJ Recipe Transformer created by Josiah Evans, Vanessa Fang and Salil Gupta"
 	#Recipe input
-	 if not debug:
-        recipeURL = raw_input("Please input a recipe url from allrecipes.com: ")
-    else:
-        recipeURL = 'http://allrecipes.com/recipe/white-chocolate-raspberry-cheesecake/detail.aspx?src=VD_Summary'
-
-    print 'Loading recipe from allrecipes.com...'
-    recipeInfo = scraper.retrieveRecipe(recipeURL)
-    print 'Building recipe object...'
-    recipe = parsing.buildRecipeObject(recipeInfo)
+	recipeURL = raw_input("Please input a recipe url from allrecipes.com:")
+    
+	print 'Loading recipe from allrecipes.com...'
+	recipeInfo = scraper.retrieveRecipe(recipeURL)
+	print 'Building recipe object...'
+	recipe = parsing.buildRecipeObject(recipeInfo)
 
 	print "Thanks! Now choose a transformation.\n We have three options:\n For a vegetarian tranformation (or 'un-vegetarian') type 0\n For a healthy transformation type 1\n For a cuisine transformation type 2"
 	transformationType = int(raw_input("Transformation Selection: "))
