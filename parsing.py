@@ -500,6 +500,12 @@ def findIngredient(ingr):   #Maps a string to the corresponding ingredient in th
 
     if result.name == 'flr':
         result.name = 'flour'
+
+    if '.' not in result.carbs:
+            result.carbs = '0.00'
+    if '.' not in ingredient.fat:
+            result.fat = '0.00'
+
     return result
 
 def parseIngredients(ingredients):
