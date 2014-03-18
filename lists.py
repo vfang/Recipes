@@ -20,10 +20,10 @@ primaryMethods = ['bake','barbecue','boil', 'broil','brown','braise','flambe','b
 'brochette','caramelize','blacken','seare','deep fry','deep-fry', 'parboil','roast','steam','fry',
 'gentle fry','simmer','smoke','preheat','heat']
 
-cuisines=['chinese', 'italian', 'indian', 'american',
+'''cuisines=['chinese', 'italian', 'indian', 'american',
 'british', 'mexican', 'spanish', 'japanese', 'korean',
 'thai', 'filipino', 'german', 'french', 'middle eastern',
-'mediterranian', 'ethiopian']
+'mediterranian', 'ethiopian']'''
 
 tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch', 
 'boil over preventer', 'bottle opener', 'bowl', 'bread knife', 'browning tray', 
@@ -87,26 +87,24 @@ cuisines = {
 		"meats":['chicken','mutton','lamb'],
 		"cheese":['cottage cheese'],
 		"sauces":['curry sauce'],
-		"spicesAndHerbs":['pepper','turmeric','garam masala','cumin', 'garlic', 'cardamon'],
+		"spicesAndHerbs":['turmeric','garam masala','cumin', 'pepper','garlic', 'cardamon','salt'],
 		"veggiesAndGarnish":['garlic','potato','onion','okra','carrot','pea']
 	},
 	"mexican":{
 		"meats":['chicken','pork'],
 		"cheese":['Oaxaca cheese'],
 		"sauces":['chipotle','red mole'],
-		"spicesAndHerbs":['cumin','chili powder','cayenne', 'garlic', 'chipotle','pepper'],
-		"veggiesAndGarnish":['cilantro','coriander', 'onions','onion','corn','tomato','tomatoes','green bell pepper','red bell pepper']
+		"spicesAndHerbs":['cayenne', 'garlic'],
+		"veggiesAndGarnish":['cilantro','onion','corn','tomato','green bell pepper']
 	},
 	"chinese":{
 		"meats":['chicken','pork'],
 		"sauces":['soy sauce','oyster sauce','teriyaki sauce','sriracha','hoisin sauce'],
-		"spicesAndHerbs":['garlic', 'chili pepper', 'basil'],
+		"spicesAndHerbs":['garlic', 'chili pepper', 'basil','salt'],
 		"veggiesAndGarnish":['ginger', 'green onion', 'onion','bok choy','cabbage','water chesnuts','bell peppers'],
 		"alcohol": ['cooking wine']
-	},
+	}
 }
-
-
 
 ingredientDB = []
 ingNameDB = {}
