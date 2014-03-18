@@ -5,8 +5,14 @@ SVJ Recipes
 installed using pip<br>
 sudo pip install beautifulsoup4<br>
 
-
 FOOD_DATA folder sourced from FDA
+
+<b>To Run: </b>
+run python main.py and follow prompts
+
+<b>To Autograde: </b>
+run python autograder.py
+
 
 Structure should be: 
 ```
