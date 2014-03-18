@@ -296,13 +296,3 @@ def fitsCuisineForCategory(ing, category):
 	if name not in category and nameInDescriptor not in category:
 		fits = True
 	return fits
-
-##### RECIPE INFO ######
-def getRecipe(recipeURL):
-	lists.ingredientDB = parsing.readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
-	lists.updateNameDB()
-	###
-	recipeInfo = scraper.retrieveRecipe(recipeURL)
-	recipe = parsing.buildRecipeObject(recipeInfo)
-
-	return recipe
