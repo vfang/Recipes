@@ -74,16 +74,6 @@ def healthyTransformer(recipe):
 
     return healthyRecipe
 
-
-def performHealthySub(ingredient, recipe, substitution):
-	#ingredients = healthySubIngredients(ingredient, substitution)
-	# steps = healthySubSteps(ingredient, ingredients["origIng"], recipe.directions)
-
-	#recipe.ingredients = ingredients["ingredients"]
-	# recipe.directions = steps
-
-	return recipe
-
 def healthySubIngredient(ingredient, substitution = '', carb = False, fat = False):
     if substitution:
         newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
