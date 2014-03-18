@@ -17,34 +17,46 @@ def healthyTransformer(recipe):
             baseIng = healthySubstitutions[ingredient.name]
             if ingredient.descriptor in baseIng:
                 substitution = baseIng[ingredient.descriptor]
-                print 'Substituting ', ingredient.name, ' for ', substitution
             else:
                 if baseIng[""]:
                     substitution = baseIng[""]
-                    print 'Substituting ', ingredient.name, ' for ', substitution
                 else:
                     print "Nothing to substitute"
 
         # PERFORM SUBSTITUTION
-        print ingredient.carbs,ingredient.fat
-        if substitution:
-            newIng = healthySubIngredient(ingredient, substitution)
-            ind = healthyRecipe.ingredients.index(ingredient)
-            healthyRecipe.ingredients[ind] = newIng
+        if '.' not in ingredient.carbs:
+            ingredient.carbs = '0.00'
+        if '.' not in ingredient.fat:
+            ingredient.fat = '0.00'
+        try:
+            if substitution:
+                newIng = healthySubIngredient(ingredient, substitution)
+                ind = healthyRecipe.ingredients.index(ingredient)
+                healthyRecipe.ingredients[ind] = newIng
+                print 'Substituting ', ingredient.name, ' for ', substitution
 
-        elif float(ingredient.fat) > 9.0 and 'low' not in ingredient.descriptor and 'fat' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
-            newIng = healthySubIngredient(ingredient, fat = True)
-            subbedIngs[ingredient.name] = newIng.name
-            ind = healthyRecipe.ingredients.index(ingredient)
-            healthyRecipe.ingredients[ind] = newIng
-            print 'Substituting ', ingredient.name, ' for ', newIng.name
+            elif float(ingredient.fat) > 9.0 and 'low' not in ingredient.descriptor and 'fat' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
+                newIng = healthySubIngredient(ingredient, fat = True)
+                subbedIngs[ingredient.name] = newIng.name
+                ind = healthyRecipe.ingredients.index(ingredient)
+                healthyRecipe.ingredients[ind] = newIng
+                print 'Substituting ', ingredient.name, ' for ', newIng.name
 
-        elif float(ingredient.carbs) > 3.5 and 'low' not in ingredient.descriptor and 'carb' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
-            newIng = healthySubIngredient(ingredient, carb = True)
-            subbedIngs[ingredient.name] = newIng.name
-            ind = healthyRecipe.ingredients.index(ingredient)
-            healthyRecipe.ingredients[ind] = newIng
-            print 'Substituting ', ingredient.name, ' for ', newIng.name
+            elif float(ingredient.carbs) > 3.5 and 'low' not in ingredient.descriptor and 'carb' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
+                newIng = healthySubIngredient(ingredient, carb = True)
+                subbedIngs[ingredient.name] = newIng.name
+                ind = healthyRecipe.ingredients.index(ingredient)
+                healthyRecipe.ingredients[ind] = newIng
+                print 'Substituting ', ingredient.name, ' for ', newIng.name
+        except:
+            try:
+                float(ingredient.fat)
+            except:
+                print ingredient.fat, 'cannot be converted to a float'
+            try:
+                float(ingredient.carbs)
+            except:
+                print ingredient.carbs, 'cannot be converted to a float'
 
     dir = healthyRecipe.directions
     for step in dir:
@@ -105,6 +117,6 @@ def healthySubIngredient(ingredient, substitution = '', carb = False, fat = Fals
 
 
 
-def printRecipe(recipe, transformType):	
-	recipe.name = "%s Version of - " % transformType + recipe.name
-	print recipe.unicode()
+def printRecipe(recipe, transformType): 
+    recipe.name = "%s Version of - " % transformType + recipe.name
+    print recipe.unicode()
