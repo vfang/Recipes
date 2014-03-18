@@ -52,14 +52,30 @@ def healthyTransformer(recipe):
         newStep = step.split()
 
         for word in newStep:
+            if word.endswith(','):
+                word = word[:-1]
             if word in healthySubstitutions:
-                ind = newStep.index(word)
+                try:
+                    ind = newStep.index(word)
+                except:
+                    word = word + ','
+                    ind = newStep.index(word)
+                    word = word[:-1]
+
                 newStep[ind] = healthySubstitutions[word]
                 if not isinstance(newStep[ind], basestring):
                     newStep[ind] = newStep[ind][""]
 
             elif word in subbedIngs:
-                ind = newStep.index(word)
+                
+                try:
+                    ind = newStep.index(word)
+                    
+                except:
+                    word = word + ','
+                    ind = newStep.index(word)
+                    word = word[:-1]
+
                 newStep[ind] = subbedIngs[word]
 
         newStep = ' '.join(newStep)
