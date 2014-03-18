@@ -5,7 +5,7 @@ SVJ Recipes
 installed using pip<br>
 sudo pip install beautifulsoup4<br>
 
-FOOD_DATA folder sourced from FDA
+FOOD_DATA folder sourced from USDA
 
 <b>To Run: </b>
 run python main.py and follow prompts
@@ -24,7 +24,9 @@ Recipes\
 		lists.py
 		parsing.py
 		scraper.py
-		transformer.py
+		veggieTransformer.py
+		cuisineTransformer.py
+		healthyTransformer.py
 		cuisines.py
 		objects.py
 		FOOD_DATA\
