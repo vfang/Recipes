@@ -296,22 +296,3 @@ def fitsCuisineForCategory(ing, category):
 	if name not in category and nameInDescriptor not in category:
 		fits = True
 	return fits
-
-##### RECIPE INFO ######
-def getRecipe(recipeURL):
-	lists.ingredientDB = parsing.readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
-	lists.updateNameDB()
-	###
-	recipeInfo = scraper.retrieveRecipe(recipeURL)
-	recipe = parsing.buildRecipeObject(recipeInfo)
-
-	return recipe
-
-def main():
-	recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
-	#recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
-	#recipe = getRecipe('http://allrecipes.com/Recipe/Italian-Sausage-Soup-with-Tortellini/Detail.aspx?event8=1&prop24=SR_Title&e11=soups&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i3')
-	#print recipe.unicode()
-	cuisineChange(recipe, "mexican")
-
-main()
