@@ -103,27 +103,6 @@ def parseIngredient(dict):
     ing.amount = amount
     ing.unit = unit
 
-    #name = name.split()
-    #sName = []
-
-    #for word in name:
-    #    if word.endswith(','):
-    #        word = word[:-1].lower()
-     #       sName.append(word)
-    #    else:
-    #        sName.append(word)
-
-    #for word in sName:
-    #    if word == 'and':
-    #        pass
-    #    elif word.lower() not in ing.descriptor and word.endswith('ed'):
-    #        ing.preparation += word + ' and '
-    #    elif word.lower() not in ing.descriptor:
-    #        ing.preparation += word + ' '
-
-    #if ing.preparation.endswith(' and '):
-    #   ing.preparation = ing.preparation[:-5]
-
     ing.updateString()
 
     return ing
@@ -541,7 +520,7 @@ def findToolsAndMethods(directions,ingredients):
         w = sentence.split()
         for word in w:
             word = word.lower()
-            if word not in words: #and word not in ignoreWords:
+            if word not in words:
                 words.append(word)
 
     for word in words:
@@ -597,6 +576,7 @@ def makeSteps(directions,tools,primaryMethods,secondaryMethods):
                         double_word = word
                     word = word.lower()
                     double_word = double_word.lower()
+
                     #check if word or double_word is a tool, primaryMethod,secondaryMethod   
                     if double_word in tools and double_word not in stepObj.tools:
                         stepObj.tools.append(double_word)
@@ -619,6 +599,7 @@ def makeSteps(directions,tools,primaryMethods,secondaryMethods):
                         stepObj.time = double_word
                 listOfSteps.append(stepObj)
     return listOfSteps
+
 def tokenizeLine(string):
     line = string.split('^')
     numArgs = len(line)
@@ -647,29 +628,11 @@ def tokenizeLine(string):
     return out
 
 def readIngredientFromLine(line):
-    #fields = 0
-    #if objectType == 'FOOD':
-    #   isFood = True
-    #   fields = 14
-    #elif objectType == 'NUTIRENT':
-    #   isNutrient = True
-    #   fields = 6
-    #else:
-    #   print('objectType not recognized.')
-    #   return None
     tokens = tokenizeLine(line)
     output = objects.Ingredient()
-    #   output.id = tokens[0]
     output.category = tokens[1]
     output.descriptor = tokens[2].lower()
     output.name = tokens[3]
-    #output.ComName = tokens[4]
-    #   output.manufacName = tokens[5]
-    #   output.survey = tokens[6]
-    #   output.refDesc = tokens[7]
-    #   output.refuse = tokens[8]
-    #   output.sciName = tokens[9]
-    #   output.nFactor = tokens[10]
     output.protein = tokens[11]
     output.fat = tokens[12]
     output.carbs = tokens[13]
@@ -685,6 +648,7 @@ def readIngredientsFromFile(fileName):
             ingredientList.append(readIngredientFromLine(line))
     return ingredientList
 
+'''
 def main(recipeURL = None):
     #temporary
     lists.ingredientDB = readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
@@ -694,8 +658,6 @@ def main(recipeURL = None):
         pass
     else:
        recipeInfo = scraper.retrieveRecipe(recipeURL)
-       #pp = pprint.PrettyPrinter(indent=4)
-       #pp.pprint(recipeInfo)
        recipe = buildRecipeObject(recipeInfo)
        print recipe.unicode()
 
