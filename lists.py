@@ -100,8 +100,9 @@ cuisines = {
 	"chinese":{
 		"meats":['chicken','pork'],
 		"sauces":['soy sauce','oyster sauce','teriyaki sauce','sriracha','hoisin sauce'],
-		"spicesAndHerbs":['garlic', 'chili peppers', 'basil'],
-		"veggiesAndGarnish":['ginger', 'green onion', 'onion','bok choy','cabbage','water chesnuts','bell peppers']
+		"spicesAndHerbs":['garlic', 'chili pepper', 'basil'],
+		"veggiesAndGarnish":['ginger', 'green onion', 'onion','bok choy','cabbage','water chesnuts','bell peppers'],
+		"alcohol": ['cooking wine']
 	},
 }
 

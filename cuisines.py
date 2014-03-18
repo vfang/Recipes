@@ -4,7 +4,8 @@ import lists, scraper, parsing,re,objects
 from lists import poultryAndGame as poultryAndGame,\
 livestock as livestock, \
 stocks as stocks, \
-seafood as seafood
+seafood as seafood,\
+meats as meats
 
 
 meatsCategories = ['0500', '0700', '1000','1300','1700']
@@ -134,6 +135,7 @@ def replaceDirections(ingredients,steps):
 				splitKey = key.split('$')
 				name = splitKey[0]
 				descriptor = splitKey[1]
+				print 'DIR: ', name, ' ', descriptor
 				if re.search("(?i)(%s|%s)" % (name, descriptor+name), step.direction):
 					step.direction = re.sub("(?i)(%s|%s)" % (name, descriptor+name), value, step.direction)
 	return steps
@@ -207,6 +209,91 @@ def sanitizeIngredients(ingredientsList):
 			finalIng.append(ing)
 	return finalIng
 
+##### CHINESE ######
+def updateIngredient(ingredient, name, descriptor, preparation):
+	origName = ingredient.name
+	origDesc = ingredient.descriptor
+	ingredient.name = name
+	ingredient.descriptor = descriptor
+	ingredient.preparation = preparation
+
+	return {origName + "$" + origDesc:name}
+
+def findIngNames(ing, category):
+	return (ing.name, findInDescriptor(ing.descriptor, category))
+
+def fitsCuisineForCategory(ing, category):
+	(name, nameInDescriptor) = findIngNames(ing, category)
+	fits = False
+	if name not in category and nameInDescriptor not in category:
+		fits = True
+	
+	return fits
+
+def changeToChinese(recipe):
+	cuisine = "chinese"
+	ingredients = recipe.ingredients
+	cuisineMeats = cuisines[cuisine]["meats"]
+	cuisineSpiceHerb = cuisines[cuisine]['spicesAndHerbs']
+	cuisineSauces = cuisines[cuisine]['sauces']
+	cuisineVegGarn = cuisines[cuisine]['veggiesAndGarnish']
+	cuisineAlcohol = cuisines[cuisine]['alcohol']
+
+	modifiedIngredients=[]
+	addSpices = False
+	vegIndex = 0
+	for ing in ingredients:
+		category = ing.category
+		if category in meatsCategories or ing.name in meats:
+			if fitsCuisineForCategory(ing, cuisineMeats):
+				(meat, meatInDescriptor) = findIngNames(ing, cuisineMeats)
+				if meat in (poultryAndGame + seafood) or meatInDescriptor in (poultryAndGame + seafood):
+					modifiedIngredients.append(updateIngredient(ing, cuisineMeats[0], "boneless", ""))
+				else:
+					modifiedIngredients.append(updateIngredient(ing, cuisineMeats[1], "tenderloin", "cubed"))
+
+		elif category in spiceHerbsCategory:
+			if fitsCuisineForCategory(ing, cuisineSpiceHerb):
+				if not addSpices:
+					addSpices = True
+					modifiedIngredients.append({ing.name+"$"+ing.descriptor: ', '.join(cuisineSpiceHerb)})
+					modifiedIngredients.append(updateIngredient(ing, "", "", ""))
+					
+					# Add in garlic, chili pepper, basil combo at end
+				else:
+					modifiedIngredients.append(updateIngredient(ing, "", "", ""))
+
+		elif category in sauce or ing.name in stocks:
+			if fitsCuisineForCategory(ing, cuisineSauces):
+				modifiedIngredients.append(updateIngredient(ing, cuisineSauces[0], "", ""))
+
+		elif category in veggiesGarnish:
+			veggieGarName = ing.name
+			veggieDescriptor = ing.descriptor
+			isVeggie = findVeggies(veggieGarName,veggieDescriptor,cuisine)
+			if not isVeggie:
+				if vegIndex < len(cuisineVegGarn):
+					modifiedIngredients.append(updateIngredient(ing, cuisineVegGarn[vegIndex], "", ""))
+					vegIndex+=1
+				else:
+					modifiedIngredients.append(updateIngredient(ing, "", "", ""))
+
+		elif ing.name == "wine":
+			newIng = parsing.findIngredient(cuisineAlcohol[0])
+			modifiedIngredients.append(updateIngredient(ing, newIng.name, newIng.descriptor, ""))
+
+	if addSpices:
+		for spiceHerb in cuisineSpiceHerb:
+			newIng = parsing.findIngredient(spiceHerb)
+			ingredients.append(newIng)
+
+	recipe.ingredients = sanitizeIngredients(ingredients)
+	recipe.steps = replaceDirections(modifiedIngredients,recipe.steps)
+	recipe.name = "Chinese Version of -"+recipe.name
+	print recipe.unicode()
+	return recipe
+
+
 ##### RECIPE INFO ######
 def getRecipe(recipeURL):
 	#temporary
@@ -223,7 +310,7 @@ def main():
 	#recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
 	recipe = getRecipe('http://allrecipes.com/Recipe/Italian-Sausage-Soup-with-Tortellini/Detail.aspx?event8=1&prop24=SR_Title&e11=soups&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i3')
 	#print recipe.unicode()
-	cuisineChange(recipe, "indian")
+	cuisineChange(recipe, "chinese")
 
 main()
 
