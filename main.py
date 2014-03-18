@@ -16,10 +16,11 @@ def main():
 	if transformationType ==0:
 		print "Thanks! You have selected a veggie transformation. We are processing your request!"
 		vegRecipe = transformer.veggieTransformer(recipe)
-		transformer.printRecipe(vegRecipe.name,vegRecipe.ingredients,vegRecipe.steps)
+		transformer.printRecipe(vegRecipe, "Vegetarian")
 	elif transformationType ==1:
 		print "Thanks! You have selected a healthy transformation. We are processing your request!"
 		healthyRecipe = transformer.healthyTransformer(recipe)
+		transformer.printRecipe(vegRecipe, "Healthy")
 	elif transformationType ==2:
 		print "Thanks! You have selected a cuisine transformation. Please choose a cuisine type:\n For Indian type 0 \n For Mexican type 1 \n for Chinese Type 2"
 		cuisineType = int(raw_input("Cuisine Type: "))

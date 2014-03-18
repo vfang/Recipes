@@ -113,7 +113,6 @@ def veggieTransformer(recipe):
 		# STOCKS
 
 		if name in stocks:
-			print 'STOCK'
 			substitution = vegSubstitutions["stock"]
 		# MEATS
 		elif name in meats or descriptorMeat in meats:
@@ -153,9 +152,6 @@ def unveggieTransformer(recipe):
 			ingredient.descriptor = "skinless, boneless"
 			meatifySteps(ingredient, oldIng, steps)
 			break
-	for step in steps:
-		print step.unicode()
-
 
 def meatifySteps(ingredient, oldIng, steps):
 	name = oldIng.name
@@ -172,12 +168,8 @@ def meatifySteps(ingredient, oldIng, steps):
 ##### SUBSTITUION METHODS ######
 def performVegSub(ingredient, recipe, substitution):
 	origIng = copy.deepcopy(ingredient)
-	# ingredients = vegSubIngredients(ingredient, recipe.ingredients, substitution)
 	vegSubIngredients(ingredient, recipe.ingredients, substitution)
 	steps = vegSubSteps(ingredient, origIng, recipe.steps)
-	# steps = vegSubSteps(ingredient, ingredients["origIng"], recipe.directions)
-
-	# recipe.ingredients = ingredients["ingredients"]
 	recipe.steps = steps
 
 	return recipe
@@ -188,7 +180,6 @@ def vegSubIngredients(ingredient, ingList, substitution):
 			if substitution[field]:
 				if field == "name":
 					ingredient.name = substitution[field]
-					print "NAME"
 				elif field == "descriptor":
 					ingredient.descriptor = substitution[field]
 				elif field == "preparation":
@@ -198,7 +189,7 @@ def vegSubIngredients(ingredient, ingList, substitution):
 
 def vegSubSteps(newIng, origIng, steps):
 	newSteps = steps
-	print "!!! Substituting ", origIng.name," ", origIng.descriptor, " with ", newIng.name, " ", newIng.descriptor 
+	# print "!!! Substituting ", origIng.name," ", origIng.descriptor, " with ", newIng.name, " ", newIng.descriptor 
 	for i,step in enumerate(steps):
 		if hasattr(step, "direction"):
 			step = step.direction
@@ -250,16 +241,13 @@ def sanitizeMeatDirections(step, newIng):		# Get rid of meat related directions
 			if word == "until":
 				if re.search("(?i).*(%s|%s).*" % (newIng.name, 'meat'), sentence):
 					if re.search("(?i).*%s" % word, sentence):
-						print "REMOVING Directions: ", sentence, " - ", word
 						sentence = re.sub("(?i) until.*[;]", ";", sentence)
 						sentence = re.sub("(?i) until.*$", "", sentence)
 			elif word == "meat":
 				if re.search("(?i).* %s" % word, sentence):
-					print "REMOVING Directions: ", sentence, " - ", word		
 					sentence = ""
 			else:
 				if re.search("(?i).*%s" % word, sentence):
-					print "REMOVING Directions: ", sentence, " - ", word
 					if re.search("(?i).*%s.*[,;]" % word, sentence):
 						sentence = re.sub("(?i).*%s.*[,;]" % word, "", sentence)
 					else:
@@ -292,21 +280,9 @@ def isDeepFried(recipe):
 	return isFried
 
 ##### PRINTING ######
-def printRecipe(name, ingredients, steps):
-	print "RECIPE: Vegetarian ", name, "\n"
-	print "Ingredients\n====================\n", printIngredients(ingredients)
-	print "Directions\n====================\n"
-	pp = pprint.PrettyPrinter(indent=4)
-	# pp.pprint(steps)
-	for step in steps:
-		print step.direction
-
-
-
-def printIngredients(ingredients):
-	for i in ingredients:
-		print i.name," ", i.descriptor, " - ", i.category
-
+def printRecipe(recipe, transformType):	
+	recipe.name = "%s Version of - " % transformType + recipe.name
+	print recipe.unicode()
 
 ##### RECIPE INFO ######
 def getRecipe(recipeURL):
@@ -318,26 +294,3 @@ def getRecipe(recipeURL):
 	recipe = parsing.buildRecipeObject(recipeInfo)
 
 	return recipe
-
-def main():
-	# recipe = getRecipe('http://allrecipes.com/recipe/spaghetti-sauce-with-ground-beef/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/shepherds-pie-vi/')
-	# recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Crispy-Deep-Fried-Bacon/Detail.aspx?event8=1&prop24=SR_Thumb&e11=deep%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i17')
-	recipe = getRecipe('http://allrecipes.com/Recipe/Beef-Stew-V/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stew&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i5')
-	# seafood
-	# recipe = getRecipe('http://allrecipes.com/recipe/seafood-gumbo/')
-	# print recipe.unicode()
-
-	# meatify
-	# recipe = getRecipe('http://allrecipes.com/Recipe/Vegetable-and-Tofu-Stir-fry/Detail.aspx?event8=1&prop24=SR_Thumb&e11=tofu%20stir-fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i3')
-	# recipe = getRecipe('http://allrecipes.com/Recipe/The-Best-Vegetarian-Chili-in-the-World/Detail.aspx?event8=1&prop24=SR_Thumb&e11=vegetarian%20chili&e8=Quick%20Search&event10=1&e7=Recipe%20Search%20Results&soid=sr_results_p1i2')
-	# a = parsing.parseIngredient({"name": "melted butter", "amount": "1 cup"})
-	# print a.unicode(
-	a = veggieTransformer(recipe)
-	# a = healthyTransformer(recipe)
-	printRecipe(a.name, a.ingredients, a.steps)
-
-
-main()
