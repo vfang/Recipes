@@ -9,7 +9,6 @@ from lists import healthySubstitutions as healthySubstitutions
 ##############################
 def healthyTransformer(recipe):
     healthyRecipe = recipe
-    healthyRecipe.name = 'Healthy ' + healthyRecipe.name 
     subbedIngs = {}
 
     for ingredient in healthyRecipe.ingredients:
