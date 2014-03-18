@@ -1,94 +1,104 @@
-import lists, re, copy
+import lists, re, copy,parsing
 
 # Lists
-from lists import poultryAndGame as poultryAndGame,\
-livestock as livestock, \
-stocks as stocks, \
-meats as meats, \
-seafood as seafood, \
-prepared as prepared, \
-vegSubstitutions as vegSubstitutions, \
+from lists import 
 healthySubstitutions as healthySubstitutions,\
-legumes as legumes
+
 
 ##############################
 ##### HEALTHY TRANSFORMER ####
 ##############################
 def healthyTransformer(recipe):
-	healthyRecipe = recipe
+    healthyRecipe = recipe
+    healthyRecipe.name = 'Healthy ' + healthyRecipe.name 
+    subbedIngs = {}
 
-	for ingredient in healthyRecipe.ingredients:
-		substitution = ""
-		if ingredient.name in healthySubstitutions:
-			baseIng = healthySubstitutions[ingredient.name]
-			if ingredient.descriptor in baseIng:
-				print baseIng[ingredient.descriptor]
-				substitution = baseIng[ingredient.descriptor]
-			else:
-				if baseIng[""]:
-					print baseIng[""]
-					substitution = baseIng[""]
-				else:
-					print "Nothing to substitute"
+    for ingredient in healthyRecipe.ingredients:
+        substitution = ""
+        if ingredient.name in healthySubstitutions:
+            baseIng = healthySubstitutions[ingredient.name]
+            if ingredient.descriptor in baseIng:
+                substitution = baseIng[ingredient.descriptor]
+                print 'Substituting ', ingredient.name, ' for ', substitution
+            else:
+                if baseIng[""]:
+                    substitution = baseIng[""]
+                    print 'Substituting ', ingredient.name, ' for ', substitution
+                else:
+                    print "Nothing to substitute"
 
-		# PERFORM SUBSTITUTION
-		if substitution:
-			newIng = performHealthySub(ingredient, substitution)
-			ingredient = newIng
+        # PERFORM SUBSTITUTION
+        if substitution:
+            newIng = healthySubIngredient(ingredient, substitution)
+            ind = healthyRecipe.ingredients.index(ingredient)
+            healthyRecipe.ingredients[ind] = newIng
 
-	return healthyRecipe
+        elif float(ingredient.fat) > 9.0 and 'low' not in ingredient.descriptor and 'fat' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
+            newIng = healthySubIngredient(ingredient, fat = True)
+            subbedIngs[ingredient.name] = newIng.name
+            ind = healthyRecipe.ingredients.index(ingredient)
+            healthyRecipe.ingredients[ind] = newIng
+            print 'Substituting ', ingredient.name, ' for ', newIng.name
+
+        elif float(ingredient.carbs) > 3.5 and 'low' not in ingredient.descriptor and 'carb' not in ingredient.descriptor and not ingredient.category == '0900' and not ingredient.category == '1100':
+            newIng = healthySubIngredient(ingredient, carb = True)
+            subbedIngs[ingredient.name] = newIng.name
+            ind = healthyRecipe.ingredients.index(ingredient)
+            healthyRecipe.ingredients[ind] = newIng
+            print 'Substituting ', ingredient.name, ' for ', newIng.name
+
+    dir = healthyRecipe.directions
+    for step in dir:
+        #step = str(step)
+        newStep = step.split()
+
+        for word in newStep:
+            if word in healthySubstitutions:
+                ind = newStep.index(word)
+                newStep[ind] = healthySubstitutions[word]
+                if not isinstance(newStep[ind], basestring):
+                    newStep[ind] = newStep[ind][""]
+
+            elif word in subbedIngs:
+                ind = newStep.index(word)
+                newStep[ind] = subbedIngs[word]
+
+        newStep = ' '.join(newStep)
+        ind = dir.index(step)
+        dir[ind] = newStep
+
+    healthyRecipe.directions = dir
+
+    healthyRecipe.steps = parsing.makeSteps(healthyRecipe.directions, healthyRecipe.tools, healthyRecipe.primaryMethods, healthyRecipe.secondaryMethods)
 
 
-'''
-Substitutions not in list:
-QTY SUBSTITUTIONS
-Reduce sugar (75%)	
-two egg whties - one whole egg
+    return healthyRecipe
 
-METHODS
-oven/pan-fry - deep fry (cut fat)
-steam - boil (steaming removes fewer nutrients)
-
-OTHER
-white meat poultry - dark meat poultry 
-beef - bison
-ground beef - ground turkey
-'''
 
 def performHealthySub(ingredient, recipe, substitution):
-	ingredients = healthySubIngredients(ingredient, recipe.ingredients, substitution)
+	#ingredients = healthySubIngredients(ingredient, substitution)
 	# steps = healthySubSteps(ingredient, ingredients["origIng"], recipe.directions)
 
-	recipe.ingredients = ingredients["ingredients"]
+	#recipe.ingredients = ingredients["ingredients"]
 	# recipe.directions = steps
 
 	return recipe
 
-def healthySubIngredients(ingredient, substitution):
-	newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
-	newIng.amount = ingredient.amount
-	newIng.unit = ingredient.unit
-	return newIng
+def healthySubIngredient(ingredient, substitution = '', carb = False, fat = False):
+    if substitution:
+        newIng = parsing.parseIngredient({"name":substitution, "amount": ""})
+        
+    elif carb:
+        newIng = parsing.parseIngredient({"name": 'low carb ' + ingredient.descriptor + ' ' + ingredient.name + ', ' + ingredient.preparation, "amount": ""})
+
+    elif fat:
+        newIng = parsing.parseIngredient({"name": 'low fat ' + ingredient.descriptor + ' ' + ingredient.name + ', ' + ingredient.preparation, "amount": ""})
+
+    newIng.unit = ingredient.unit
+    newIng.amount = ingredient.amount
+    return newIng
 
 
-# ## What does this do?
-# 	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
-# 	origIng = copy.deepcopy(ingredient)
-# 	ingIndex = ingList.index(ingredient)
-# 	if substitution:
-# 		for field in substitution:
-# 			if substitution[field]:
-# 				if field == "name":
-# 					ingList[ingIndex].name = substitution[field]
-# 					print "NAME"
-# 				elif field == "descriptor":
-# 					ingList[ingIndex].descriptor = substitution[field]
-# 	else:
-# 		# REMOVE INGREDIENT
-# 		ingList.pop(ingIndex)
-
-
-# 	return {"ingredients": ingList, "origIng": origIng}
 
 def printRecipe(recipe, transformType):	
 	recipe.name = "%s Version of - " % transformType + recipe.name
