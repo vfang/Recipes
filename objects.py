@@ -8,9 +8,9 @@ class Recipe:
         for ing in self.ingredients:
             self.string += ing.unicode() + '\n'
 
-        self.string += '**********************\n**Cooking Directions**\n**********************\n'
-        for direction in self.directions:
-            self.string += direction +'\n\n'
+        #self.string += '**********************\n**Cooking Directions**\n**********************\n'
+        #for direction in self.directions:
+         #   self.string += direction +'\n\n'
 
         self.string += '\n\nStep by Step Breakdown of Directions: \n'
         for step in self.steps:
