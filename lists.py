@@ -1,3 +1,4 @@
+
 #list of predefined things
 secondaryMethods =[ 'baste','beat' 'biomass briquettes',
 'brochette', 'carry over cooking', 'charbroiler', 'chaunk', 'clay pot cooking', 'coddle',
@@ -67,6 +68,7 @@ healthySubstitutions = {
 	"sauce": {"soy": "low-sodium soy sauce", "": ""},
 	"yogurt": {"": "low-fat yogurt"},
 	"butter": {"peanut": "almond butter", "": "olive oil"},
+    "margarine": {"": "olive oil"},
 	"cheese": {"cream": "fat-free ricotta cheese", "": "reduced-fat cheese"},
 	"bread": {"white": "whole-grain bread", "": ""},
 	"pasta": {"": "whole-grain pasta"},
@@ -75,6 +77,7 @@ healthySubstitutions = {
 	"potato": {"":"sweet potato"},
 	"potatoes": {"": "sweet potatoes"},
 	"shortening": {"":"margarine"},
+    "sugar": {"":"sweetener"}
 }
 
 cuisines = {
@@ -107,6 +110,3 @@ ingNameDB = {}
 def updateNameDB():
 	for ing in ingredientDB:
 		ingNameDB[ing.name] = ing
-
-
-
