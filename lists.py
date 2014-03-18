@@ -20,11 +20,6 @@ primaryMethods = ['bake','barbecue','boil', 'broil','brown','braise','flambe','b
 'brochette','caramelize','blacken','seare','deep fry','deep-fry', 'parboil','roast','steam','fry',
 'gentle fry','simmer','smoke','preheat','heat']
 
-'''cuisines=['chinese', 'italian', 'indian', 'american',
-'british', 'mexican', 'spanish', 'japanese', 'korean',
-'thai', 'filipino', 'german', 'french', 'middle eastern',
-'mediterranian', 'ethiopian']'''
-
 tools=['apple corer', 'biscuit cutter', 'biscuit press', 'blow torch', 
 'boil over preventer', 'bottle opener', 'bowl', 'bread knife', 'browning tray', 
 'butter curler', 'baking pan', 'cake and pie server', 'cheese knife', 
