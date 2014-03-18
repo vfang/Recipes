@@ -80,25 +80,6 @@ def healthySubIngredients(ingredient, substitution):
 	return newIng
 
 
-# ## What does this do?
-# 	substitution = {"name": newIng.name, "descriptor": newIng.descriptor}
-# 	origIng = copy.deepcopy(ingredient)
-# 	ingIndex = ingList.index(ingredient)
-# 	if substitution:
-# 		for field in substitution:
-# 			if substitution[field]:
-# 				if field == "name":
-# 					ingList[ingIndex].name = substitution[field]
-# 					print "NAME"
-# 				elif field == "descriptor":
-# 					ingList[ingIndex].descriptor = substitution[field]
-# 	else:
-# 		# REMOVE INGREDIENT
-# 		ingList.pop(ingIndex)
-
-
-# 	return {"ingredients": ingList, "origIng": origIng}
-
 ##############################
 ##### VEGGIE TRANSFORMER #####
 ##############################
