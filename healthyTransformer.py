@@ -1,8 +1,7 @@
 import lists, re, copy,parsing
 
 # Lists
-from lists import 
-healthySubstitutions as healthySubstitutions,\
+from lists import healthySubstitutions as healthySubstitutions
 
 
 ##############################
@@ -28,6 +27,7 @@ def healthyTransformer(recipe):
                     print "Nothing to substitute"
 
         # PERFORM SUBSTITUTION
+        print ingredient.carbs,ingredient.fat
         if substitution:
             newIng = healthySubIngredient(ingredient, substitution)
             ind = healthyRecipe.ingredients.index(ingredient)
