@@ -24,7 +24,9 @@ Recipes\
 		lists.py
 		parsing.py
 		scraper.py
-		transformer.py
+		veggieTransformer.py
+		cuisineTransformer.py
+		healthyTransformer.py
 		cuisines.py
 		objects.py
 		FOOD_DATA\
