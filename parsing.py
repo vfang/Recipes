@@ -648,20 +648,3 @@ def readIngredientsFromFile(fileName):
             ingredientList.append(readIngredientFromLine(line))
     return ingredientList
 
-'''
-def main(recipeURL = None):
-    #temporary
-    lists.ingredientDB = readIngredientsFromFile('FOOD_DATA/FOOD_DES.txt')
-    lists.updateNameDB()
-    ###
-    if recipeURL == None:
-        pass
-    else:
-       recipeInfo = scraper.retrieveRecipe(recipeURL)
-       recipe = buildRecipeObject(recipeInfo)
-       print recipe.unicode()
-
-if len(sys.argv) < 2:
-    pass
-else:
-    main(sys.argv[1])
