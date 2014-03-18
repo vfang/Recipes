@@ -113,13 +113,10 @@ def changeToMexican(recipe):
 			if fitsCuisineForCategory(ing,cuisineMeats):
 				(meat,meatInDescriptor) = findIngNames(ing,cuisineMeats)
 				if meat in (poultryAndGame + seafood) or meatInDescriptor in (poultryAndGame + seafood):
-					# chicken
 					modifiedIngredients.append(updateIngredient(ing,cuisineMeats[0],"boneless",""))
 				else:
-					# lamb/mutton
 					modifiedIngredients.append(updateIngredient(ing, cuisineMeats[1], "barbacoa", ""))
 
-		#replace cheese with indian cheese
 		elif category in cheeseCategory:
 			pat = re.search("cheese*",ing.name.lower())
 			pat2 = re.search("cheese*",ing.descriptor.lower())
@@ -128,7 +125,6 @@ def changeToMexican(recipe):
 					(cheese,cheeseInDescriptor) = findIngNames(ing,cuisineCheese)
 					modifiedIngredients.append(updateIngredient(ing,cuisineCheese[0],"",""))
 
-		#replace spices and herbs
 		elif category in spiceHerbsCategory:
 			if fitsCuisineForCategory(ing,cuisineSpiceHerb):
 				if not addSpices:
@@ -240,7 +236,6 @@ def replaceDirections(ingredients,steps):
 				splitKey = key.split('$')
 				name = splitKey[0]
 				descriptor = splitKey[1]
-				#print 'DIR: ', name, ' ', descriptor
 				if re.search("(?i)(%s|%s)" % (name, descriptor+name), step.direction):
 					step.direction = re.sub("(?i)(%s|%s)" % (name, descriptor+name), value, step.direction)
 	return steps
@@ -306,7 +301,7 @@ def getRecipe(recipeURL):
 	recipe = parsing.buildRecipeObject(recipeInfo)
 
 	return recipe
-
+'''
 def main():
 	recipe = getRecipe('http://allrecipes.com/recipe/chicken-stir-fry-3/')
 	#recipe = getRecipe('http://allrecipes.com/Recipe/Flavorful-Beef-Stir-Fry-3/Detail.aspx?event8=1&prop24=SR_Thumb&e11=beef%20stir%20fry&e8=Quick%20Search&event10=1&e7=Recipe&soid=sr_results_p1i2')
@@ -314,4 +309,4 @@ def main():
 	#print recipe.unicode()
 	cuisineChange(recipe, "mexican")
 
-main()
+#main()

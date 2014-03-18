@@ -1,47 +1,31 @@
-Recipes uses **Flask 0.10.1** and **Python 2.7**
-
+SVJ Recipes
 ========
+<b>Language:</b> Python 2.7 <br>
+<b>Dependencies:</b> beautifulsoup4 (4.3.2)<br>
+installed using pip<br>
+sudo pip install beautifulsoup4<br>
 
-To set up Flask with virtualenv:
-```
->> virtualenv Recipes
->> cd Recipes
->> . bin/activate
->> pip install Flask
->> mkdir app
->> cd app
->> git clone https://github.com/vfang/Recipes.git
-```
-========
+FOOD_DATA folder sourced from FDA
 
-In root directory (Recipes), create a file **runFlask.py**, and paste:
+<b>To Run: </b>
+run python main.py and follow prompts
 
-```
-#!bin/python
-from app import app
-app.run(debug = True)
-```
+<b>To Autograde: </b>
+run python autograder.py
 
-Then chmod <b>runFlask.py</b>:
-```
->> chmod a+x runFlask.py
-```
-
-This allows you to run **./runFlask.py** in cmd line to start Flask's development server (will run at http://127.0.0.1:5000/)
-
-
-========
 
 Structure should be: 
 ```
 Recipes\
-	runFlask.py
 	App\
-		static\
-			Css and Js files
-		templates\
-			html templates
 		README.md
 		__init__.py
-		views.py
+		main.py
+		lists.py
+		parsing.py
+		scraper.py
+		transformer.py
+		cuisines.py
+		objects.py
+		FOOD_DATA\
 ```
