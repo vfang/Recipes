@@ -1,7 +1,10 @@
-Language: Python 2.7
-Dependencies: beautifulsoup4 (4.3.2)
-installed using pip
+SVJ Recipes
 ========
+<b>Language:</b> Python 2.7 <br>
+<b>Dependencies:</b> beautifulsoup4 (4.3.2)<br>
+installed using pip<br>
+sudo pip install beautifulsoup4<br>
+
 
 FOOD_DATA folder sourced from FDA
 
