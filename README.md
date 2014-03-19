@@ -8,10 +8,12 @@ sudo pip install beautifulsoup4<br>
 FOOD_DATA folder sourced from USDA
 
 <b>To Run: </b>
-run 
+ 
 ```
-python main.py and follow prompts
-```
+python main.py
+``` 
+and follow prompts
+
 <b>To Autograde: </b>
 ```
 python autograder.py 'some url from AllRecipes'
