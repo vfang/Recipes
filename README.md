@@ -8,8 +8,10 @@ sudo pip install beautifulsoup4<br>
 FOOD_DATA folder sourced from USDA
 
 <b>To Run: </b>
-run python main.py and follow prompts
-
+run 
+```
+python main.py and follow prompts
+```
 <b>To Autograde: </b>
 ```
 python autograder.py 'some url from AllRecipes'
@@ -19,17 +21,16 @@ autograder.py prints ingredients, cooking methods, and cooking tools in format l
 Structure should be: 
 ```
 Recipes\
-	App\
-		README.md
-		__init__.py
-		main.py
-		lists.py
-		parsing.py
-		scraper.py
-		veggieTransformer.py
-		cuisineTransformer.py
-		healthyTransformer.py
-		autograder.py
-		objects.py
-		FOOD_DATA\
+	README.md
+	__init__.py
+	main.py
+	lists.py
+	parsing.py
+	scraper.py
+	veggieTransformer.py
+	cuisineTransformer.py
+	healthyTransformer.py
+	autograder.py
+	objects.py
+	FOOD_DATA\
 ```
