@@ -19,7 +19,7 @@ def main(recipeURL):
 				"descriptor": ing.descriptor,
 				"preparation": ing.preparation 
 			}
-		JSONIngredients.append(json.dumps(ing))
+		JSONIngredients.append(ing)
 	
 	# COOKING METHODS
 	methods = recipe.primaryMethods
